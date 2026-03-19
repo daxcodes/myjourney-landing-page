@@ -18,8 +18,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "FocusSuite",
-  description: "The minimalist productivity suite built for deep work.",
+  title: "MyJourney",
+  description: "Dein Begleiter für das, was wirklich zählt.",
 };
 
 export default function RootLayout({
