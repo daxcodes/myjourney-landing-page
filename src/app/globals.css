@@ -1,8 +1,9 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -13,14 +14,15 @@
   /* Custom Stitch Theme */
   --color-primary: #86c6d0;
   --color-background-light: #f7f6f8;
-  --color-background-dark: #18141e;
   --font-display: var(--font-manrope);
 }
 
+/* Force light mode always — ignore OS dark-mode preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
