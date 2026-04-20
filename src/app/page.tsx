@@ -22,7 +22,7 @@ const scrollFeatures = [
     title: "Der Timer, der weiß, wann du am besten arbeitest.",
     description:
       "Flipclock oder Lofi-Video — du wählst deinen Flow-Zustand. Die KI weiß aus deinen Daten, wann deine Peak-Fenster sind und schlägt automatisch die optimale Session-Länge vor. Kein Forest mehr. Kein separater Pomodoro-Timer mehr.",
-    image: "/image.png",
+    image: "/fokus-timer.jpg",
   },
   {
     id: "ki-agent",
@@ -32,7 +32,7 @@ const scrollFeatures = [
     title: "Die einzige KI, die dich wirklich kennt.",
     description:
       "Nicht ChatGPT. Nicht ein generischer Assistent. MyJourney KI kennt deinen Lernstand, deine Energie, deine Prüfungen und deine Gewohnheiten — und handelt daraus. Jeden Morgen ein Plan. Jeden Abend ein Feedback. Kein Raten mehr.",
-    image: "/ai.jpeg",
+    image: "/ai.jpg",
   },
   {
     id: "routine-architect",
@@ -72,12 +72,13 @@ const scrollFeatures = [
     title: "Ein Tab. Alles drin. Kein Chaos mehr.",
     description:
       "Lernplan, Timer, Journal, Habits, KI-Agent — alles in einem Interface. Nicht weil es praktisch ist. Sondern weil die Daten nur dann zusammenarbeiten können, wenn sie am selben Ort leben.",
-    image: "/scroll-4.png",
+    image: "/central-cmd.jpg",
   },
 ];
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isApplySubmitted, setIsApplySubmitted] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -167,10 +168,9 @@ export default function Home() {
               </div>
             )}
           </div>
-          <div className="relative">
-            <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
-            <div className="relative aspect-square lg:aspect-video rounded-3xl overflow-hidden border-8 border-white shadow-2xl bg-slate-100">
-              <Image alt="Workspace Dashboard" className="w-full h-full object-cover opacity-90" src="/Workspace_Dashboard.png" fill priority />
+          <div className="relative flex items-center justify-center">
+            <div className="relative w-full max-w-md mx-auto">
+              <Image alt="MyJourney Logo" className="w-full h-auto" src="/myjourney-logo.jpg" width={650} height={530} priority style={{ mixBlendMode: 'multiply' }} />
             </div>
           </div>
         </section>
@@ -241,7 +241,7 @@ export default function Home() {
         </section>
 
         {/* ─── Scroll Animation Feature Section ─── */}
-        <section id="features" className="border-y border-slate-200 bg-white">
+        <section id="features" className="border-y border-slate-200/60">
           {/* Section header — sits above the sticky zone */}
           <div className="max-w-7xl mx-auto px-6 lg:px-20 pt-20 pb-8">
             <div className="w-full">
@@ -299,8 +299,8 @@ export default function Home() {
                   style={{ top: '22%' }}
                 >
                   <div
-                    className="relative w-full rounded-2xl overflow-hidden border border-slate-200 shadow-2xl shadow-slate-300/50 bg-white"
-                    style={{ aspectRatio: "4/3" }}
+                    className="relative w-full rounded-2xl overflow-hidden"
+                    style={{ aspectRatio: "4/3", background: 'radial-gradient(ellipse at center, #e8e9eb 0%, #f7f6f8 85%)' }}
                   >
                     {scrollFeatures.map((feature, index) => (
                       <div
@@ -316,20 +316,11 @@ export default function Home() {
                           alt={feature.title}
                           src={feature.image}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 50vw"
                         />
                       </div>
                     ))}
-                    {/* Subtle dot pattern overlay */}
-                    <div
-                      className="absolute inset-0 z-10 pointer-events-none"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)",
-                        backgroundSize: "24px 24px",
-                      }}
-                    />
                   </div>
                 </div>
               </div>
@@ -337,8 +328,8 @@ export default function Home() {
               {/* Mobile: Show active image inline */}
               <div className="lg:hidden mb-12">
                 <div
-                  className="relative w-full rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white"
-                  style={{ aspectRatio: "4/3" }}
+                  className="relative w-full rounded-2xl overflow-hidden"
+                  style={{ aspectRatio: "4/3", background: 'radial-gradient(ellipse at center, #e8e9eb 0%, #f7f6f8 85%)' }}
                 >
                   {scrollFeatures.map((feature, index) => (
                     <div
@@ -354,7 +345,7 @@ export default function Home() {
                         alt={feature.title}
                         src={feature.image}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="100vw"
                       />
                     </div>
@@ -435,6 +426,89 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── Bewerbung / Application Section ─── */}
+        <section id="apply" className="border-t border-slate-200 bg-gradient-to-b from-background-light to-white">
+          <div className="max-w-4xl mx-auto px-6 lg:px-20 py-24">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-primary/15 px-5 py-2 rounded-full mb-6">
+                <span className="material-symbols-outlined text-primary text-lg">rocket_launch</span>
+                <span className="text-sm font-bold uppercase tracking-wider">Jetzt bewerben</span>
+              </div>
+              <h2 className="text-3xl lg:text-5xl font-black leading-tight tracking-tight mb-5">
+                Bereit, dein Studium
+                <span className="block text-primary">auf das nächste Level</span>
+                zu bringen?
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                Wir suchen motivierte Studenten, die MyJourney als Erste nutzen und mitgestalten wollen. Bewirb dich jetzt für einen exklusiven Early-Access-Platz.
+              </p>
+            </div>
+
+            {!isApplySubmitted ? (
+              <div className="max-w-xl mx-auto">
+                <form
+                  onSubmit={(e) => { e.preventDefault(); setIsApplySubmitted(true); }}
+                  className="flex flex-col gap-4"
+                >
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="relative group">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">person</span>
+                      <input
+                        required
+                        className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none"
+                        placeholder="Dein Name"
+                        type="text"
+                      />
+                    </div>
+                    <div className="relative group">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">mail</span>
+                      <input
+                        required
+                        className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none"
+                        placeholder="Deine E-Mail Adresse"
+                        type="email"
+                      />
+                    </div>
+                  </div>
+                  <div className="relative group">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">school</span>
+                    <input
+                      required
+                      className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none"
+                      placeholder="Deine Universität"
+                      type="text"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <span className="absolute left-4 top-4 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">edit_note</span>
+                    <textarea
+                      className="w-full min-h-[120px] pl-12 pr-4 pt-3.5 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none resize-none"
+                      placeholder="Warum möchtest du MyJourney nutzen? (optional)"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full h-14 rounded-xl bg-primary text-slate-900 font-black text-lg shadow-xl shadow-primary/30 hover:brightness-105 hover:shadow-primary/40 active:scale-[0.98] transition-all mt-2"
+                  >
+                    Bewerbung absenden →
+                  </button>
+                </form>
+                <p className="text-xs text-slate-500 font-medium mt-4 text-center">
+                  Wir melden uns innerhalb von 48 Stunden bei dir. Kein Spam, versprochen.
+                </p>
+              </div>
+            ) : (
+              <div className="max-w-lg mx-auto p-8 rounded-2xl bg-primary/10 border border-primary/20 text-center">
+                <span className="material-symbols-outlined text-primary text-5xl mb-4 block">celebration</span>
+                <h3 className="text-2xl font-bold mb-3 text-slate-900">Deine Bewerbung ist eingegangen!</h3>
+                <p className="text-slate-600 leading-relaxed">
+                  Vielen Dank für dein Interesse an MyJourney. Wir prüfen deine Bewerbung und melden uns in Kürze bei dir. Halte deine E-Mails im Auge!
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
 
       </main>
 
@@ -442,8 +516,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 mb-2">
-              <div className="size-8 bg-primary flex items-center justify-center rounded-lg text-slate-900">
-                <span className="material-symbols-outlined text-lg">adjust</span>
+              <div className="size-8 rounded-lg overflow-hidden relative">
+                <Image alt="MyJourney" src="/myjourney-logo.jpg" fill className="object-cover" sizes="32px" />
               </div>
               <h2 className="text-lg font-extrabold tracking-tight">MyJourney</h2>
             </div>
