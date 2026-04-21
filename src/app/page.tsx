@@ -32,7 +32,7 @@ const scrollFeatures = [
     title: "Die einzige KI, die dich wirklich kennt.",
     description:
       "Nicht ChatGPT. Nicht ein generischer Assistent. MyJourney KI kennt deinen Lernstand, deine Energie, deine Prüfungen und deine Gewohnheiten — und handelt daraus. Jeden Morgen ein Plan. Jeden Abend ein Feedback. Kein Raten mehr.",
-    image: "/ai.jpg",
+    image: "/ai-new.png",
   },
   {
     id: "routine-architect",
@@ -300,7 +300,7 @@ export default function Home() {
                 >
                   <div
                     className="relative w-full rounded-2xl overflow-hidden"
-                    style={{ aspectRatio: "4/3", background: 'radial-gradient(ellipse at center, #e8e9eb 0%, #f7f6f8 85%)' }}
+                    style={{ aspectRatio: "4/3", background: 'transparent' }}
                   >
                     {scrollFeatures.map((feature, index) => (
                       <div
@@ -318,6 +318,7 @@ export default function Home() {
                           fill
                           className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 50vw"
+                          style={{ mixBlendMode: 'multiply' }}
                         />
                       </div>
                     ))}
@@ -329,7 +330,7 @@ export default function Home() {
               <div className="lg:hidden mb-12">
                 <div
                   className="relative w-full rounded-2xl overflow-hidden"
-                  style={{ aspectRatio: "4/3", background: 'radial-gradient(ellipse at center, #e8e9eb 0%, #f7f6f8 85%)' }}
+                  style={{ aspectRatio: "4/3", background: 'transparent' }}
                 >
                   {scrollFeatures.map((feature, index) => (
                     <div
@@ -347,6 +348,7 @@ export default function Home() {
                         fill
                         className="object-contain"
                         sizes="100vw"
+                        style={{ mixBlendMode: 'multiply' }}
                       />
                     </div>
                   ))}
