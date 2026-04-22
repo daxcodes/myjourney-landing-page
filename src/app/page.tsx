@@ -513,13 +513,7 @@ export default function Home() {
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-20 mt-12 pt-8 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-medium">
-          <p>© 2026 MyJourney. All rights reserved.</p>
-          <div className="flex gap-4">
-            <span className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors text-lg">language</span>
-            <span className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors text-lg">alternate_email</span>
-          </div>
-        </div>
+
       </footer>
     </div>
   );
