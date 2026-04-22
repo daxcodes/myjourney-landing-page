@@ -12,7 +12,7 @@ const scrollFeatures = [
     title: "Dein Skript rein. Dein optimaler Lernplan raus. In 30 Sekunden.",
     description:
       "Lade dein Skript hoch, gib deine Zielnote und dein Prüfungsdatum ein \u2014 MyJourney erstellt einen tagesgenauen Plan, der nur das enthält, was wirklich zählt. Kein Anki mehr. Kein Notion mehr. Alles in einem System.",
-    image: "/lernplan.jpeg",
+    image: "/lernplan.png",
   },
   {
     id: "fokus-engine",
@@ -22,7 +22,7 @@ const scrollFeatures = [
     title: "Der Timer, der weiß, wann du am besten arbeitest.",
     description:
       "Flipclock oder Lofi-Video — du wählst deinen Flow-Zustand. Die KI weiß aus deinen Daten, wann deine Peak-Fenster sind und schlägt automatisch die optimale Session-Länge vor. Kein Forest mehr. Kein separater Pomodoro-Timer mehr.",
-    image: "/fokus-timer.jpg",
+    image: "/focus-timer.png",
   },
   {
     id: "ki-agent",
@@ -42,7 +42,7 @@ const scrollFeatures = [
     title: "Welche Gewohnheiten bringen dich wirklich weiter?",
     description:
       "Nicht tracken um des Trackens willen. MyJourney verbindet deine Habits mit deinen Fokus-Sessions und zeigt dir: 7h Schlaf bedeutet 40% bessere Lernleistung. Diese Erkenntnis verändert Verhalten — dauerhaft.",
-    image: "/habits.jpeg",
+    image: "/habittracker.png",
   },
   {
     id: "mental-offloading",
@@ -52,7 +52,7 @@ const scrollFeatures = [
     title: "60 Sekunden. Kopf frei. KI wird besser.",
     description:
       "Drei Felder, zwei Klicks. Dein Journal ist nicht nur für dich — es ist der Input, der deine KI präziser macht. Stimmung, Energie, Gedanken. Kein Daylio mehr. Kein separates Journal mehr.",
-    image: "/journal.jpeg",
+    image: "/journal.png",
   },
   {
     id: "performance-audit",
@@ -62,7 +62,7 @@ const scrollFeatures = [
     title: "Sieh zum ersten Mal, wie du wirklich lernst.",
     description:
       "Wann bist du produktiv? Wann brichst du ab? Was sabotiert deine Sessions? MyJourney aggregiert alle Daten zu einem ehrlichen Performance-Bild — das kein einzelnes Tool je liefern könnte.",
-    image: "/performance.jpeg",
+    image: "/performance.png",
   },
   {
     id: "central-command",
@@ -72,13 +72,12 @@ const scrollFeatures = [
     title: "Ein Tab. Alles drin. Kein Chaos mehr.",
     description:
       "Lernplan, Timer, Journal, Habits, KI-Agent — alles in einem Interface. Nicht weil es praktisch ist. Sondern weil die Daten nur dann zusammenarbeiten können, wenn sie am selben Ort leben.",
-    image: "/central-cmd.jpg",
+    image: "/central-cmd.png",
   },
 ];
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isApplySubmitted, setIsApplySubmitted] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -170,7 +169,7 @@ export default function Home() {
           </div>
           <div className="relative flex items-center justify-center">
             <div className="relative w-full max-w-md mx-auto">
-              <Image alt="MyJourney Logo" className="w-full h-auto" src="/myjourney-logo.jpg" width={650} height={530} priority style={{ mixBlendMode: 'multiply' }} />
+              <Image alt="MyJourney Logo" className="w-full h-auto" src="/myjourney-logo.png" width={650} height={530} priority />
             </div>
           </div>
         </section>
@@ -318,7 +317,7 @@ export default function Home() {
                           fill
                           className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 50vw"
-                          style={{ mixBlendMode: 'multiply' }}
+                          style={{ filter: 'drop-shadow(0 2px 12px rgba(134,198,208,0.18)) drop-shadow(0 0 3px rgba(0,0,0,0.06))' }}
                         />
                       </div>
                     ))}
@@ -348,7 +347,7 @@ export default function Home() {
                         fill
                         className="object-contain"
                         sizes="100vw"
-                        style={{ mixBlendMode: 'multiply' }}
+                        style={{ filter: 'drop-shadow(0 2px 12px rgba(134,198,208,0.18)) drop-shadow(0 0 3px rgba(0,0,0,0.06))' }}
                       />
                     </div>
                   ))}
@@ -397,7 +396,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ─── Pricing Section (TO-DO 8) ─── */}
+        {/* ─── Early Access: Two-Card CTA Section ─── */}
         <section id="early-access" className="max-w-7xl mx-auto px-6 lg:px-20 py-24">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-black leading-tight tracking-tight mb-4">
@@ -407,107 +406,66 @@ export default function Home() {
               MyJourney ist in der Entwicklung. Wer jetzt dabei ist, bekommt nicht nur frühen Zugang — er entscheidet mit, was gebaut wird.
             </p>
           </div>
-          <div className="max-w-lg mx-auto bg-white rounded-3xl p-10 shadow-xl border border-slate-100">
-            <div className="inline-flex items-center gap-2 bg-primary/20 px-4 py-1.5 rounded-full mb-8">
-              <span className="text-sm font-bold">✦ FOUNDING MEMBER</span>
-            </div>
-            <ul className="flex flex-col gap-4 mb-10">
-              {["Erster Zugang zum fertigen Produkt", "Direkter Einfluss auf Features", "Zugang zur privaten Beta", "Ambassador-Programm — Exklusive Vorteile"].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-slate-700">
-                  <span className="material-symbols-outlined text-primary text-lg">check_circle</span>
-                  <span className="font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <button className="w-full h-14 rounded-xl bg-primary text-slate-900 font-black text-lg shadow-xl shadow-primary/30 hover:brightness-105 active:scale-95 transition-all">
-              Meinen Platz sichern →
-            </button>
-            <p className="text-xs text-center text-slate-500 mt-4">
-              Die ersten 500 Founding Members erhalten den Preis eingefroren — für immer.
-            </p>
-          </div>
-        </section>
 
-        {/* ─── Bewerbung / Application Section ─── */}
-        <section id="apply" className="border-t border-slate-200 bg-gradient-to-b from-background-light to-white">
-          <div className="max-w-4xl mx-auto px-6 lg:px-20 py-24">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-primary/15 px-5 py-2 rounded-full mb-6">
-                <span className="material-symbols-outlined text-primary text-lg">rocket_launch</span>
-                <span className="text-sm font-bold uppercase tracking-wider">Jetzt bewerben</span>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* ── Founding Member Card ── */}
+            <div className="bg-white rounded-3xl p-10 shadow-xl border border-slate-100 flex flex-col">
+              <div className="inline-flex items-center gap-2 bg-primary/15 px-4 py-1.5 rounded-full w-fit mb-6">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-700">✦ Founding Member</span>
               </div>
-              <h2 className="text-3xl lg:text-5xl font-black leading-tight tracking-tight mb-5">
-                Bereit, dein Studium
-                <span className="block text-primary">auf das nächste Level</span>
-                zu bringen?
-              </h2>
-              <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-                Wir suchen motivierte Studenten, die MyJourney als Erste nutzen und mitgestalten wollen. Bewirb dich jetzt für einen exklusiven Early-Access-Platz.
+              <h3 className="text-2xl font-black tracking-tight text-slate-900 mb-6 leading-snug">
+                Founding Member /<br />Teammitglieder
+              </h3>
+              <ul className="flex flex-col gap-4 mb-10 flex-1">
+                {[
+                  "Erster Zugang zum fertigen Produkt",
+                  "Direkter Einfluss auf Features",
+                  "Zugang zur privaten Beta",
+                  "Ambassador-Programm — Exklusive Vorteile",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-700">
+                    <span className="material-symbols-outlined text-primary text-lg mt-0.5 shrink-0">check_circle</span>
+                    <span className="font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full h-14 rounded-xl bg-primary text-slate-900 font-black text-lg shadow-xl shadow-primary/30 hover:brightness-105 hover:shadow-primary/40 active:scale-[0.98] transition-all">
+                Meinen Platz sichern
+              </button>
+              <p className="text-xs text-center text-slate-500 mt-4">
+                Die ersten 500 Founding Members erhalten den Preis eingefroren — für immer.
               </p>
             </div>
 
-            {!isApplySubmitted ? (
-              <div className="max-w-xl mx-auto">
-                <form
-                  onSubmit={(e) => { e.preventDefault(); setIsApplySubmitted(true); }}
-                  className="flex flex-col gap-4"
-                >
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="relative group">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">person</span>
-                      <input
-                        required
-                        className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none"
-                        placeholder="Dein Name"
-                        type="text"
-                      />
-                    </div>
-                    <div className="relative group">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">mail</span>
-                      <input
-                        required
-                        className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none"
-                        placeholder="Deine E-Mail Adresse"
-                        type="email"
-                      />
-                    </div>
-                  </div>
-                  <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">school</span>
-                    <input
-                      required
-                      className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none"
-                      placeholder="Deine Universität"
-                      type="text"
-                    />
-                  </div>
-                  <div className="relative group">
-                    <span className="absolute left-4 top-4 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">edit_note</span>
-                    <textarea
-                      className="w-full min-h-[120px] pl-12 pr-4 pt-3.5 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none resize-none"
-                      placeholder="Warum möchtest du MyJourney nutzen? (optional)"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full h-14 rounded-xl bg-primary text-slate-900 font-black text-lg shadow-xl shadow-primary/30 hover:brightness-105 hover:shadow-primary/40 active:scale-[0.98] transition-all mt-2"
-                  >
-                    Bewerbung absenden →
-                  </button>
-                </form>
-                <p className="text-xs text-slate-500 font-medium mt-4 text-center">
-                  Wir melden uns innerhalb von 48 Stunden bei dir. Kein Spam, versprochen.
-                </p>
+            {/* ── Betatester Card ── */}
+            <div className="bg-white rounded-3xl p-10 shadow-xl border border-slate-100 flex flex-col">
+              <div className="inline-flex items-center gap-2 bg-primary/15 px-4 py-1.5 rounded-full w-fit mb-6">
+                <span className="material-symbols-outlined text-primary text-base">rocket_launch</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Jetzt bewerben</span>
               </div>
-            ) : (
-              <div className="max-w-lg mx-auto p-8 rounded-2xl bg-primary/10 border border-primary/20 text-center">
-                <span className="material-symbols-outlined text-primary text-5xl mb-4 block">celebration</span>
-                <h3 className="text-2xl font-bold mb-3 text-slate-900">Deine Bewerbung ist eingegangen!</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Vielen Dank für dein Interesse an MyJourney. Wir prüfen deine Bewerbung und melden uns in Kürze bei dir. Halte deine E-Mails im Auge!
-                </p>
-              </div>
-            )}
+              <h3 className="text-2xl font-black tracking-tight text-slate-900 mb-6 leading-snug">
+                Betatester
+              </h3>
+              <ul className="flex flex-col gap-4 mb-10 flex-1">
+                {[
+                  "Exklusiver Zugang zur Beta-Phase",
+                  "Möglichkeit zur aktiven Mitgestaltung",
+                  "Direkter Draht zum Entwickler-Team",
+                  "Frühzeitiges Testen neuer Funktionen",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-700">
+                    <span className="material-symbols-outlined text-primary text-lg mt-0.5 shrink-0">check_circle</span>
+                    <span className="font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full h-14 rounded-xl border-2 border-primary text-slate-900 font-black text-lg hover:bg-primary/10 active:scale-[0.98] transition-all">
+                Jetzt bewerben
+              </button>
+              <p className="text-xs text-center text-slate-500 mt-4">
+                Wir melden uns innerhalb von 48 Stunden bei dir.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -519,7 +477,7 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="size-8 rounded-lg overflow-hidden relative">
-                <Image alt="MyJourney" src="/myjourney-logo.jpg" fill className="object-cover" sizes="32px" />
+                <Image alt="MyJourney" src="/myjourney-logo.png" fill className="object-cover" sizes="32px" />
               </div>
               <h2 className="text-lg font-extrabold tracking-tight">MyJourney</h2>
             </div>
