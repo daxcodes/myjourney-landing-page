@@ -1,17 +1,27 @@
 @import "tailwindcss";
 
-/* ── K1.0 Aurora Design System ── */
+/* ══════════════════════════════════════════════════════════════
+   K1.0 Aurora Design System — Premium Edition
+   ══════════════════════════════════════════════════════════════ */
+
 :root {
-  --k1-bg:          #05071a;
-  --k1-surface:     rgba(255,255,255,0.04);
-  --k1-border:      rgba(255,255,255,0.08);
-  --k1-border-hover:rgba(124,106,255,0.4);
-  --k1-violet:      #7c6aff;
-  --k1-teal:        #3ecfcf;
-  --k1-pink:        #c084fc;
-  --k1-text:        #f1f5f9;
-  --k1-muted:       #94a3b8;
-  --k1-gradient:    linear-gradient(135deg, #7c6aff 0%, #3ecfcf 100%);
+  --k1-bg:            #05071a;
+  --k1-bg-alt:        #080c24;
+  --k1-surface:       rgba(255,255,255,0.035);
+  --k1-surface-hover: rgba(255,255,255,0.06);
+  --k1-border:        rgba(255,255,255,0.07);
+  --k1-border-hover:  rgba(124,106,255,0.45);
+  --k1-violet:        #7c6aff;
+  --k1-violet-muted:  #6355cc;
+  --k1-teal:          #3ecfcf;
+  --k1-pink:          #c084fc;
+  --k1-green:         #4ade80;
+  --k1-text:          #f1f5f9;
+  --k1-text-secondary:#cbd5e1;
+  --k1-muted:         #94a3b8;
+  --k1-dim:           rgba(255,255,255,0.35);
+  --k1-gradient:      linear-gradient(135deg, #7c6aff 0%, #3ecfcf 100%);
+  --k1-gradient-warm: linear-gradient(135deg, #7c6aff 0%, #c084fc 50%, #3ecfcf 100%);
   color-scheme: dark;
 }
 
@@ -25,9 +35,14 @@
   --font-display: var(--font-manrope);
 }
 
-/* Override dark-mode — we ARE the dark mode */
 @media (prefers-color-scheme: light) {
   :root { color-scheme: dark; }
+}
+
+/* ── Global ─────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -35,32 +50,69 @@ body {
   color: var(--k1-text);
   font-family: var(--font-display), 'Manrope', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Aurora ambient blobs ── */
+::selection {
+  background: rgba(124,106,255,0.35);
+  color: #fff;
+}
+
+/* ── Aurora Ambient Blobs ───────────────────────────────────── */
+
 .aurora-blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
   pointer-events: none;
-  will-change: transform;
+  will-change: transform, opacity;
+  animation: auroraFloat 12s ease-in-out infinite alternate;
 }
 
-/* ── Glassmorphism card ── */
+@keyframes auroraFloat {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  33%  { transform: translate(30px, -20px) scale(1.05); opacity: 0.85; }
+  66%  { transform: translate(-20px, 15px) scale(0.95); opacity: 0.75; }
+  100% { transform: translate(10px, -10px) scale(1.02); opacity: 0.8; }
+}
+
+.aurora-blob:nth-child(2) { animation-delay: -4s; animation-duration: 15s; }
+.aurora-blob:nth-child(3) { animation-delay: -8s; animation-duration: 18s; }
+
+/* ── Glass Cards ────────────────────────────────────────────── */
+
 .glass-card {
   background: var(--k1-surface);
   border: 1px solid var(--k1-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 1.25rem;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-.glass-card:hover {
-  border-color: var(--k1-border-hover);
-  box-shadow: 0 0 32px rgba(124,106,255,0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
 
-/* ── Gradient text ── */
+.glass-card:hover {
+  border-color: var(--k1-border-hover);
+  box-shadow: 0 0 40px rgba(124,106,255,0.1), 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+  background: var(--k1-surface-hover);
+}
+
+.glass-card-lg {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 1.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card-lg:hover {
+  border-color: var(--k1-border-hover);
+  box-shadow: 0 0 60px rgba(124,106,255,0.08);
+}
+
+/* ── Gradient text ──────────────────────────────────────────── */
+
 .gradient-text {
   background: var(--k1-gradient);
   -webkit-background-clip: text;
@@ -68,44 +120,136 @@ body {
   background-clip: text;
 }
 
-/* ── Glow button ── */
+.gradient-text-warm {
+  background: var(--k1-gradient-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+
 .btn-glow {
   background: var(--k1-gradient);
   color: white;
   font-weight: 800;
-  border-radius: 0.75rem;
+  border-radius: 0.875rem;
   position: relative;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.2) 45%,
+    rgba(255,255,255,0.3) 50%,
+    rgba(255,255,255,0.2) 55%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.btn-glow:hover::before {
+  transform: translateX(120%);
+}
+
 .btn-glow:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(124,106,255,0.45);
+  box-shadow: 0 8px 40px rgba(124,106,255,0.5), 0 2px 12px rgba(62,207,207,0.2);
 }
-.btn-glow:active { transform: scale(0.97); }
 
-/* ── Outline button ── */
+.btn-glow:active {
+  transform: scale(0.97);
+}
+
 .btn-outline {
   border: 1.5px solid var(--k1-border);
   color: var(--k1-text);
   font-weight: 700;
-  border-radius: 0.75rem;
-  transition: border-color 0.18s ease, background 0.18s ease;
+  border-radius: 0.875rem;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
+
 .btn-outline:hover {
   border-color: var(--k1-violet);
   background: rgba(124,106,255,0.08);
+  transform: translateY(-1px);
 }
 
-/* ── Fade in animation ── */
+/* ── Scroll-triggered Animations ────────────────────────────── */
+
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.fade-up {
-  animation: fadeUp 0.7s ease forwards;
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* ── Noise texture overlay ── */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+.fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fade-up-delay-1 { animation-delay: 0.12s; opacity: 0; }
+.fade-up-delay-2 { animation-delay: 0.24s; opacity: 0; }
+.fade-up-delay-3 { animation-delay: 0.36s; opacity: 0; }
+.fade-up-delay-4 { animation-delay: 0.48s; opacity: 0; }
+
+/* ── Hero Dashboard Mock ────────────────────────────────────── */
+
+.dashboard-float {
+  animation: dashboardBreathe 6s ease-in-out infinite;
+  transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+}
+
+@keyframes dashboardBreathe {
+  0%, 100% { transform: perspective(1200px) rotateY(-8deg) rotateX(4deg) translateY(0); }
+  50%      { transform: perspective(1200px) rotateY(-6deg) rotateX(2deg) translateY(-12px); }
+}
+
+/* ── Noise Texture ──────────────────────────────────────────── */
+
 .noise::before {
   content: '';
   position: fixed;
@@ -113,12 +257,240 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
-/* ── Role card selected state ── */
+/* ── Section Dividers ───────────────────────────────────────── */
+
+.gradient-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124,106,255,0.3), rgba(62,207,207,0.2), transparent);
+}
+
+/* ── Role Cards ─────────────────────────────────────────────── */
+
+.role-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent, transparent);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  transition: background 0.3s ease;
+}
+
 .role-card.selected {
   border-color: var(--k1-violet) !important;
-  background: rgba(124,106,255,0.1) !important;
-  box-shadow: 0 0 24px rgba(124,106,255,0.2);
-}
+  background: rgba(124,106,255,0.08) !important;
+  box-shadow: 0 0 30px rgba(124,106,255,0.15), inset 0 1px 0 rgba(124,106,255,0.2);
+}
+
+.role-card.selected::before {
+  background: linear-gradient(135deg, var(--k1-violet), var(--k1-teal));
+}
+
+/* ── Stat Counter ───────────────────────────────────────────── */
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+  background: var(--k1-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Bento Grid ─────────────────────────────────────────────── */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ── Mini UI Components (inside feature cards) ──────────────── */
+
+.mini-ui {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-size: 0.75rem;
+}
+
+.mini-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: white;
+}
+
+.mini-chart-bar {
+  border-radius: 3px;
+  transition: height 0.5s ease;
+}
+
+.mini-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+/* ── Marquee for Trust Bar ──────────────────────────────────── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Input Styles ───────────────────────────────────────────── */
+
+.k1-input {
+  width: 100%;
+  height: 3.25rem;
+  padding: 0 1rem;
+  border-radius: 0.875rem;
+  font-size: 0.875rem;
+  outline: none;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--k1-text);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.k1-input:focus {
+  border-color: var(--k1-violet);
+  box-shadow: 0 0 0 3px rgba(124,106,255,0.12);
+  background: rgba(255,255,255,0.05);
+}
+
+.k1-input::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.k1-textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 0.875rem;
+  font-size: 0.875rem;
+  outline: none;
+  resize: none;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--k1-text);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.k1-textarea:focus {
+  border-color: var(--k1-violet);
+  box-shadow: 0 0 0 3px rgba(124,106,255,0.12);
+  background: rgba(255,255,255,0.05);
+}
+
+.k1-textarea::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+/* ── Glow accent on colored cards ───────────────────────────── */
+
+.card-glow {
+  position: relative;
+}
+
+.card-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-glow:hover::after {
+  opacity: 1;
+}
+
+/* ── Pulse dot ──────────────────────────────────────────────── */
+
+.pulse-dot {
+  position: relative;
+  display: inline-flex;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--k1-violet);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--k1-violet);
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50%      { transform: scale(2.5); opacity: 0; }
+}
+
+/* ── Success Confetti ───────────────────────────────────────── */
+
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+}
+
+.confetti-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  animation: confettiFall 1.5s ease-out forwards;
+}
