@@ -1,519 +1,707 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState } from "react";
 
-const scrollFeatures = [
+// ── Data ────────────────────────────────────────────────────────────
+const modules = [
   {
-    id: "lernplan-engine",
-    badge: "LERNPLAN ENGINE",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "Dein Skript rein. Dein optimaler Lernplan raus. In 30 Sekunden.",
-    description:
-      "Lade dein Skript hoch, gib deine Zielnote und dein Prüfungsdatum ein \u2014 MyJourney erstellt einen tagesgenauen Plan, der nur das enthält, was wirklich zählt. Kein Anki mehr. Kein Notion mehr. Alles in einem System.",
-    image: "/lernplan.png",
+    id: "lernpartner",
+    emoji: "🤝",
+    color: "#7c6aff",
+    glow: "rgba(124,106,255,0.18)",
+    title: "Lernpartner-Matching",
+    tagline: "Finde dein Team.",
+    desc: "Unser Algorithmus analysiert Studiengang, Lernstil, Prüfungsziele und Verfügbarkeit — und verbindet dich mit den Kommilitonen, mit denen du wirklich weiterkommst. Kein Raten mehr.",
+    highlights: ["Algorithmus-basiertes Matching", "Lerngruppen bis 6 Personen", "Kompatibilitäts-Score"],
   },
   {
-    id: "fokus-engine",
-    badge: "FOKUS ENGINE",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "Der Timer, der weiß, wann du am besten arbeitest.",
-    description:
-      "Flipclock oder Lofi-Video — du wählst deinen Flow-Zustand. Die KI weiß aus deinen Daten, wann deine Peak-Fenster sind und schlägt automatisch die optimale Session-Länge vor. Kein Forest mehr. Kein separater Pomodoro-Timer mehr.",
-    image: "/focus-timer.png",
+    id: "lernplatz",
+    emoji: "🗺️",
+    color: "#3ecfcf",
+    glow: "rgba(62,207,207,0.18)",
+    title: "Lernplatz-Booking",
+    tagline: "Reservier. Lern. Fertig.",
+    desc: "Echtzeit-Kapazitätsübersicht für Bibliothek, Gruppenräume und Campus-Lernbereiche. Buche deinen Platz in Sekunden — bevor er weg ist.",
+    highlights: ["Echtzeit-Verfügbarkeit", "Kalender-Integration", "Check-in System"],
   },
   {
-    id: "ki-agent",
-    badge: "DEIN PERSÖNLICHER AGENT",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "Die einzige KI, die dich wirklich kennt.",
-    description:
-      "Nicht ChatGPT. Nicht ein generischer Assistent. MyJourney KI kennt deinen Lernstand, deine Energie, deine Prüfungen und deine Gewohnheiten — und handelt daraus. Jeden Morgen ein Plan. Jeden Abend ein Feedback. Kein Raten mehr.",
-    image: "/ai-new.png",
+    id: "mental",
+    emoji: "💚",
+    color: "#4ade80",
+    glow: "rgba(74,222,128,0.18)",
+    title: "Mentales Monitoring",
+    tagline: "Wie geht's dir wirklich?",
+    desc: "Tägliche Mini-Checks, Stimmungsverläufe und strukturierte Fragebögen helfen dir und dem Beratungsteam, Belastungsspitzen früh zu erkennen — bevor sie eskalieren.",
+    highlights: ["Anonymes Check-in", "Verlaufsanalyse", "Verbindung zur Beratungsstelle"],
   },
   {
-    id: "routine-architect",
-    badge: "ROUTINE ARCHITECT",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "Welche Gewohnheiten bringen dich wirklich weiter?",
-    description:
-      "Nicht tracken um des Trackens willen. MyJourney verbindet deine Habits mit deinen Fokus-Sessions und zeigt dir: 7h Schlaf bedeutet 40% bessere Lernleistung. Diese Erkenntnis verändert Verhalten — dauerhaft.",
-    image: "/habittracker.png",
-  },
-  {
-    id: "mental-offloading",
-    badge: "MENTAL OFFLOADING",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "60 Sekunden. Kopf frei. KI wird besser.",
-    description:
-      "Drei Felder, zwei Klicks. Dein Journal ist nicht nur für dich — es ist der Input, der deine KI präziser macht. Stimmung, Energie, Gedanken. Kein Daylio mehr. Kein separates Journal mehr.",
-    image: "/journal.png",
-  },
-  {
-    id: "performance-audit",
-    badge: "PERFORMANCE AUDIT",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "Sieh zum ersten Mal, wie du wirklich lernst.",
-    description:
-      "Wann bist du produktiv? Wann brichst du ab? Was sabotiert deine Sessions? MyJourney aggregiert alle Daten zu einem ehrlichen Performance-Bild — das kein einzelnes Tool je liefern könnte.",
-    image: "/performance.png",
-  },
-  {
-    id: "central-command",
-    badge: "CENTRAL COMMAND",
-    badgeColor: "#a7d7c5",
-    badgeTextColor: "#1a1a1a",
-    title: "Ein Tab. Alles drin. Kein Chaos mehr.",
-    description:
-      "Lernplan, Timer, Journal, Habits, KI-Agent — alles in einem Interface. Nicht weil es praktisch ist. Sondern weil die Daten nur dann zusammenarbeiten können, wenn sie am selben Ort leben.",
-    image: "/central-cmd.png",
+    id: "learning",
+    emoji: "📖",
+    color: "#c084fc",
+    glow: "rgba(192,132,252,0.18)",
+    title: "Adaptive Lernunterstützung",
+    tagline: "Dein Skript. Deine KI.",
+    desc: "Lade Skripte, PDFs oder Mitschriften hoch — und erhalte sofort Zusammenfassungen, Quizfragen und quellenbasierte Erklärungen. Inspiriert von NotebookLM, gebaut für den Campus.",
+    highlights: ["Dokument-Upload (PDF/DOCX)", "KI-generierte Quizze", "Quellenbasierte Antworten"],
   },
 ];
 
-export default function Home() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const imageWrapRef = useRef<HTMLDivElement | null>(null);
-  const rightColRef = useRef<HTMLDivElement | null>(null);
+const roles = [
+  {
+    id: "nutzer",
+    icon: "🎓",
+    title: "Nutzer",
+    subtitle: "Ich will K1.0 testen",
+    perks: [
+      "Frühzeitiger Zugang zur Campus Beta",
+      "Exklusive Onboarding-Session",
+      "Einfluss auf Produkt-Prioritäten",
+    ],
+  },
+  {
+    id: "tester",
+    icon: "🧪",
+    title: "Tester",
+    subtitle: "Ich gebe aktives Feedback",
+    perks: [
+      "Wöchentliche Feedback-Sessions",
+      "Direkter Draht zum Entwickler-Team",
+      "Früher Zugang zu allen neuen Features",
+    ],
+  },
+  {
+    id: "team",
+    icon: "⚡",
+    title: "Teammitglied",
+    subtitle: "Ich will mitbauen",
+    perks: [
+      "Aktive Mitgestaltung des Produkts",
+      "Fokus: Marketing/Social oder Entwicklung",
+      "Reale Startup-Erfahrung im K1-Kontext",
+    ],
+  },
+];
 
-  const handleWaitlistSubmit = (e: React.FormEvent) => {
+// ── Component ────────────────────────────────────────────────────────
+export default function K1LandingPage() {
+  const [selectedRole, setSelectedRole] = useState<string>("nutzer");
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    hochschule: "",
+    motivation: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setSubmitted(true);
   };
 
-  // Track which text section is active via scroll position
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-
-      requestAnimationFrame(() => {
-        const triggerLine = window.innerHeight * 0.4;
-        let newActive = 0;
-
-        sectionRefs.current.forEach((ref, index) => {
-          if (!ref) return;
-          const rect = ref.getBoundingClientRect();
-          // Feature becomes active once its top crosses the trigger line
-          if (rect.top <= triggerLine) {
-            newActive = index;
-          }
-        });
-
-        setActiveFeature(newActive);
-        ticking = false;
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // initial check
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // (Removed JS-managed sticky logic for performance and to eliminate jitter)
-
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-background-light text-slate-900 antialiased font-display" style={{ overflowX: 'clip' }}>
+    <div
+      className="noise relative min-h-screen overflow-x-hidden"
+      style={{ background: "var(--k1-bg)", color: "var(--k1-text)" }}
+    >
+      {/* ── Global Aurora background ─────────────────────────────── */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+        <div
+          className="aurora-blob"
+          style={{
+            width: "70vw",
+            height: "70vw",
+            maxWidth: "900px",
+            maxHeight: "900px",
+            top: "-20%",
+            left: "-15%",
+            background: "radial-gradient(circle, rgba(124,106,255,0.22) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="aurora-blob"
+          style={{
+            width: "60vw",
+            height: "60vw",
+            maxWidth: "750px",
+            maxHeight: "750px",
+            top: "10%",
+            right: "-20%",
+            background: "radial-gradient(circle, rgba(62,207,207,0.16) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="aurora-blob"
+          style={{
+            width: "50vw",
+            height: "50vw",
+            maxWidth: "600px",
+            maxHeight: "600px",
+            bottom: "20%",
+            left: "30%",
+            background: "radial-gradient(circle, rgba(192,132,252,0.12) 0%, transparent 70%)",
+          }}
+        />
+      </div>
 
+      {/* ── Nav ──────────────────────────────────────────────────── */}
+      <header
+        className="sticky top-0 z-50 w-full"
+        style={{
+          background: "rgba(5,7,26,0.8)",
+          backdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div
+              className="flex items-center justify-center w-8 h-8 rounded-lg font-black text-sm"
+              style={{ background: "var(--k1-gradient)", color: "white" }}
+            >
+              K1
+            </div>
+            <span className="font-black text-lg tracking-tight" style={{ color: "var(--k1-text)" }}>
+              Project K1.0
+            </span>
+            <span
+              className="hidden sm:inline-block text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: "rgba(124,106,255,0.15)", color: "var(--k1-violet)", border: "1px solid rgba(124,106,255,0.25)" }}
+            >
+              by MyJourney
+            </span>
+          </div>
 
-      <main className="flex-1">
-        <section className="max-w-7xl mx-auto px-6 lg:px-20 py-16 lg:py-24 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="flex flex-col gap-8">
-            <div className="inline-flex items-center gap-2 bg-primary/20 px-4 py-1.5 rounded-full w-fit">
-              <span className="text-xs font-bold uppercase tracking-wider">In Entwicklung · Jetzt Early Access sichern</span>
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            {[
+              { label: "Problem", href: "#problem" },
+              { label: "Features", href: "#features" },
+              { label: "Bewerben", href: "#apply" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-semibold transition-colors"
+                style={{ color: "var(--k1-muted)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a href="#apply" className="btn-glow hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-sm">
+              Jetzt bewerben →
+            </a>
+            {/* Mobile hamburger */}
+            <button
+              className="md:hidden p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Menü öffnen"
+              style={{ color: "var(--k1-muted)" }}
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden px-6 pb-4 flex flex-col gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            {["#problem", "#features", "#apply"].map((href, i) => (
+              <a
+                key={href}
+                href={href}
+                className="text-sm font-semibold py-2"
+                style={{ color: "var(--k1-muted)" }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {["Problem", "Features", "Bewerben"][i]}
+              </a>
+            ))}
+            <a href="#apply" className="btn-glow inline-flex items-center justify-center py-3 text-sm">
+              Jetzt bewerben →
+            </a>
+          </div>
+        )}
+      </header>
+
+      <main className="relative z-10">
+
+        {/* ── 1. HERO ───────────────────────────────────────────── */}
+        <section className="relative min-h-[92vh] flex flex-col items-center justify-center text-center px-6 lg:px-12 pt-20 pb-24 overflow-hidden">
+          {/* Hero image background */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{ opacity: 0.35 }}
+          >
+            <Image
+              src="/k1-hero.jpg"
+              alt="Aurora Campus Background"
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="100vw"
+            />
+          </div>
+
+          {/* Hero content */}
+          <div className="relative z-10 max-w-4xl mx-auto fade-up">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-sm font-semibold"
+              style={{
+                background: "rgba(124,106,255,0.12)",
+                border: "1px solid rgba(124,106,255,0.3)",
+                color: "var(--k1-violet)",
+              }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                  style={{ background: "var(--k1-violet)" }} />
+                <span className="relative inline-flex rounded-full h-2 w-2"
+                  style={{ background: "var(--k1-violet)" }} />
+              </span>
+              🎓 Campus Beta · Deutschland 2025
             </div>
 
-            <h1 className="text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight text-slate-900">
-              Dein Potenzial wartet nicht. Dein System sollte es auch nicht.
+            {/* Headline */}
+            <h1
+              className="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6"
+              style={{ color: "var(--k1-text)" }}
+            >
+              Studieren ist{" "}
+              <span className="gradient-text">schwer genug.</span>
+              <br />
+              Dein System sollte es nicht sein.
             </h1>
 
-            <p className="text-lg lg:text-xl text-slate-600 max-w-lg leading-relaxed">
-              MyJourney vereint Lernplan, Fokus, Gewohnheiten und Mental Health an einem Ort — und verbindet sie durch eine KI, die mit jedem Tag mehr über dich lernt. Das Ergebnis ist ein System, das zeigt, was wirklich in dir steckt.
+            {/* Subheadline */}
+            <p className="text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed mb-10"
+              style={{ color: "var(--k1-muted)" }}>
+              Du lernst allein, obwohl hunderte Kommilitonen dasselbe Problem haben.
+              Du suchst einen Lernplatz — und findest keinen. Der Druck wächst.
+              Aber niemand fragt, wie es dir wirklich geht.{" "}
+              <strong style={{ color: "var(--k1-text)" }}>Project K1.0 ändert das.</strong>
             </p>
 
-            {!isSubmitted ? (
-              <div>
-                <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3">
-                  <div className="relative flex-1 group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">mail</span>
-                    <input required className="w-full h-14 pl-12 pr-4 rounded-xl border-2 border-slate-200 bg-white focus:border-primary focus:ring-0 transition-all outline-none" placeholder="Deine E-Mail Adresse" type="email" />
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="#apply" className="btn-glow inline-flex items-center justify-center gap-2 px-8 py-4 text-base">
+                Jetzt bewerben →
+              </a>
+              <a href="#features" className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 text-base"
+                style={{ background: "rgba(255,255,255,0.03)" }}>
+                Features entdecken ↓
+              </a>
+            </div>
+
+            {/* Trust pills */}
+            <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm" style={{ color: "var(--k1-muted)" }}>
+              <span>🔒 Kein Spam</span>
+              <span>⚡ Kostenlose Beta</span>
+              <span>🇩🇪 Für Studenten in Deutschland</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 2. PROBLEM ──────────────────────────────────────────── */}
+        <section id="problem" className="py-24 px-6 lg:px-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest mb-4"
+                style={{ color: "var(--k1-violet)" }}>
+                Das Problem
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-black leading-tight tracking-tight"
+                style={{ color: "var(--k1-text)" }}>
+                Klingt bekannt?
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  emoji: "😰",
+                  color: "#7c6aff",
+                  title: "Allein studieren",
+                  text: "Du lernst isoliert, obwohl 500 Kommilitonen dasselbe Modul belegen und dieselben Fragen haben.",
+                },
+                {
+                  emoji: "📍",
+                  color: "#3ecfcf",
+                  title: "Kein Lernplatz frei",
+                  text: "20 Minuten durch die Bibliothek wandern — und am Ende im Treppenhaus landen. Jeden Tag aufs Neue.",
+                },
+                {
+                  emoji: "🧠",
+                  color: "#4ade80",
+                  title: "Druck ohne Support",
+                  text: "Die Belastung wächst still. Das Umfeld fragt selten nach. Und wenn doch, weißt du nicht, wo du anfangen sollst.",
+                },
+              ].map((problem) => (
+                <div key={problem.title} className="glass-card p-8 flex flex-col gap-5">
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+                    style={{ background: `${problem.color}18`, border: `1px solid ${problem.color}30` }}
+                  >
+                    {problem.emoji}
                   </div>
-                  <button type="submit" className="h-14 px-8 rounded-xl bg-primary text-slate-900 font-black text-lg shadow-xl shadow-primary/30 hover:brightness-105 active:scale-95 transition-all">
-                    Meinen Platz sichern →
+                  <div>
+                    <h3 className="text-xl font-bold mb-3" style={{ color: "var(--k1-text)" }}>
+                      {problem.title}
+                    </h3>
+                    <p className="leading-relaxed" style={{ color: "var(--k1-muted)" }}>
+                      {problem.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. SOLUTION INTRO ───────────────────────────────────── */}
+        <section className="py-20 px-6 lg:px-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <div
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 text-base font-bold"
+              style={{
+                background: "rgba(124,106,255,0.08)",
+                border: "1px solid rgba(124,106,255,0.2)",
+              }}
+            >
+              <span className="gradient-text">Project K1.0</span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight mb-6"
+              style={{ color: "var(--k1-text)" }}>
+              Vier Module.{" "}
+              <span className="gradient-text">Ein System.</span>
+              <br />
+              Gebaut für den Campus.
+            </h2>
+            <p className="text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto"
+              style={{ color: "var(--k1-muted)" }}>
+              Project K1.0 ist eine fokussierte Campus-Version von MyJourney — entwickelt im Rahmen
+              einer Hochschulförderung, validiert durch Fokusgruppen und direkt mit der
+              Psychosozialen Beratungsstelle, Bibliothek und DVZ vernetzt.
+            </p>
+          </div>
+        </section>
+
+        {/* ── 4. FEATURES / MODULE ───────────────────────────────── */}
+        <section id="features" className="py-24 px-6 lg:px-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest mb-4"
+                style={{ color: "var(--k1-teal)" }}>
+                Die 4 Module
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-black tracking-tight"
+                style={{ color: "var(--k1-text)" }}>
+                Was K1.0 kann.
+              </h2>
+            </div>
+
+            {/* Preview image */}
+            <div className="glass-card p-2 mb-12 max-w-4xl mx-auto overflow-hidden">
+              <Image
+                src="/k1-modules.jpg"
+                alt="K1.0 Module Preview"
+                width={1200}
+                height={900}
+                className="w-full h-auto rounded-xl"
+                sizes="(max-width: 1024px) 100vw, 900px"
+              />
+            </div>
+
+            {/* Module cards */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {modules.map((mod) => (
+                <div key={mod.id} className="glass-card p-8 flex flex-col gap-6">
+                  {/* Header */}
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+                      style={{ background: `${mod.color}18`, border: `1px solid ${mod.color}30` }}
+                    >
+                      {mod.emoji}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest mb-1"
+                        style={{ color: mod.color }}>
+                        {mod.tagline}
+                      </p>
+                      <h3 className="text-xl font-black" style={{ color: "var(--k1-text)" }}>
+                        {mod.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="leading-relaxed" style={{ color: "var(--k1-muted)" }}>
+                    {mod.desc}
+                  </p>
+
+                  {/* Highlights */}
+                  <div className="flex flex-wrap gap-2">
+                    {mod.highlights.map((h) => (
+                      <span
+                        key={h}
+                        className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                        style={{
+                          background: `${mod.color}12`,
+                          border: `1px solid ${mod.color}25`,
+                          color: mod.color,
+                        }}
+                      >
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5. INSTITUTIONAL TRUST BAR ──────────────────────────── */}
+        <section className="py-16 px-6 lg:px-12" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+          <div className="max-w-5xl mx-auto text-center">
+            <p className="text-xs font-bold uppercase tracking-widest mb-6"
+              style={{ color: "var(--k1-muted)" }}>
+              Vernetzt & validiert mit
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-sm font-semibold"
+              style={{ color: "rgba(255,255,255,0.35)" }}>
+              {[
+                "Psychosoziale Beratungsstelle",
+                "Hochschulbibliothek",
+                "DVZ",
+                "Gründerzentrum",
+                "Prof. Heller · MAD",
+                "Prof. Dyckhoff · CX",
+              ].map((inst) => (
+                <span key={inst}>{inst}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 6. APPLY SECTION ────────────────────────────────────── */}
+        <section id="apply" className="py-24 px-6 lg:px-12">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-14">
+              <p className="text-sm font-bold uppercase tracking-widest mb-4"
+                style={{ color: "var(--k1-violet)" }}>
+                Jetzt bewerben
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-black leading-tight tracking-tight mb-4"
+                style={{ color: "var(--k1-text)" }}>
+                Werde Teil von K1.0.
+              </h2>
+              <p className="text-lg" style={{ color: "var(--k1-muted)" }}>
+                Wähle deine Rolle — und wir melden uns innerhalb von 48h.
+              </p>
+            </div>
+
+            {!submitted ? (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+
+                {/* Role selector */}
+                <div>
+                  <label className="block text-sm font-bold mb-4" style={{ color: "var(--k1-text)" }}>
+                    Ich möchte mich bewerben als …
+                  </label>
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    {roles.map((role) => (
+                      <button
+                        key={role.id}
+                        type="button"
+                        onClick={() => setSelectedRole(role.id)}
+                        className={`role-card glass-card p-5 text-left flex flex-col gap-3 cursor-pointer ${selectedRole === role.id ? "selected" : ""}`}
+                      >
+                        <span className="text-2xl">{role.icon}</span>
+                        <div>
+                          <p className="font-black text-base" style={{ color: "var(--k1-text)" }}>{role.title}</p>
+                          <p className="text-xs mt-0.5" style={{ color: "var(--k1-muted)" }}>{role.subtitle}</p>
+                        </div>
+                        <ul className="flex flex-col gap-1.5 mt-1">
+                          {role.perks.map((perk) => (
+                            <li key={perk} className="flex items-start gap-2 text-xs" style={{ color: "var(--k1-muted)" }}>
+                              <span className="mt-0.5 shrink-0" style={{ color: "var(--k1-teal)" }}>✓</span>
+                              {perk}
+                            </li>
+                          ))}
+                        </ul>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Form fields */}
+                <div className="grid sm:grid-cols-2 gap-5">
+                  {[
+                    { id: "name", label: "Name", placeholder: "Max Mustermann", type: "text", key: "name" },
+                    { id: "email", label: "E-Mail", placeholder: "max@uni.de", type: "email", key: "email" },
+                    { id: "hochschule", label: "Hochschule", placeholder: "z.B. TU Berlin, LMU München …", type: "text", key: "hochschule" },
+                  ].map((field) => (
+                    <div key={field.id} className={field.id === "hochschule" ? "sm:col-span-2" : ""}>
+                      <label htmlFor={field.id} className="block text-sm font-semibold mb-2"
+                        style={{ color: "var(--k1-text)" }}>
+                        {field.label}
+                      </label>
+                      <input
+                        id={field.id}
+                        type={field.type}
+                        required
+                        placeholder={field.placeholder}
+                        value={formState[field.key as keyof typeof formState]}
+                        onChange={(e) => setFormState((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                        className="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all"
+                        style={{
+                          background: "rgba(255,255,255,0.04)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          color: "var(--k1-text)",
+                        }}
+                        onFocus={(e) => (e.target.style.borderColor = "var(--k1-violet)")}
+                        onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
+                      />
+                    </div>
+                  ))}
+
+                  {/* Motivation textarea */}
+                  <div className="sm:col-span-2">
+                    <label htmlFor="motivation" className="block text-sm font-semibold mb-2"
+                      style={{ color: "var(--k1-text)" }}>
+                      Motivation{" "}
+                      <span className="font-normal text-xs ml-1" style={{ color: "var(--k1-muted)" }}>
+                        (optional — kurz & direkt)
+                      </span>
+                    </label>
+                    <textarea
+                      id="motivation"
+                      placeholder="Warum willst du dabei sein? Was nervt dich am Campus-Studium?"
+                      rows={3}
+                      value={formState.motivation}
+                      onChange={(e) => setFormState((prev) => ({ ...prev, motivation: e.target.value }))}
+                      className="w-full px-4 py-3 rounded-xl text-sm outline-none resize-none transition-all"
+                      style={{
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        color: "var(--k1-text)",
+                      }}
+                      onFocus={(e) => (e.target.style.borderColor = "var(--k1-violet)")}
+                      onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
+                    />
+                  </div>
+                </div>
+
+                {/* Submit */}
+                <div className="flex flex-col items-center gap-3">
+                  <button type="submit" className="btn-glow w-full sm:w-auto px-12 py-4 text-base">
+                    Bewerbung absenden →
                   </button>
-                </form>
-                <p className="text-xs text-slate-500 font-medium mt-3">Keine Kreditkarte. Kein Spam. Nur ein E-Mail wenn es losgeht.</p>
-              </div>
+                  <p className="text-xs" style={{ color: "var(--k1-muted)" }}>
+                    Wir melden uns innerhalb von 48 Stunden. Kein Spam, versprochen.
+                  </p>
+                </div>
+              </form>
             ) : (
-              <div className="p-6 rounded-2xl bg-primary/10 border border-primary/20 text-center sm:text-left">
-                <h3 className="text-xl font-bold mb-2 text-slate-900 flex items-center justify-center sm:justify-start gap-2">
-                  <span className="material-symbols-outlined text-primary text-2xl">check_circle</span>
-                  Du bist dabei.
+              <div
+                className="glass-card p-12 text-center"
+                style={{ borderColor: "rgba(124,106,255,0.3)" }}
+              >
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-6"
+                  style={{ background: "rgba(124,106,255,0.15)", border: "1px solid rgba(124,106,255,0.3)" }}
+                >
+                  ✅
+                </div>
+                <h3 className="text-2xl font-black mb-3" style={{ color: "var(--k1-text)" }}>
+                  Bewerbung eingegangen!
                 </h3>
-                <p className="text-slate-600">
-                  Wir melden uns, wenn MyJourney startet. Du bist einer der Ersten.
+                <p className="text-base" style={{ color: "var(--k1-muted)" }}>
+                  Danke, <strong style={{ color: "var(--k1-text)" }}>{formState.name}</strong>!
+                  Wir melden uns innerhalb von 48 Stunden bei{" "}
+                  <strong style={{ color: "var(--k1-violet)" }}>{formState.email}</strong>.
                 </p>
               </div>
             )}
           </div>
-          <div className="relative flex items-center justify-center">
-            <div className="relative w-full max-w-md mx-auto">
-              <Image alt="MyJourney Logo" className="w-full h-auto" src="/myjourney-logo.png" width={650} height={530} priority />
-            </div>
-          </div>
         </section>
-
-        {/* ─── App-Graveyard Section (TO-DO 3) ─── */}
-        <section id="replaced-apps" className="border-t border-slate-200 bg-white">
-          <div className="max-w-5xl mx-auto px-6 lg:px-20 py-24">
-            <h2 className="text-3xl lg:text-4xl font-black leading-tight tracking-tight text-center mb-4">Das kennst du.</h2>
-            <p className="text-lg text-slate-600 leading-relaxed text-center max-w-3xl mx-auto mb-16">
-              Der durchschnittliche Student jongliert täglich mit 6+ Apps. Keine davon weiß, was die anderen tun. Du bist der einzige Knotenpunkt — und das kostet dich mehr Energie als das Lernen selbst.
-            </p>
-            <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-slate-200">
-              <div className="bg-slate-50 p-6 border-b md:border-b-0 md:border-r border-slate-200">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Weg damit</h4>
-                <ul className="flex flex-col gap-4">
-                  {["Anki", "Notion", "Forest / Pomodoro", "Daylio / Journal-Apps", "Habitify / Streaks", "Google Calendar", "ChatGPT"].map((app) => (
-                    <li key={app} className="text-slate-500 line-through text-lg font-medium">{app}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-white p-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-primary mb-6">Ersetzt durch</h4>
-                <ul className="flex flex-col gap-4">
-                  {["MyJourney Lernkarten", "MyJourney Workspace", "MyJourney Focus Engine", "MyJourney Journal", "MyJourney Habit Tracker", "MyJourney Lernplan", "MyJourney KI-Agent"].map((app) => (
-                    <li key={app} className="text-slate-900 text-lg font-semibold flex items-center gap-2">
-                      <span className="material-symbols-outlined text-primary text-sm">check</span>
-                      {app}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="mt-16 max-w-2xl mx-auto text-center">
-              <p className="text-lg text-slate-600 leading-relaxed mb-4">
-                Was wäre, wenn all diese Daten zusammenarbeiten würden? Wenn deine KI weiß, dass du gestern schlecht geschlafen hast, heute eine schwierige Session hattest und morgen die wichtigste Prüfung des Semesters kommt?
-              </p>
-              <p className="text-xl font-black text-slate-900">Das ist MyJourney.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── KI-Logik Section (TO-DO 4) ─── */}
-        <section id="how-it-works" className="max-w-7xl mx-auto px-6 lg:px-20 py-24">
-          <h2 className="text-3xl lg:text-4xl font-black leading-tight tracking-tight text-center mb-16">
-            Warum eine KI, die alles weiß, alles verändert.
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-slate-50 rounded-3xl p-8 border border-slate-200">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Andere Tools</h4>
-              <p className="text-slate-600 leading-relaxed">
-                Kennen nur, was du ihnen sagst. Kein Kontext über dein Studium, deine Energie, deine Gewohnheiten. Generische Antworten für einen nicht-generischen Menschen.
-              </p>
-            </div>
-            <div className="bg-primary/10 rounded-3xl p-8 border-2 border-primary/30 relative">
-              <div className="absolute -top-3 left-6 bg-primary text-slate-900 text-xs font-bold px-3 py-1 rounded-full">MyJourney</div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-primary mt-2 mb-4">MyJourney KI</h4>
-              <p className="text-slate-700 leading-relaxed">
-                Verbindet Lernfortschritt, Fokus-Sessions, Schlafqualität, Stimmung und Prüfungsdaten zu einem vollständigen Bild von dir. Je mehr du nutzt, desto präziser wird sie.
-              </p>
-            </div>
-            <div className="bg-slate-50 rounded-3xl p-8 border border-slate-200">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Das Ergebnis</h4>
-              <p className="text-slate-600 leading-relaxed">
-                Eine KI, die sagt: <em>&quot;Du lernst donnerstags zwischen 14 und 17 Uhr am effektivsten. Und wenn du unter 7h schläfst, sinkt dein Fokus messbar. Morgen würde ich Block 3 auf 14:00 legen.&quot;</em>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Scroll Animation Feature Section ─── */}
-        <section id="features" className="border-y border-slate-200/60">
-          {/* Section header — sits above the sticky zone */}
-          <div className="max-w-7xl mx-auto px-6 lg:px-20 pt-20 pb-8">
-            <div className="w-full">
-              <p className="text-2xl lg:text-3xl font-medium text-slate-800 leading-relaxed">
-                Alles, was du brauchst. In einem System.
-                <span className="block mt-2 text-xl lg:text-2xl font-normal text-slate-500">
-                  Jedes Feature ist verbunden — weil isolierte Tools isolierte Ergebnisse liefern.
-                </span>
-              </p>
-            </div>
-          </div>
-
-          {/* Scroll-sticky zone — sticky image is bounded to the text column height */}
-          <div className="max-w-7xl mx-auto px-6 lg:px-20">
-            <div ref={containerRef} className="relative lg:flex lg:gap-16">
-              {/* Left: Scrollable text sections */}
-              <div className="flex flex-col lg:w-1/2">
-                {scrollFeatures.map((feature, index) => (
-                  <div
-                    key={feature.id}
-                    ref={(el) => { sectionRefs.current[index] = el; }}
-                    className="flex flex-col justify-center py-12 lg:py-16"
-                    style={{
-                      minHeight: '60vh',
-                      opacity: activeFeature === index ? 1 : 0.3,
-                      transition: "opacity 0.5s ease",
-                    }}
-                  >
-                    <span
-                      className="inline-flex w-fit px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
-                      style={{
-                        backgroundColor: feature.badgeColor,
-                        color: feature.badgeTextColor,
-                      }}
-                    >
-                      {feature.badge}
-                    </span>
-                    <h3 className="text-3xl lg:text-4xl font-black leading-tight tracking-tight text-slate-900 mb-5">
-                      {feature.title}
-                    </h3>
-                    <p className="text-lg text-slate-600 leading-relaxed max-w-md">
-                      {feature.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Right: Sticky image — top spacer delays engagement, column ends at last feature */}
-              <div ref={rightColRef} className="hidden lg:block lg:w-1/2">
-                {/* spacer so sticky doesn't engage until first text block is in view */}
-                <div className="h-16" aria-hidden="true" />
-                <div
-                  ref={imageWrapRef}
-                  className="sticky w-full"
-                  style={{ top: '22%' }}
-                >
-                  <div
-                    className="relative w-full rounded-2xl overflow-hidden"
-                    style={{ aspectRatio: "4/3", background: 'transparent' }}
-                  >
-                    {scrollFeatures.map((feature, index) => (
-                      <div
-                        key={feature.id}
-                        className="absolute inset-0"
-                        style={{
-                          opacity: activeFeature === index ? 1 : 0,
-                          transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                          zIndex: activeFeature === index ? 2 : 1,
-                        }}
-                      >
-                        <Image
-                          alt={feature.title}
-                          src={feature.image}
-                          fill
-                          className="object-contain"
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          style={{ filter: 'drop-shadow(0 2px 12px rgba(134,198,208,0.18)) drop-shadow(0 0 3px rgba(0,0,0,0.06))' }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Mobile: Show active image inline */}
-              <div className="lg:hidden mb-12">
-                <div
-                  className="relative w-full rounded-2xl overflow-hidden"
-                  style={{ aspectRatio: "4/3", background: 'transparent' }}
-                >
-                  {scrollFeatures.map((feature, index) => (
-                    <div
-                      key={feature.id}
-                      className="absolute inset-0"
-                      style={{
-                        opacity: activeFeature === index ? 1 : 0,
-                        transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                        zIndex: activeFeature === index ? 2 : 1,
-                      }}
-                    >
-                      <Image
-                        alt={feature.title}
-                        src={feature.image}
-                        fill
-                        className="object-contain"
-                        sizes="100vw"
-                        style={{ filter: 'drop-shadow(0 2px 12px rgba(134,198,208,0.18)) drop-shadow(0 0 3px rgba(0,0,0,0.06))' }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            {/* Spacer OUTSIDE the flex row — adds breathing room below without extending the sticky zone */}
-            <div className="h-24 lg:h-32" aria-hidden="true" />
-          </div>
-        </section>
-        {/* ─── Why Section (TO-DO 6) ─── */}
-        <section className="max-w-7xl mx-auto px-6 lg:px-20 py-24">
-          <h2 className="text-3xl font-bold text-center mb-16">Gebaut für Studenten, die mehr wollen.</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-              <div className="size-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-primary text-2xl">layers</span>
-              </div>
-              <h4 className="text-lg font-bold mb-3">Ein System statt sieben Apps</h4>
-              <p className="text-slate-600 leading-relaxed">Anki, Notion, Forest, Daylio, Habitify, Kalender — MyJourney ersetzt sie alle. Weil Daten nur dann intelligent werden, wenn sie zusammenarbeiten.</p>
-            </div>
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-              <div className="size-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-primary text-2xl">psychology</span>
-              </div>
-              <h4 className="text-lg font-bold mb-3">Eine KI, die dich wirklich kennt</h4>
-              <p className="text-slate-600 leading-relaxed">Nicht generisch. Nicht zufällig. Je mehr du nutzt, desto präziser wird die KI — bis sie dir Dinge über dich sagt, die du selbst noch nicht wusstest.</p>
-            </div>
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-              <div className="size-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-primary text-2xl">trending_up</span>
-              </div>
-              <h4 className="text-lg font-bold mb-3">Dein bestes Semester — systematisch</h4>
-              <p className="text-slate-600 leading-relaxed">Nicht durch mehr Willenskraft. Durch ein System, das weiß wann du am besten arbeitest, was dich bremst und was heute wirklich dran ist.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Uni Social Proof Bar ─── */}
-        <section className="border-t border-slate-200 bg-white">
-          <div className="max-w-5xl mx-auto px-6 lg:px-20 py-12 text-center">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Gebaut mit Feedback von Studenten an</p>
-            <p className="text-sm font-semibold text-slate-500 tracking-wide">
-              RWTH Aachen · LMU München · TU Berlin · KIT · Uni Hamburg · Uni Köln
-            </p>
-          </div>
-        </section>
-
-        {/* ─── Early Access: Two-Card CTA Section ─── */}
-        <section id="early-access" className="max-w-7xl mx-auto px-6 lg:px-20 py-24">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-black leading-tight tracking-tight mb-4">
-              Forme das System mit.
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              MyJourney ist in der Entwicklung. Wer jetzt dabei ist, bekommt nicht nur frühen Zugang — er entscheidet mit, was gebaut wird.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* ── Founding Member Card ── */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl border border-slate-100 flex flex-col">
-              <div className="inline-flex items-center gap-2 bg-primary/15 px-4 py-1.5 rounded-full w-fit mb-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-700">✦ Founding Member</span>
-              </div>
-              <h3 className="text-2xl font-black tracking-tight text-slate-900 mb-6 leading-snug">
-                Founding Member /<br />Teammitglieder
-              </h3>
-              <ul className="flex flex-col gap-4 mb-10 flex-1">
-                {[
-                  "Erster Zugang zum fertigen Produkt",
-                  "Direkter Einfluss auf Features",
-                  "Zugang zur privaten Beta",
-                  "Ambassador-Programm — Exklusive Vorteile",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-slate-700">
-                    <span className="material-symbols-outlined text-primary text-lg mt-0.5 shrink-0">check_circle</span>
-                    <span className="font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <button className="w-full h-14 rounded-xl bg-primary text-slate-900 font-black text-lg shadow-xl shadow-primary/30 hover:brightness-105 hover:shadow-primary/40 active:scale-[0.98] transition-all">
-                Meinen Platz sichern
-              </button>
-              <p className="text-xs text-center text-slate-500 mt-4">
-                Die ersten 500 Founding Members erhalten den Preis eingefroren — für immer.
-              </p>
-            </div>
-
-            {/* ── Betatester Card ── */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl border border-slate-100 flex flex-col">
-              <div className="inline-flex items-center gap-2 bg-primary/15 px-4 py-1.5 rounded-full w-fit mb-6">
-                <span className="material-symbols-outlined text-primary text-base">rocket_launch</span>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Jetzt bewerben</span>
-              </div>
-              <h3 className="text-2xl font-black tracking-tight text-slate-900 mb-6 leading-snug">
-                Betatester
-              </h3>
-              <ul className="flex flex-col gap-4 mb-10 flex-1">
-                {[
-                  "Exklusiver Zugang zur Beta-Phase",
-                  "Möglichkeit zur aktiven Mitgestaltung",
-                  "Direkter Draht zum Entwickler-Team",
-                  "Frühzeitiges Testen neuer Funktionen",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-slate-700">
-                    <span className="material-symbols-outlined text-primary text-lg mt-0.5 shrink-0">check_circle</span>
-                    <span className="font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <button className="w-full h-14 rounded-xl border-2 border-primary text-slate-900 font-black text-lg hover:bg-primary/10 active:scale-[0.98] transition-all">
-                Jetzt bewerben
-              </button>
-              <p className="text-xs text-center text-slate-500 mt-4">
-                Wir melden uns innerhalb von 48 Stunden bei dir.
-              </p>
-            </div>
-          </div>
-        </section>
-
 
       </main>
 
-      <footer className="border-t border-slate-200 bg-white py-12 pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="size-8 rounded-lg overflow-hidden relative">
-                <Image alt="MyJourney" src="/myjourney-logo.png" fill className="object-cover" sizes="32px" />
+      {/* ── Footer ───────────────────────────────────────────────── */}
+      <footer
+        className="relative z-10 py-12 px-6 lg:px-12"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Brand */}
+          <div className="md:col-span-2 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div
+                className="flex items-center justify-center w-8 h-8 rounded-lg font-black text-sm"
+                style={{ background: "var(--k1-gradient)", color: "white" }}
+              >
+                K1
               </div>
-              <h2 className="text-lg font-extrabold tracking-tight">MyJourney</h2>
+              <span className="font-black text-lg tracking-tight">Project K1.0</span>
             </div>
-            <p className="text-slate-500 max-w-sm text-sm leading-relaxed">
-              MyJourney — Your Student OS
+            <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-muted)" }}>
+              Project K1.0 ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems.
+              Gefördert durch das K1-Programm.
             </p>
           </div>
 
+          {/* Product */}
           <div>
-            <h5 className="font-bold mb-4 uppercase text-xs tracking-wider text-slate-400">Product</h5>
-            <ul className="flex flex-col gap-3 text-sm text-slate-600 font-medium">
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Lernplan Engine</span></li>
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Fokus Engine</span></li>
-              <li><span className="cursor-pointer hover:text-primary transition-colors">KI-Agent</span></li>
+            <h5 className="text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ color: "var(--k1-muted)" }}>
+              Module
+            </h5>
+            <ul className="flex flex-col gap-3 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {["Lernpartner-Matching", "Lernplatz-Booking", "Mentales Monitoring", "Adaptive KI"].map((m) => (
+                <li key={m} className="transition-colors hover:text-white cursor-default">{m}</li>
+              ))}
             </ul>
           </div>
 
+          {/* Legal */}
           <div>
-            <h5 className="font-bold mb-4 uppercase text-xs tracking-wider text-slate-400">Company</h5>
-            <ul className="flex flex-col gap-3 text-sm text-slate-600 font-medium">
-              <li><span className="cursor-pointer hover:text-primary transition-colors">About Us</span></li>
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Careers</span></li>
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Blog</span></li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-bold mb-4 uppercase text-xs tracking-wider text-slate-400">Legal</h5>
-            <ul className="flex flex-col gap-3 text-sm text-slate-600 font-medium">
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Impressum</span></li>
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Datenschutz</span></li>
-              <li><span className="cursor-pointer hover:text-primary transition-colors">Kontakt</span></li>
+            <h5 className="text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ color: "var(--k1-muted)" }}>
+              Legal
+            </h5>
+            <ul className="flex flex-col gap-3 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {["Impressum", "Datenschutz", "Kontakt"].map((l) => (
+                <li key={l} className="transition-colors hover:text-white cursor-pointer">{l}</li>
+              ))}
             </ul>
           </div>
         </div>
 
+        <div className="max-w-7xl mx-auto mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
+            © 2025 MyJourney / Project K1.0. Alle Rechte vorbehalten.
+          </p>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+            Pilotprojekt · Exklusive Rechte & Markenidentität verbleiben bei MyJourney.
+          </p>
+        </div>
       </footer>
     </div>
   );
