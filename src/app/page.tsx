@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /* ══════════════════════════════════════════════════════════════
    Data
@@ -10,161 +9,135 @@ import { useState, useEffect, useRef, useCallback } from "react";
 const modules = [
   {
     id: "lernpartner",
-    emoji: "🤝",
-    color: "#7c6aff",
-    glow: "rgba(124,106,255,0.18)",
-    title: "Lernpartner-Matching",
+    num: "01",
+    title: "Lernpartner Matching",
     tagline: "Finde dein Team.",
-    desc: "Unser Algorithmus analysiert Studiengang, Lernstil, Prüfungsziele und Verfügbarkeit — und verbindet dich mit den Kommilitonen, mit denen du wirklich weiterkommst.",
-    highlights: ["Algorithmus-basiertes Matching", "Lerngruppen bis 6 Personen", "Kompatibilitäts-Score"],
+    desc: "Unser Matching verbindet dich gezielt mit Kommilitonen auf Basis von Studiengang, Lernstil, Prüfungszielen und eurer Verfügbarkeit.",
+    highlights: ["Persönliches Matching", "Lerngruppen bis 6 Personen", "Kompatibilität"],
+    color: "#6F9E7C",
+    colorLight: "#D9E9DC",
   },
   {
     id: "lernplatz",
-    emoji: "🗺️",
-    color: "#3ecfcf",
-    glow: "rgba(62,207,207,0.18)",
-    title: "Lernplatz-Booking",
-    tagline: "Reservier. Lern. Fertig.",
-    desc: "Echtzeit-Kapazitätsübersicht für Bibliothek, Gruppenräume und Campus-Lernbereiche. Buche deinen Platz in Sekunden — bevor er weg ist.",
-    highlights: ["Echtzeit-Verfügbarkeit", "Kalender-Integration", "Check-in System"],
+    num: "02",
+    title: "Lernplatz Reservierung",
+    tagline: "Reservieren, lernen, fertig.",
+    desc: "Eine einfache Kapazitätsübersicht für die Bibliothek, Gruppenräume und Lernbereiche am Campus. Sichere dir deinen Platz in wenigen Sekunden.",
+    highlights: ["Aktuelle Verfügbarkeit", "Einfache Buchung", "Check-in System"],
+    color: "#5B7EA8",
+    colorLight: "#D5E2F0",
   },
   {
     id: "mental",
-    emoji: "💚",
-    color: "#4ade80",
-    glow: "rgba(74,222,128,0.18)",
+    num: "03",
     title: "Mentales Monitoring",
-    tagline: "Wie geht's dir wirklich?",
-    desc: "Tägliche Mini-Checks, Stimmungsverläufe und strukturierte Fragebögen helfen dir und dem Beratungsteam, Belastungsspitzen früh zu erkennen.",
-    highlights: ["Anonymes Check-in", "Verlaufsanalyse", "Verbindung zur Beratungsstelle"],
+    tagline: "Wie geht es dir wirklich?",
+    desc: "Kurze Checks, Stimmungsverläufe und strukturierte Fragen helfen dir und dem Beratungsteam dabei, hohen Druck frühzeitig abzufangen.",
+    highlights: ["Anonymes Feedback", "Verlaufsübersicht", "Direkter Kontakt zur Beratung"],
+    color: "#78A08A",
+    colorLight: "#D8EAE0",
   },
   {
     id: "learning",
-    emoji: "📖",
-    color: "#c084fc",
-    glow: "rgba(192,132,252,0.18)",
-    title: "Adaptive Lernunterstützung",
-    tagline: "Dein Skript. Deine KI.",
-    desc: "Lade Skripte, PDFs oder Mitschriften hoch — und erhalte sofort Zusammenfassungen, Quizfragen und quellenbasierte Erklärungen.",
-    highlights: ["Dokument-Upload (PDF/DOCX)", "KI-generierte Quizze", "Quellenbasierte Antworten"],
+    num: "04",
+    title: "Unterstützung beim Lernen",
+    tagline: "Deine Skripte, deine Fragen.",
+    desc: "Lade deine Skripte oder Mitschriften hoch und erstelle Zusammenfassungen, Quizfragen und Erklärungen direkt aus deinen Quellen.",
+    highlights: ["Dokumenten Upload", "Interaktive Quizze", "Quellenbasierte Antworten"],
+    color: "#9E895A",
+    colorLight: "#EDE5CC",
   },
 ];
 
 const roles = [
   {
     id: "nutzer",
-    icon: "🎓",
     title: "Nutzer",
-    subtitle: "Ich will K1.0 testen",
+    subtitle: "Ich will Sola testen",
     perks: [
       "Frühzeitiger Zugang zur Campus Beta",
-      "Exklusive Onboarding-Session",
-      "Einfluss auf Produkt-Prioritäten",
+      "Persönliche Einführung",
+      "Einfluss auf neue Funktionen",
     ],
   },
   {
     id: "tester",
-    icon: "🧪",
     title: "Tester",
     subtitle: "Ich gebe aktives Feedback",
     perks: [
-      "Wöchentliche Feedback-Sessions",
-      "Direkter Draht zum Entwickler-Team",
-      "Früher Zugang zu allen neuen Features",
+      "Regelmäßige Feedback Runden",
+      "Direkter Kontakt zum Team",
+      "Früher Zugriff auf neue Updates",
     ],
   },
   {
     id: "team",
-    icon: "⚡",
     title: "Teammitglied",
     subtitle: "Ich will mitbauen",
     perks: [
-      "Aktive Mitgestaltung des Produkts",
-      "Fokus: Marketing/Social oder Entwicklung",
-      "Reale Startup-Erfahrung im K1-Kontext",
+      "Aktive Mitgestaltung der Plattform",
+      "Schwerpunkt Marketing oder Entwicklung",
+      "Echte Praxiserfahrung im Projekt",
     ],
   },
 ];
 
-const stats = [
-  { value: 200, suffix: "+", label: "Bewerbungen" },
-  { value: 4, suffix: "", label: "Module" },
-  { value: 6, suffix: "+", label: "Partner-Institutionen" },
-  { value: 0, suffix: "€", label: "Für Studierende" },
-];
-
 const trustPartners = [
-  "Psychosoziale Beratungsstelle",
-  "Hochschulbibliothek",
-  "DVZ",
-  "Gründerzentrum",
-  "Prof. Heller · MAD",
-  "Prof. Dyckhoff · CX",
+  "Gründungszentrum FH Aachen",
+  "Prof. Dr. Büdenbender",
+  "Prof. Dr. Bernecker",
+  "Prof. Dr. Maihaus",
+  "Prof. Dr. Bassen-Metz",
+  "Prof. Dr. Eggert",
+  "K1 Förderung",
 ];
 
 const problemCards = [
   {
-    emoji: "😰",
-    color: "#7c6aff",
     stat: "70%",
-    statLabel: "lernen allein",
-    title: "Allein studieren",
-    text: "Du lernst isoliert, obwohl 500 Kommilitonen dasselbe Modul belegen und dieselben Fragen haben.",
+    statLabel: "der Studierenden lernen meist für sich",
+    title: "Lernen im Selbststudium",
+    text: "Es ist im dichten Uni-Alltag oft nicht leicht, auf Anhieb die passenden Partner für Lerngruppen zu finden.",
   },
   {
-    emoji: "📍",
-    color: "#3ecfcf",
-    stat: "45min",
-    statLabel: "Platzsuche / Tag",
-    title: "Kein Lernplatz frei",
-    text: "20 Minuten durch die Bibliothek wandern — und am Ende im Treppenhaus landen. Jeden Tag aufs Neue.",
+    stat: "45 min",
+    statLabel: "für Koordination und Suche",
+    title: "Lernplatz Koordination",
+    text: "Freie Plätze in Arbeitsbereichen oder Gruppenräumen sind zu Stoßzeiten schnell vergeben und schwer planbar.",
   },
   {
-    emoji: "🧠",
-    color: "#4ade80",
     stat: "1 von 3",
-    statLabel: "fühlen sich überfordert",
-    title: "Druck ohne Support",
-    text: "Die Belastung wächst still. Das Umfeld fragt selten nach. Und wenn doch, weißt du nicht, wo du anfangen sollst.",
+    statLabel: "wünscht sich mehr Unterstützung",
+    title: "Hohe Anforderungen",
+    text: "Die Dichte an Prüfungen erfordert eine gute Selbstorganisation und rechtzeitige Orientierung bei Belastung.",
   },
 ];
 
 /* ══════════════════════════════════════════════════════════════
-   Scroll-reveal Hook
+   Hooks
    ══════════════════════════════════════════════════════════════ */
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("revealed");
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
-
     const children = el.querySelectorAll(".reveal");
     children.forEach((child) => observer.observe(child));
-
     return () => observer.disconnect();
   }, []);
-
   return ref;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   Animated Counter Hook
-   ══════════════════════════════════════════════════════════════ */
-
-function useCountUp(target: number, duration = 1800) {
+function useCountUp(target: number, duration = 1600) {
   const [count, setCount] = useState(0);
   const [started, setStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -172,16 +145,10 @@ function useCountUp(target: number, duration = 1800) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !started) {
-          setStarted(true);
-        }
-      },
+      (entries) => { if (entries[0].isIntersecting && !started) setStarted(true); },
       { threshold: 0.5 }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, [started]);
@@ -189,15 +156,12 @@ function useCountUp(target: number, duration = 1800) {
   useEffect(() => {
     if (!started) return;
     const start = performance.now();
-
     const tick = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
+      const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.round(eased * target));
       if (progress < 1) requestAnimationFrame(tick);
     };
-
     requestAnimationFrame(tick);
   }, [started, target, duration]);
 
@@ -205,172 +169,118 @@ function useCountUp(target: number, duration = 1800) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Mini UI Components (for feature cards)
+   Mini UI Components
    ══════════════════════════════════════════════════════════════ */
 
-function MiniLernpartner() {
+function MiniLernpartner({ accent }: { accent: string }) {
+  const rows = [
+    { initials: "SB", field: "BWL, 5. Sem.", score: "94%" },
+    { initials: "MK", field: "BWL, 5. Sem.", score: "89%" },
+    { initials: "LR", field: "BWL, 4. Sem.", score: "81%" },
+  ];
   return (
-    <div className="mini-ui flex flex-col gap-2.5">
-      <div className="flex items-center justify-between">
-        <span style={{ color: "var(--k1-violet)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-          Match gefunden
-        </span>
-        <span style={{ color: "var(--k1-green)", fontSize: "0.6rem", fontWeight: 700 }}>92% Kompatibel</span>
+    <div className="mini-ui flex flex-col gap-0">
+      <div className="flex items-center justify-between pb-2 mb-1" style={{ borderBottom: "1px solid var(--k1-border)" }}>
+        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>Matching</span>
+        <span style={{ fontSize: "0.6rem", color: "var(--k1-muted)" }}>Score</span>
       </div>
-      <div className="flex items-center gap-3">
-        <div className="mini-avatar" style={{ background: "linear-gradient(135deg, #7c6aff, #3ecfcf)" }}>SB</div>
-        <div className="mini-avatar" style={{ background: "linear-gradient(135deg, #c084fc, #7c6aff)" }}>MK</div>
-        <div className="mini-avatar" style={{ background: "linear-gradient(135deg, #3ecfcf, #4ade80)" }}>LR</div>
-        <div style={{ fontSize: "0.65rem", color: "var(--k1-muted)" }}>+2 weitere</div>
-      </div>
-      <div className="flex gap-1.5 flex-wrap">
-        <span className="mini-badge" style={{ background: "rgba(124,106,255,0.15)", color: "#a594ff" }}>BWL</span>
-        <span className="mini-badge" style={{ background: "rgba(62,207,207,0.15)", color: "#5ee0e0" }}>Mo–Mi</span>
-        <span className="mini-badge" style={{ background: "rgba(74,222,128,0.15)", color: "#6aeda0" }}>Klausurvorbereitung</span>
-      </div>
+      {rows.map((row, i) => (
+        <div key={i} className="flex items-center justify-between py-1.5" style={{ borderBottom: i < rows.length - 1 ? "1px solid var(--k1-border)" : "none" }}>
+          <div className="flex items-center gap-2">
+            <div style={{ width: "1.6rem", height: "1.6rem", background: i === 0 ? accent : "transparent", border: `1px solid ${i === 0 ? accent : "var(--k1-border-dark)"}`, borderRadius: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.55rem", fontWeight: 700, color: i === 0 ? "#FFFFFF" : "var(--k1-text)", flexShrink: 0 }}>
+              {row.initials}
+            </div>
+            <span style={{ fontSize: "0.65rem", color: "var(--k1-secondary)" }}>{row.field}</span>
+          </div>
+          <span style={{ fontSize: "0.65rem", fontWeight: 700, color: i === 0 ? accent : "var(--k1-text)" }}>{row.score}</span>
+        </div>
+      ))}
     </div>
   );
 }
 
-function MiniLernplatz() {
+function MiniLernplatz({ accent }: { accent: string }) {
+  const cells = Array.from({ length: 20 });
+  const occupied = [2, 5, 8, 11, 14];
+  const selected = 7;
   return (
-    <div className="mini-ui flex flex-col gap-2.5">
+    <div className="mini-ui flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <span style={{ color: "var(--k1-teal)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-          Bibliothek · Ebene 2
-        </span>
-        <span className="mini-badge" style={{ background: "rgba(74,222,128,0.2)", color: "#4ade80" }}>● 12 frei</span>
+        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>Bibliothek · Ebene 2</span>
+        <span style={{ fontSize: "0.6rem", color: accent, fontWeight: 600 }}>12 frei</span>
       </div>
-      <div className="grid grid-cols-8 gap-1">
-        {Array.from({ length: 16 }).map((_, i) => (
-          <div
-            key={i}
-            style={{
-              width: "100%",
-              aspectRatio: "1",
-              borderRadius: "3px",
-              background:
-                i === 5 || i === 6 || i === 9
-                  ? "rgba(62,207,207,0.4)"
-                  : [1, 3, 7, 10, 13].includes(i)
-                  ? "rgba(255,255,255,0.06)"
-                  : "rgba(74,222,128,0.2)",
-              border: i === 5 ? "1px solid var(--k1-teal)" : "1px solid rgba(255,255,255,0.04)",
-            }}
-          />
+      <div className="grid grid-cols-10 gap-0.5">
+        {cells.map((_, i) => (
+          <div key={i} style={{ aspectRatio: "1", background: i === selected ? accent : occupied.includes(i) ? "var(--k1-border-dark)" : "var(--k1-bg)", border: `1px solid ${i === selected ? accent : "var(--k1-border)"}`, borderRadius: "0.15rem" }} />
         ))}
       </div>
-      <div className="flex items-center justify-between" style={{ fontSize: "0.6rem", color: "var(--k1-muted)" }}>
-        <span>🟢 Frei · 🔵 Dein Platz · ⬜ Belegt</span>
-        <span style={{ color: "var(--k1-teal)", fontWeight: 700, cursor: "pointer" }}>Buchen →</span>
+      <div className="flex gap-3" style={{ fontSize: "0.55rem", color: "var(--k1-muted)" }}>
+        <span className="flex items-center gap-1"><span style={{ width: "0.5rem", height: "0.5rem", background: accent, display: "inline-block", borderRadius: "0.15rem" }} />Dein Platz</span>
+        <span className="flex items-center gap-1"><span style={{ width: "0.5rem", height: "0.5rem", background: "var(--k1-border-dark)", display: "inline-block", borderRadius: "0.15rem" }} />Belegt</span>
       </div>
     </div>
   );
 }
 
-function MiniMental() {
-  const bars = [35, 50, 45, 65, 75, 60, 80];
+function MiniMental({ accent }: { accent: string }) {
+  const bars = [35, 50, 45, 65, 75, 60, 82];
   const days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
   return (
-    <div className="mini-ui flex flex-col gap-2.5">
+    <div className="mini-ui flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <span style={{ color: "var(--k1-green)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-          Woche 12 · Stimmung
-        </span>
-        <span className="mini-badge" style={{ background: "rgba(74,222,128,0.15)", color: "#4ade80" }}>↑ Besser</span>
+        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>Woche 12 · Stimmung</span>
+        <span style={{ fontSize: "0.6rem", color: accent, fontWeight: 600 }}>+Trend</span>
       </div>
-      <div className="flex items-end gap-1.5" style={{ height: "3rem" }}>
+      <div className="flex items-end gap-1" style={{ height: "2.75rem", borderBottom: "1px solid var(--k1-border)" }}>
         {bars.map((h, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center gap-1">
-            <div
-              className="mini-chart-bar w-full"
-              style={{
-                height: `${h}%`,
-                background: h > 60
-                  ? "linear-gradient(to top, rgba(74,222,128,0.3), rgba(74,222,128,0.7))"
-                  : "linear-gradient(to top, rgba(255,255,255,0.05), rgba(255,255,255,0.15))",
-              }}
-            />
+          <div key={i} className="flex-1 flex flex-col items-center justify-end">
+            <div style={{ width: "100%", height: `${h}%`, background: h > 60 ? accent : "var(--k1-border-dark)", borderRadius: "0.125rem 0.125rem 0 0" }} />
           </div>
         ))}
       </div>
-      <div className="flex gap-1.5">
+      <div className="flex gap-1">
         {days.map((d) => (
-          <div key={d} className="flex-1 text-center" style={{ fontSize: "0.5rem", color: "var(--k1-dim)" }}>{d}</div>
+          <div key={d} className="flex-1 text-center" style={{ fontSize: "0.5rem", color: "var(--k1-muted)" }}>{d}</div>
         ))}
       </div>
     </div>
   );
 }
 
-function MiniLearning() {
+function MiniLearning({ accent }: { accent: string }) {
+  const items = [
+    { label: "Kapitel 3: Supply-Chain-Mgmt.", sub: "Zusammenfassung · 480 Wörter" },
+    { label: "12 Karteikarten generiert", sub: "Bereit zum Lernen" },
+    { label: "5 Quiz-Fragen bereit", sub: "Difficulty: Mittel" },
+  ];
   return (
-    <div className="mini-ui flex flex-col gap-2.5">
-      <div className="flex items-center justify-between">
-        <span style={{ color: "var(--k1-pink)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-          KI-Zusammenfassung
-        </span>
-        <span className="mini-badge" style={{ background: "rgba(192,132,252,0.15)", color: "#d4a5ff" }}>✨ Generiert</span>
+    <div className="mini-ui flex flex-col gap-0">
+      <div className="flex items-center justify-between pb-2 mb-1" style={{ borderBottom: "1px solid var(--k1-border)" }}>
+        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>KI-Zusammenfassung</span>
+        <span style={{ fontSize: "0.6rem", color: accent, fontWeight: 600 }}>Generiert</span>
       </div>
-      <div className="flex flex-col gap-1.5" style={{ fontSize: "0.6rem", color: "var(--k1-muted)" }}>
-        <div style={{ background: "rgba(192,132,252,0.08)", borderRadius: "4px", padding: "0.35rem 0.5rem", borderLeft: "2px solid #c084fc" }}>
-          Kapitel 3: Supply-Chain-Management…
+      {items.map((item, i) => (
+        <div key={i} className="flex flex-col py-1.5" style={{ borderBottom: i < items.length - 1 ? "1px solid var(--k1-border)" : "none", paddingLeft: "0.5rem", borderLeft: `2px solid ${i === 0 ? accent : "var(--k1-border)"}` }}>
+          <span style={{ fontSize: "0.62rem", fontWeight: 600, color: "var(--k1-text)" }}>{item.label}</span>
+          <span style={{ fontSize: "0.56rem", color: "var(--k1-muted)", marginTop: "0.1rem" }}>{item.sub}</span>
         </div>
-        <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "4px", padding: "0.35rem 0.5rem" }}>
-          → 12 Karteikarten generiert
-        </div>
-        <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "4px", padding: "0.35rem 0.5rem" }}>
-          → 5 Quiz-Fragen bereit
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const miniUIMap: Record<string, React.FC> = {
-  lernpartner: MiniLernpartner,
-  lernplatz: MiniLernplatz,
-  mental: MiniMental,
-  learning: MiniLearning,
-};
-
-/* ══════════════════════════════════════════════════════════════
-   Stat Counter Component
-   ══════════════════════════════════════════════════════════════ */
-
-function StatBlock({ value, suffix, label }: { value: number; suffix: string; label: string }) {
-  const { count, ref } = useCountUp(value, 1600);
-  return (
-    <div ref={ref} className="flex flex-col items-center gap-1">
-      <span className="stat-number text-3xl sm:text-4xl lg:text-5xl font-black">
-        {count}{suffix}
-      </span>
-      <span className="text-xs sm:text-sm font-semibold" style={{ color: "var(--k1-muted)" }}>
-        {label}
-      </span>
+      ))}
     </div>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Main Page Component
+   Main Page
    ══════════════════════════════════════════════════════════════ */
 
 export default function K1LandingPage() {
   const [selectedRole, setSelectedRole] = useState<string>("nutzer");
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    hochschule: "",
-    motivation: "",
-  });
+  const [formState, setFormState] = useState({ name: "", email: "", hochschule: "", motivation: "" });
   const [submitted, setSubmitted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const problemRef = useScrollReveal();
-  const solutionRef = useScrollReveal();
   const featuresRef = useScrollReveal();
-  const trustRef = useScrollReveal();
   const applyRef = useScrollReveal();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -378,87 +288,44 @@ export default function K1LandingPage() {
     setSubmitted(true);
   };
 
+  const eyebrow = {
+    fontSize: "0.72rem",
+    fontWeight: 600 as const,
+    letterSpacing: "0.1em",
+    textTransform: "uppercase" as const,
+    color: "var(--k1-secondary)",
+    fontFamily: "var(--font-body)",
+  };
+
+  const sectionHeading = {
+    fontFamily: "var(--font-display)",
+    fontWeight: 700 as const,
+    lineHeight: 1.1,
+    color: "var(--k1-text)",
+  };
+
   return (
-    <div
-      className="noise relative min-h-screen overflow-x-hidden"
-      style={{ background: "var(--k1-bg)", color: "var(--k1-text)" }}
-    >
-      {/* ── Global Aurora background ─────────────────────────── */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <div
-          className="aurora-blob"
-          style={{
-            width: "70vw",
-            height: "70vw",
-            maxWidth: "900px",
-            maxHeight: "900px",
-            top: "-20%",
-            left: "-15%",
-            background: "radial-gradient(circle, rgba(124,106,255,0.25) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="aurora-blob"
-          style={{
-            width: "60vw",
-            height: "60vw",
-            maxWidth: "750px",
-            maxHeight: "750px",
-            top: "10%",
-            right: "-20%",
-            background: "radial-gradient(circle, rgba(62,207,207,0.18) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="aurora-blob"
-          style={{
-            width: "50vw",
-            height: "50vw",
-            maxWidth: "600px",
-            maxHeight: "600px",
-            bottom: "15%",
-            left: "25%",
-            background: "radial-gradient(circle, rgba(192,132,252,0.14) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+    <div className="relative min-h-screen overflow-x-hidden" style={{ background: "var(--k1-bg)" }}>
 
       {/* ══════════════════════════════════════════════════════════
           NAV
           ══════════════════════════════════════════════════════════ */}
       <header
         className="sticky top-0 z-50 w-full"
-        style={{
-          background: "rgba(5,7,26,0.75)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-        }}
+        style={{ background: "rgba(236,234,229,0.85)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderBottom: "1px solid var(--k1-border)" }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div
-              className="flex items-center justify-center w-9 h-9 rounded-xl font-black text-sm"
-              style={{ background: "var(--k1-gradient)", color: "white" }}
-            >
-              K1
+            <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>
+              S
             </div>
-            <span className="font-black text-lg tracking-tight" style={{ color: "var(--k1-text)" }}>
-              Project K1.0
-            </span>
-            <span
-              className="hidden sm:inline-block text-xs font-semibold px-2.5 py-1 rounded-full"
-              style={{
-                background: "rgba(124,106,255,0.12)",
-                color: "var(--k1-violet)",
-                border: "1px solid rgba(124,106,255,0.2)",
-              }}
-            >
+            <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
+            <span className="hidden sm:inline-block text-xs font-medium px-2.5 py-1" style={{ color: "var(--k1-secondary)", border: "1px solid var(--k1-border)", borderRadius: "9999px", fontFamily: "var(--font-body)", background: "var(--k1-bg-alt)" }}>
               by MyJourney
             </span>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-10">
             {[
               { label: "Problem", href: "#problem" },
               { label: "Features", href: "#features" },
@@ -467,10 +334,10 @@ export default function K1LandingPage() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-semibold transition-colors duration-200"
-                style={{ color: "var(--k1-muted)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-text)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}
+                className="text-sm font-medium transition-colors duration-150"
+                style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-secondary)")}
               >
                 {link.label}
               </a>
@@ -478,175 +345,215 @@ export default function K1LandingPage() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="#apply" className="btn-glow hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-sm">
-              Jetzt bewerben →
-            </a>
-            <button
-              className="md:hidden p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Menü öffnen"
-              style={{ color: "var(--k1-muted)" }}
-            >
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
-                )}
+            <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menü öffnen" style={{ color: "var(--k1-secondary)" }}>
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                {mobileMenuOpen ? <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />}
               </svg>
             </button>
           </div>
         </div>
 
         {mobileMenuOpen && (
-          <div
-            className="md:hidden px-6 pb-4 flex flex-col gap-4"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-          >
-            {[
-              { label: "Problem", href: "#problem" },
-              { label: "Features", href: "#features" },
-              { label: "Bewerben", href: "#apply" },
-            ].map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-semibold py-2"
-                style={{ color: "var(--k1-muted)" }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.label}
-              </a>
+          <div className="md:hidden px-6 pb-5 flex flex-col gap-4" style={{ borderTop: "1px solid var(--k1-border)", paddingTop: "1rem", background: "var(--k1-bg)" }}>
+            {[{ label: "Problem", href: "#problem" }, { label: "Features", href: "#features" }, { label: "Bewerben", href: "#apply" }].map((link) => (
+              <a key={link.href} href={link.href} className="text-sm font-medium py-1" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }} onClick={() => setMobileMenuOpen(false)}>{link.label}</a>
             ))}
-            <a href="#apply" className="btn-glow inline-flex items-center justify-center py-3 text-sm">
-              Jetzt bewerben →
-            </a>
           </div>
         )}
       </header>
 
-      <main className="relative z-10">
+      <main>
 
         {/* ══════════════════════════════════════════════════════════
-            1. HERO — Asymmetric Split
+            1. HERO
             ══════════════════════════════════════════════════════════ */}
-        <section className="relative flex items-center px-6 lg:px-12 py-10 overflow-hidden">
-          {/* Hero background image */}
-          <div className="absolute inset-0 z-0" style={{ opacity: 0.25 }}>
-            <Image
-              src="/k1-hero-v2.jpg"
-              alt="Aurora Campus Background"
-              fill
-              className="object-cover"
-              style={{ objectPosition: "center 90%" }}
-              priority
-              sizes="100vw"
-            />
-          </div>
+        <section className="px-6 lg:px-12 py-10 lg:py-14">
+          <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_390px] gap-12 lg:gap-16 items-center">
 
-          <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left — Copy */}
-            <div className="flex flex-col gap-6 fade-up">
-              {/* Badge */}
-              <div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold w-fit fade-up-delay-1"
-                style={{
-                  background: "rgba(124,106,255,0.1)",
-                  border: "1px solid rgba(124,106,255,0.25)",
-                  color: "var(--k1-violet)",
-                }}
-              >
-                <span className="pulse-dot" />
-                <span>🎓 Campus Beta · Deutschland 2025</span>
+            <div className="flex flex-col gap-7 py-8 lg:py-12">
+              <div className="flex items-center gap-3 fade-in" style={eyebrow}>
+                <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-border-dark)", display: "inline-block" }} />
+                Campus Beta · Deutschland 2025
               </div>
 
-              {/* Headline */}
               <h1
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.05] tracking-tight fade-up-delay-1"
-                style={{ color: "var(--k1-text)" }}
+                className="text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.08] tracking-tight fade-in fade-in-delay-1"
+                style={{ ...sectionHeading }}
               >
                 Studieren ist{" "}
-                <span className="gradient-text">schwer genug.</span>
+                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>schwer genug.</em>
                 <br />
-                Dein System sollte es nicht sein.
+                Dein System
+                <br />
+                sollte es nicht sein.
               </h1>
 
-              {/* Subheadline */}
-              <p
-                className="text-base lg:text-lg max-w-lg leading-relaxed fade-up-delay-2"
-                style={{ color: "var(--k1-muted)" }}
-              >
+              <p className="text-base lg:text-lg leading-relaxed max-w-md fade-in fade-in-delay-2" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
                 Du lernst allein, obwohl hunderte Kommilitonen dasselbe Problem haben.
-                Du suchst einen Lernplatz — und findest keinen. Der Druck wächst.{" "}
-                <strong style={{ color: "var(--k1-text)" }}>Project K1.0 ändert das.</strong>
+                Du suchst einen Lernplatz und findest keinen.{" "}
+                <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project Sola ändert das.</strong>
               </p>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3 fade-up-delay-3">
-                <a
-                  href="#apply"
-                  className="btn-glow inline-flex items-center justify-center gap-2 px-8 py-4 text-base"
-                >
-                  Jetzt bewerben →
-                </a>
-                <a
-                  href="#features"
-                  className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 text-base"
-                  style={{ background: "rgba(255,255,255,0.02)" }}
-                >
-                  Features entdecken ↓
+              <div className="flex flex-col sm:flex-row gap-3 fade-in fade-in-delay-3">
+                <a href="#apply" className="btn-primary px-8 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
+                  Jetzt bewerben &rarr;
                 </a>
               </div>
 
-              {/* Trust pills */}
-              <div
-                className="flex flex-wrap gap-5 text-sm mt-2 fade-up-delay-4"
-                style={{ color: "var(--k1-muted)" }}
-              >
-                <span className="flex items-center gap-1.5">🔒 Kein Spam</span>
-                <span className="flex items-center gap-1.5">⚡ Kostenlose Beta</span>
-                <span className="flex items-center gap-1.5">🇩🇪 Für Deutschland</span>
+              <div className="flex flex-wrap gap-5 fade-in fade-in-delay-4">
+                {["Kein Spam", "Kostenlose Beta", "Nur für Deutschland"].map((t) => (
+                  <span key={t} className="flex items-center gap-1.5 text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
+                    <span style={{ width: "0.3rem", height: "0.3rem", borderRadius: "50%", background: "var(--k1-accent)", display: "inline-block" }} />
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* Right — Floating Dashboard Mockup */}
-            <div className="hidden lg:flex items-center justify-center fade-up-delay-2">
-              <div className="dashboard-float transform lg:scale-90 origin-right" style={{ width: "100%", maxWidth: "520px" }}>
-                <div
-                  className="glass-card-lg p-5"
-                  style={{
-                    background: "rgba(10,14,40,0.85)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    boxShadow: "0 25px 80px rgba(0,0,0,0.5), 0 0 60px rgba(124,106,255,0.08)",
-                  }}
-                >
-                  {/* Dashboard header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black"
-                        style={{ background: "var(--k1-gradient)", color: "white" }}
-                      >
-                        K1
-                      </div>
-                      <span className="text-sm font-bold" style={{ color: "var(--k1-text)" }}>
-                        Dashboard
-                      </span>
+            {/* Right — App Preview 3-Column Dashboard */}
+            <div className="hidden lg:block fade-in fade-in-delay-2 self-start">
+              <div
+                style={{
+                  width: "620px",
+                  background: "#ECEAE5",
+                  borderRadius: "1.25rem",
+                  boxShadow: "0 24px 60px rgba(0,0,0,0.10), 0 0 0 1px #DDD9D3",
+                  fontFamily: "var(--font-body)",
+                  overflow: "hidden",
+                }}
+              >
+                {/* macOS top bar */}
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1rem", background: "#ECEAE5", borderBottom: "1px solid #DDD9D3" }}>
+                  <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#EC6A5E" }} />
+                  <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#F4BE4F" }} />
+                  <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#61C554" }} />
+                  <span style={{ fontSize: "0.65rem", color: "#999", marginLeft: "0.75rem", fontWeight: 500 }}>app.myjourney.de</span>
+                </div>
+
+                {/* 3-col dashboard */}
+                <div style={{ display: "grid", gridTemplateColumns: "155px 1fr 165px", background: "#FFFFFF", minHeight: "340px", fontSize: "0.68rem" }}>
+
+                  {/* ── Sidebar ── */}
+                  <div style={{ background: "#F4F2EC", borderRight: "1px solid #E6E2DB", padding: "1rem 0.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                    {/* Logo */}
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.3rem", paddingBottom: "0.75rem", borderBottom: "1px solid #E0DCD5" }}>
+                      <div style={{ width: "2.2rem", height: "2.2rem", background: "#ECEAE5", border: "1px solid #DDD9D3", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", color: "#6F9E7C", fontWeight: 700 }}>MJ</div>
+                      <span style={{ fontSize: "0.55rem", color: "#999", fontWeight: 600, letterSpacing: "0.05em" }}>MyJourney</span>
                     </div>
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }} />
-                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }} />
-                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }} />
+
+                    {/* Nav label */}
+                    <div>
+                      <p style={{ fontSize: "0.58rem", fontWeight: 700, color: "#AAA", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Meine Projekte</p>
+                      {/* Active item */}
+                      <div style={{ background: "#D9E9DC", borderRadius: "0.5rem", padding: "0.5rem 0.6rem", marginBottom: "0.25rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.25rem" }}>
+                          <span style={{ fontSize: "0.6rem" }}>🎓</span>
+                          <span style={{ fontWeight: 700, color: "#3D7A56", fontSize: "0.68rem" }}>Psychologie</span>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem", paddingLeft: "1rem" }}>
+                          <span style={{ color: "#5A8A6A", fontSize: "0.58rem" }}>↑ 75% Mastery</span>
+                          <span style={{ color: "#5A8A6A", fontSize: "0.58rem" }}>⏱ 12h diese Woche</span>
+                          <span style={{ color: "#5A8A6A", fontSize: "0.58rem" }}>🔥 14 Tage Streak</span>
+                        </div>
+                      </div>
+                      {/* Other items */}
+                      {["📊 Makroökonomie", "🔬 Biologie 101"].map(label => (
+                        <div key={label} style={{ padding: "0.4rem 0.6rem", color: "#666", borderRadius: "0.4rem", fontSize: "0.65rem", cursor: "pointer" }}>{label}</div>
+                      ))}
+                      {/* Add project */}
+                      <div style={{ marginTop: "0.5rem", border: "1.5px dashed #C8C3BC", borderRadius: "0.5rem", padding: "0.5rem 0.6rem", color: "#AAA", fontSize: "0.6rem", textAlign: "center", cursor: "pointer" }}>
+                        + Projekt hinzufügen
+                      </div>
                     </div>
                   </div>
 
-                  {/* Mini widgets grid */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <MiniLernpartner />
-                    <MiniLernplatz />
-                    <MiniMental />
-                    <MiniLearning />
+                  {/* ── Main Content ── */}
+                  <div style={{ padding: "1rem 1.1rem", display: "flex", flexDirection: "column", gap: "0.75rem", borderRight: "1px solid #E6E2DB" }}>
+                    {/* Page heading + search row */}
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <h4 style={{ fontSize: "1.05rem", fontWeight: 800, fontFamily: "var(--font-display), Georgia, serif", margin: 0 }}>Psychologie</h4>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", background: "#F4F2EC", border: "1px solid #E0DCD5", borderRadius: "0.5rem", padding: "0.25rem 0.5rem" }}>
+                        <span style={{ fontSize: "0.6rem", color: "#AAA" }}>🔍</span>
+                        <span style={{ fontSize: "0.6rem", color: "#BBB" }}>Suche...</span>
+                      </div>
+                    </div>
+
+                    {/* Quote */}
+                    <div style={{ background: "#F4F2EC", border: "1px solid #E0DCD5", borderRadius: "0.5rem", padding: "0.5rem 0.65rem", display: "flex", gap: "0.4rem" }}>
+                      <span style={{ color: "#6F9E7C", fontSize: "0.9rem", lineHeight: 1, flexShrink: 0 }}>"</span>
+                      <div>
+                        <p style={{ fontSize: "0.58rem", lineHeight: 1.5, color: "#555", margin: 0 }}>
+                          Lernen ist wie Rudern gegen den Strom. Hört man auf, treibt man zurück.
+                        </p>
+                        <span style={{ fontSize: "0.55rem", color: "#999", fontStyle: "italic" }}>- Laotse</span>
+                      </div>
+                    </div>
+
+                    {/* Tabs */}
+                    <div style={{ display: "flex", gap: "0", borderBottom: "1px solid #E6E2DB" }}>
+                      {["Flashcards", "Quiz", "Mock Exams", "Quellen"].map((tab, i) => (
+                        <span key={tab} style={{ padding: "0.3rem 0.6rem", fontSize: "0.6rem", fontWeight: i === 0 ? 700 : 400, color: i === 0 ? "#2B2B2B" : "#999", borderBottom: i === 0 ? "2px solid #2B2B2B" : "2px solid transparent", cursor: "pointer", marginBottom: "-1px" }}>{tab}</span>
+                      ))}
+                    </div>
+
+                    {/* Flashcard items grid */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+                      {[
+                        { title: "Grundlagen der klinischen Psychologie", time: "Vor 2 Stunden", progress: 45, total: 100 },
+                        { title: "Entwicklungspsychologie I", time: "Gestern", progress: 12, total: 100 },
+                      ].map(card => (
+                        <div key={card.title} style={{ border: "1px solid #E6E2DB", borderRadius: "0.6rem", padding: "0.65rem 0.7rem", display: "flex", flexDirection: "column", gap: "0.35rem", background: "#FFF" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                            <span style={{ fontSize: "0.65rem", fontWeight: 700, lineHeight: 1.3, color: "#2B2B2B" }}>{card.title}</span>
+                            <span style={{ fontSize: "0.75rem", color: "#CCC", flexShrink: 0, marginLeft: "0.3rem" }}>⋮</span>
+                          </div>
+                          <span style={{ fontSize: "0.55rem", color: "#AAA" }}>Zuletzt bearbeitet: {card.time}</span>
+                          <div style={{ height: "3px", background: "#ECEAE5", borderRadius: "2px", overflow: "hidden" }}>
+                            <div style={{ height: "100%", width: `${(card.progress / card.total) * 100}%`, background: "#6F9E7C", borderRadius: "2px" }} />
+                          </div>
+                          <span style={{ fontSize: "0.58rem", fontWeight: 700, color: "#555" }}>{card.progress}/{card.total} Karten gelernt</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* New set button */}
+                    <div style={{ border: "1.5px dashed #C8C3BC", borderRadius: "0.6rem", padding: "0.6rem", textAlign: "center", cursor: "pointer", color: "#AAA", fontSize: "0.62rem" }}>
+                      <div style={{ fontSize: "1rem", lineHeight: 1 }}>⊕</div>
+                      <div style={{ marginTop: "0.2rem" }}>Neues Set erstellen</div>
+                    </div>
                   </div>
+
+                  {/* ── Tutor Chat ── */}
+                  <div style={{ display: "flex", flexDirection: "column", padding: "1rem 0.75rem", gap: "0.6rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", paddingBottom: "0.5rem", borderBottom: "1px solid #E6E2DB" }}>
+                      <div style={{ width: "1.1rem", height: "1.1rem", background: "#ECEAE5", border: "1px solid #DDD9D3", borderRadius: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.5rem" }}>💬</div>
+                      <span style={{ fontWeight: 700, fontSize: "0.7rem", color: "#2B2B2B" }}>Tutor MJ</span>
+                    </div>
+
+                    {/* Suggestion bubble */}
+                    <div style={{ background: "#F4F2EC", borderRadius: "0.5rem", padding: "0.5rem 0.65rem", fontSize: "0.6rem", color: "#555", lineHeight: 1.5 }}>
+                      Schwierigkeiten bei &apos;Zellteilung&apos;? Sollen wir das Thema kurz wiederholen?
+                      <div style={{ display: "flex", gap: "0.35rem", marginTop: "0.4rem" }}>
+                        <button style={{ flex: 1, padding: "0.25rem", background: "#D9E9DC", border: "none", borderRadius: "0.35rem", fontSize: "0.58rem", color: "#3D7A56", fontWeight: 700, cursor: "pointer" }}>Starten</button>
+                        <button style={{ flex: 1, padding: "0.25rem", background: "#ECEAE5", border: "1px solid #E0DCD5", borderRadius: "0.35rem", fontSize: "0.58rem", color: "#666", cursor: "pointer" }}>Später</button>
+                      </div>
+                    </div>
+
+                    {/* Chat message */}
+                    <div style={{ background: "#FAFAFA", border: "1px solid #E6E2DB", borderRadius: "0.5rem", padding: "0.5rem 0.65rem", fontSize: "0.6rem", color: "#444", lineHeight: 1.5, flexGrow: 1 }}>
+                      Hallo! Wie kann ich dir heute helfen?
+                    </div>
+
+                    {/* Input */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", border: "1px solid #E0DCD5", borderRadius: "0.5rem", padding: "0.35rem 0.5rem", background: "#FFF" }}>
+                      <span style={{ flex: 1, fontSize: "0.58rem", color: "#BBB" }}>Frage...</span>
+                      <div style={{ width: "1.3rem", height: "1.3rem", background: "#6F9E7C", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ color: "white", fontSize: "0.55rem" }}>▶</span>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -654,180 +561,147 @@ export default function K1LandingPage() {
         </section>
 
 
-        {/* ══════════════════════════════════════════════════════════
-            2. PROBLEM
-            ══════════════════════════════════════════════════════════ */}
-        <section id="problem" className="py-24 px-6 lg:px-12" ref={problemRef}>
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <p
-                className="reveal text-sm font-bold uppercase tracking-widest mb-4"
-                style={{ color: "var(--k1-violet)" }}
-              >
-                Das Problem
-              </p>
-              <h2
-                className="reveal reveal-delay-1 text-4xl lg:text-5xl font-black leading-tight tracking-tight"
-                style={{ color: "var(--k1-text)" }}
-              >
-                Klingt bekannt?
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {problemCards.map((problem, i) => (
-                <div
-                  key={problem.title}
-                  className={`reveal reveal-delay-${i + 1} glass-card card-glow p-8 flex flex-col gap-5`}
-                  style={{ borderTop: `2px solid ${problem.color}40` }}
-                >
-                  {/* Stat callout */}
-                  <div className="flex items-end gap-3">
-                    <span className="text-3xl font-black" style={{ color: problem.color }}>
-                      {problem.stat}
-                    </span>
-                    <span className="text-xs font-semibold pb-1" style={{ color: "var(--k1-muted)" }}>
-                      {problem.statLabel}
-                    </span>
-                  </div>
-
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
+        {/* ── Trust Marquee ─────────────────────────────────────── */}
+        <section className="py-10 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
+          <div className="max-w-5xl mx-auto">
+            <p className="text-center mb-6" style={eyebrow}>Vernetzt &amp; validiert mit</p>
+            <div className="overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
+              <div className="marquee-track gap-2.5 py-1">
+                {[...trustPartners, ...trustPartners].map((inst, i) => (
+                  <span
+                    key={`${inst}-${i}`}
+                    className="whitespace-nowrap flex items-center gap-2"
                     style={{
-                      background: `${problem.color}15`,
-                      border: `1px solid ${problem.color}25`,
+                      fontSize: "0.78rem", fontWeight: 500,
+                      padding: "0.38rem 1rem",
+                      border: "1px solid var(--k1-border)",
+                      color: "var(--k1-secondary)", fontFamily: "var(--font-body)",
+                      background: "var(--k1-bg)",
+                      borderRadius: "9999px",
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
                     }}
                   >
-                    {problem.emoji}
-                  </div>
-
-                  <div>
-                    <h3
-                      className="text-xl font-bold mb-3"
-                      style={{ color: "var(--k1-text)" }}
-                    >
-                      {problem.title}
-                    </h3>
-                    <p className="leading-relaxed text-sm" style={{ color: "var(--k1-muted)" }}>
-                      {problem.text}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                    <span style={{ fontSize: "0.58rem", color: "var(--k1-accent)", fontWeight: 700 }}>&#10003;</span>
+                    {inst}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
+
         {/* ══════════════════════════════════════════════════════════
-            3. SOLUTION INTRO
+            2. PROBLEM — Normed heights (Screenshot 2)
             ══════════════════════════════════════════════════════════ */}
-        <section className="py-20 px-6 lg:px-12" ref={solutionRef}>
-          <div className="max-w-4xl mx-auto text-center">
-            <div
-              className="reveal inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 text-base font-bold"
-              style={{
-                background: "rgba(124,106,255,0.08)",
-                border: "1px solid rgba(124,106,255,0.18)",
-              }}
-            >
-              <span className="gradient-text">Project K1.0</span>
+        <section id="problem" className="py-24 px-6 lg:px-12" ref={problemRef}>
+          <div
+            className="max-w-6xl mx-auto"
+            style={{
+              background: "var(--k1-bg-warm)",
+              borderRadius: "1.25rem",
+              padding: "3rem 3.5rem",
+              boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+            }}
+          >
+            <div className="grid lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20">
+              {/* Left header */}
+              <div className="flex flex-col justify-start pt-1">
+                <p className="reveal mb-5" style={eyebrow}>Das Problem</p>
+                <h2 className="reveal reveal-delay-1 mb-6" style={{ ...sectionHeading, fontSize: "clamp(1.8rem, 3vw, 2.5rem)" }}>
+                  Klingt{" "}
+                  <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>bekannt?</em>
+                </h2>
+                <p className="reveal reveal-delay-2 text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                  Der Studienalltag bringt oft organisatorische Herausforderungen mit sich, die neben den Vorlesungen bewältigt werden müssen.
+                </p>
+              </div>
+
+              {/* Right — stacked rows with aligned heights */}
+              <div className="flex flex-col gap-0">
+                {problemCards.map((problem, i) => (
+                  <div
+                    key={problem.title}
+                    className={`reveal reveal-delay-${i + 1} flex gap-7 py-7 items-stretch`}
+                    style={{ borderBottom: i < problemCards.length - 1 ? "1px solid var(--k1-border-dark)" : "none" }}
+                  >
+                    {/* Unified stat block height */}
+                    {/* Expanded stat column width (w-44) and whitespace-nowrap to prevent line breaks */}
+                    <div className="flex flex-col justify-start w-44 shrink-0 whitespace-nowrap">
+                      <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontSize: "2.4rem", fontWeight: 700, lineHeight: 1, color: "var(--k1-accent)" }}>
+                        {problem.stat}
+                      </span>
+                      <span style={{ fontSize: "0.68rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", marginTop: "0.4rem", lineHeight: 1.3, whiteSpace: "normal" }}>
+                        {problem.statLabel}
+                      </span>
+                    </div>
+
+                    {/* Content block — aligned to start, header on same line height */}
+                    <div className="flex-1 flex flex-col justify-start pt-1">
+                      <h3 className="text-base font-semibold mb-1.5" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)", lineHeight: 1.2 }}>{problem.title}</h3>
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>{problem.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <h2
-              className="reveal reveal-delay-1 text-4xl lg:text-6xl font-black leading-tight tracking-tight mb-6"
-              style={{ color: "var(--k1-text)" }}
-            >
-              Vier Module.{" "}
-              <span className="gradient-text">Ein System.</span>
-              <br />
-              Gebaut für den Campus.
-            </h2>
-            <p
-              className="reveal reveal-delay-2 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto"
-              style={{ color: "var(--k1-muted)" }}
-            >
-              Project K1.0 ist eine fokussierte Campus-Version von MyJourney — entwickelt im Rahmen
-              einer Hochschulförderung, validiert durch Fokusgruppen und direkt mit der
-              Psychosozialen Beratungsstelle, Bibliothek und DVZ vernetzt.
-            </p>
           </div>
         </section>
 
+
         {/* ══════════════════════════════════════════════════════════
-            4. FEATURES — Bento Grid
+            3. FEATURES — Normed heading heights to keep grids aligned
             ══════════════════════════════════════════════════════════ */}
         <section id="features" className="py-24 px-6 lg:px-12" ref={featuresRef}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <p
-                className="reveal text-sm font-bold uppercase tracking-widest mb-4"
-                style={{ color: "var(--k1-teal)" }}
-              >
-                Die 4 Module
-              </p>
-              <h2
-                className="reveal reveal-delay-1 text-4xl lg:text-5xl font-black tracking-tight"
-                style={{ color: "var(--k1-text)" }}
-              >
-                Was K1.0 kann.
-              </h2>
+            <div className="mb-12">
+              <p className="reveal mb-5" style={eyebrow}>Die 4 Module</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl" style={{ ...sectionHeading }}>Was Sola kann.</h2>
             </div>
 
-            {/* Bento grid */}
-            <div className="bento-grid">
+            <div className="grid md:grid-cols-2 gap-6">
               {modules.map((mod, i) => {
-                const MiniUI = miniUIMap[mod.id];
+                const MiniUIs: Record<string, React.FC<{ accent: string }>> = {
+                  lernpartner: MiniLernpartner,
+                  lernplatz: MiniLernplatz,
+                  mental: MiniMental,
+                  learning: MiniLearning,
+                };
+                const MiniUI = MiniUIs[mod.id];
+
                 return (
                   <div
                     key={mod.id}
-                    className={`reveal reveal-delay-${i + 1} glass-card card-glow p-7 sm:p-8 flex flex-col gap-5`}
-                    style={{ borderTop: `2px solid ${mod.color}40` }}
+                    className={`reveal reveal-delay-${i + 1} flex flex-col gap-5 p-8`}
+                    style={{
+                      background: "var(--k1-bg-alt)",
+                      borderRadius: "1rem",
+                      borderTop: `3px solid ${mod.color}`,
+                      boxShadow: "var(--shadow-card)",
+                      transition: "box-shadow 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-hover)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-card)")}
                   >
-                    {/* Header */}
-                    <div className="flex items-start gap-4">
-                      <div
-                        className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
-                        style={{
-                          background: `${mod.color}15`,
-                          border: `1px solid ${mod.color}25`,
-                        }}
-                      >
-                        {mod.emoji}
-                      </div>
-                      <div className="flex-1">
-                        <p
-                          className="text-xs font-bold uppercase tracking-widest mb-1"
-                          style={{ color: mod.color }}
-                        >
-                          {mod.tagline}
-                        </p>
-                        <h3
-                          className="text-lg sm:text-xl font-black"
-                          style={{ color: "var(--k1-text)" }}
-                        >
-                          {mod.title}
-                        </h3>
-                      </div>
+                    <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: mod.color, fontFamily: "var(--font-body)" }}>
+                      {mod.num}
+                    </span>
+
+                    {/* Aligned Heading Block to norm module descriptions heights */}
+                    <div className="min-h-[3.8rem] flex flex-col justify-start">
+                      <p style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.07em", textTransform: "uppercase", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", marginBottom: "0.3rem" }}>{mod.tagline}</p>
+                      <h3 style={{ fontSize: "1.2rem", fontWeight: 700, lineHeight: 1.2, color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>{mod.title}</h3>
                     </div>
 
-                    {/* Description */}
-                    <p className="leading-relaxed text-sm" style={{ color: "var(--k1-muted)" }}>
-                      {mod.desc}
-                    </p>
+                    <p className="text-sm leading-relaxed min-h-[3.2rem]" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>{mod.desc}</p>
 
-                    {/* Mini UI Preview */}
-                    {MiniUI && <MiniUI />}
+                    {MiniUI && <MiniUI accent={mod.color} />}
 
-                    {/* Highlights */}
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {mod.highlights.map((h) => (
                         <span
                           key={h}
-                          className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                          style={{
-                            background: `${mod.color}10`,
-                            border: `1px solid ${mod.color}20`,
-                            color: mod.color,
-                          }}
+                          style={{ fontSize: "0.72rem", fontWeight: 500, padding: "0.25rem 0.75rem", color: mod.color, fontFamily: "var(--font-body)", background: mod.colorLight, borderRadius: "9999px" }}
                         >
                           {h}
                         </span>
@@ -840,81 +714,32 @@ export default function K1LandingPage() {
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            5. TRUST BAR
-            ══════════════════════════════════════════════════════════ */}
-        <section
-          className="py-16 px-6 lg:px-12"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.04)",
-            borderBottom: "1px solid rgba(255,255,255,0.04)",
-          }}
-          ref={trustRef}
-        >
-          <div className="max-w-5xl mx-auto text-center">
-            <p
-              className="reveal text-xs font-bold uppercase tracking-widest mb-8"
-              style={{ color: "var(--k1-muted)" }}
-            >
-              Vernetzt & validiert mit
-            </p>
-            <div className="reveal reveal-delay-1 overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
-              <div className="marquee-track gap-4 py-2">
-                {[...trustPartners, ...trustPartners].map((inst, i) => (
-                  <span
-                    key={`${inst}-${i}`}
-                    className="text-sm font-semibold px-5 py-2.5 rounded-full whitespace-nowrap flex items-center gap-2"
-                    style={{
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.06)",
-                      color: "var(--k1-dim)",
-                      backdropFilter: "blur(8px)"
-                    }}
-                  >
-                    <span className="material-symbols-outlined text-xs">verified</span>
-                    {inst}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ══════════════════════════════════════════════════════════
-            6. APPLY SECTION
+            4. APPLY — Screenshot 1 visual upgrade
             ══════════════════════════════════════════════════════════ */}
-        <section id="apply" className="py-24 px-6 lg:px-12" ref={applyRef}>
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-14">
-              <p
-                className="reveal text-sm font-bold uppercase tracking-widest mb-4"
-                style={{ color: "var(--k1-violet)" }}
-              >
-                Jetzt bewerben
-              </p>
-              <h2
-                className="reveal reveal-delay-1 text-4xl lg:text-5xl font-black leading-tight tracking-tight mb-4"
-                style={{ color: "var(--k1-text)" }}
-              >
-                Werde Teil von K1.0.
-              </h2>
-              <p className="reveal reveal-delay-2 text-base lg:text-lg" style={{ color: "var(--k1-muted)" }}>
-                Wähle deine Rolle — und wir melden uns innerhalb von 48h.
-              </p>
+        <section id="apply" className="py-20 px-6 lg:px-12" ref={applyRef}>
+          <div
+            className="max-w-4xl mx-auto py-16 px-8 sm:px-12"
+            style={{
+              background: "var(--k1-bg-warm)",
+              borderRadius: "1.5rem",
+              boxShadow: "0 8px 30px rgba(0,0,0,0.05)",
+              border: "1px solid var(--k1-border)"
+            }}
+          >
+            {/* Reduced spacing, description text removed */}
+            <div className="mb-10">
+              <p className="reveal mb-4" style={eyebrow}>Jetzt bewerben</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl" style={{ ...sectionHeading }}>Werde Teil von MyJourney.</h2>
             </div>
 
             {!submitted ? (
               <form onSubmit={handleSubmit} className="reveal reveal-delay-2 flex flex-col gap-8">
-                {/* Progress indicator */}
-                <div className="flex justify-center gap-3 mb-2">
-                  <div className="w-8 h-1.5 rounded-full" style={{ background: "var(--k1-violet)" }}></div>
-                  <div className="w-8 h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }}></div>
-                  <div className="w-8 h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }}></div>
-                </div>
 
                 {/* Role selector */}
                 <div>
-                  <label className="block text-sm font-bold mb-4" style={{ color: "var(--k1-text)" }}>
+                  <label className="block text-sm font-medium mb-4" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
                     Ich möchte mich bewerben als …
                   </label>
                   <div className="grid sm:grid-cols-3 gap-4">
@@ -922,30 +747,28 @@ export default function K1LandingPage() {
                       <button
                         key={role.id}
                         type="button"
+                        id={`role-${role.id}`}
                         onClick={() => setSelectedRole(role.id)}
-                        className={`role-card glass-card p-5 text-left flex flex-col gap-3 cursor-pointer ${
-                          selectedRole === role.id ? "selected" : ""
-                        }`}
+                        className={`role-card ${selectedRole === role.id ? "selected" : ""}`}
+                        style={{ padding: "1.5rem", display: "flex", flexDirection: "column", height: "100%" }}
                       >
-                        <span className="text-2xl">{role.icon}</span>
-                        <div>
-                          <p className="font-black text-base" style={{ color: "var(--k1-text)" }}>
+                        {/* Title & subtitle aligned */}
+                        <div className="min-h-[3rem] flex flex-col justify-start">
+                          <p style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--k1-text)", fontFamily: "var(--font-body)", marginBottom: "0.15rem" }}>
                             {role.title}
                           </p>
-                          <p className="text-xs mt-0.5" style={{ color: "var(--k1-muted)" }}>
+                          <p style={{ fontSize: "0.72rem", color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
                             {role.subtitle}
                           </p>
                         </div>
-                        <ul className="flex flex-col gap-1.5 mt-1">
+
+                        {/* Divider */}
+                        <div className="w-full h-px my-4" style={{ background: "var(--k1-border)", opacity: 0.8 }} />
+
+                        <ul className="flex flex-col gap-1.5 flex-1">
                           {role.perks.map((perk) => (
-                            <li
-                              key={perk}
-                              className="flex items-start gap-2 text-xs"
-                              style={{ color: "var(--k1-muted)" }}
-                            >
-                              <span className="mt-0.5 shrink-0" style={{ color: "var(--k1-teal)" }}>
-                                ✓
-                              </span>
+                            <li key={perk} className="flex items-start gap-2" style={{ fontSize: "0.78rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.35 }}>
+                              <span style={{ color: "var(--k1-accent)", fontWeight: 700, flexShrink: 0, marginTop: "0.1rem", fontSize: "0.65rem" }}>&#10003;</span>
                               {perk}
                             </li>
                           ))}
@@ -956,112 +779,61 @@ export default function K1LandingPage() {
                 </div>
 
                 {/* Form fields */}
-                <div className="grid sm:grid-cols-2 gap-5">
+                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold mb-2" style={{ color: "var(--k1-text)" }}>
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      placeholder="Max Mustermann"
-                      value={formState.name}
-                      onChange={(e) => setFormState((prev) => ({ ...prev, name: e.target.value }))}
-                      className="k1-input"
-                    />
+                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Name</label>
+                    <input id="name" type="text" required placeholder="Max Mustermann" value={formState.name} onChange={(e) => setFormState((prev) => ({ ...prev, name: e.target.value }))} className="k1-input" />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold mb-2" style={{ color: "var(--k1-text)" }}>
-                      E-Mail
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      placeholder="max@uni.de"
-                      value={formState.email}
-                      onChange={(e) => setFormState((prev) => ({ ...prev, email: e.target.value }))}
-                      className="k1-input"
-                    />
+                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>E-Mail</label>
+                    <input id="email" type="email" required placeholder="max@uni.de" value={formState.email} onChange={(e) => setFormState((prev) => ({ ...prev, email: e.target.value }))} className="k1-input" />
                   </div>
                   <div className="sm:col-span-2">
-                    <label htmlFor="hochschule" className="block text-sm font-semibold mb-2" style={{ color: "var(--k1-text)" }}>
-                      Hochschule
-                    </label>
-                    <input
-                      id="hochschule"
-                      type="text"
-                      required
-                      placeholder="z.B. TU Berlin, LMU München …"
-                      value={formState.hochschule}
-                      onChange={(e) => setFormState((prev) => ({ ...prev, hochschule: e.target.value }))}
-                      className="k1-input"
-                    />
+                    <label htmlFor="hochschule" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Hochschule</label>
+                    <input id="hochschule" type="text" required placeholder="z.B. TU Berlin, LMU München …" value={formState.hochschule} onChange={(e) => setFormState((prev) => ({ ...prev, hochschule: e.target.value }))} className="k1-input" />
                   </div>
                   <div className="sm:col-span-2">
-                    <label htmlFor="motivation" className="block text-sm font-semibold mb-2" style={{ color: "var(--k1-text)" }}>
+                    <label htmlFor="motivation" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
                       Motivation{" "}
-                      <span className="font-normal text-xs ml-1" style={{ color: "var(--k1-muted)" }}>
-                        (optional — kurz & direkt)
-                      </span>
+                      <span className="font-normal text-xs ml-1" style={{ color: "var(--k1-muted)" }}>(optional)</span>
                     </label>
-                    <textarea
-                      id="motivation"
-                      placeholder="Warum willst du dabei sein? Was nervt dich am Campus-Studium?"
-                      rows={3}
-                      value={formState.motivation}
-                      onChange={(e) => setFormState((prev) => ({ ...prev, motivation: e.target.value }))}
-                      className="k1-textarea"
-                    />
+                    <textarea id="motivation" placeholder="Warum willst du dabei sein? Was nervt dich am Campus-Studium?" rows={3} value={formState.motivation} onChange={(e) => setFormState((prev) => ({ ...prev, motivation: e.target.value }))} className="k1-textarea" />
                   </div>
                 </div>
 
                 {/* Submit */}
-                <div className="flex flex-col items-center gap-3">
-                  <button type="submit" className="btn-glow w-full sm:w-auto px-12 py-4 text-base">
-                    Bewerbung absenden →
+                <div className="flex flex-col items-start gap-3">
+                  <button type="submit" id="submit-application" className="btn-primary px-10 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
+                    Bewerbung absenden &rarr;
                   </button>
-                  <p className="text-xs" style={{ color: "var(--k1-muted)" }}>
+                  <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
                     Wir melden uns innerhalb von 48 Stunden. Kein Spam, versprochen.
                   </p>
                 </div>
               </form>
             ) : (
               <div
-                className="glass-card p-12 text-center relative overflow-hidden"
-                style={{ borderColor: "rgba(124,106,255,0.3)" }}
+                className="p-12 text-center"
+                style={{
+                  border: "1px solid var(--k1-accent)",
+                  background: "var(--k1-accent-light)",
+                  borderRadius: "1rem",
+                  boxShadow: "0 4px 24px rgba(111,158,124,0.18)",
+                }}
               >
-                {/* Confetti Particles */}
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="confetti-particle"
-                    style={{
-                      left: `${5 + Math.random() * 90}%`,
-                      top: `-20px`,
-                      background: ['#7c6aff', '#3ecfcf', '#4ade80', '#c084fc'][Math.floor(Math.random() * 4)],
-                      animationDelay: `${Math.random() * 0.5}s`,
-                    }}
-                  />
-                ))}
-
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-6"
-                  style={{
-                    background: "rgba(74,222,128,0.12)",
-                    border: "1px solid rgba(74,222,128,0.25)",
-                  }}
+                  className="w-14 h-14 flex items-center justify-center mx-auto mb-6"
+                  style={{ background: "var(--k1-bg-alt)", borderRadius: "0.875rem", boxShadow: "var(--shadow-card)" }}
                 >
-                  ✅
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--k1-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 </div>
-                <h3 className="text-2xl font-black mb-3" style={{ color: "var(--k1-text)" }}>
-                  Bewerbung eingegangen!
-                </h3>
-                <p className="text-base" style={{ color: "var(--k1-muted)" }}>
-                  Danke, <strong style={{ color: "var(--k1-text)" }}>{formState.name}</strong>!
+                <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>Bewerbung eingegangen!</h3>
+                <p className="text-base" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                  Danke, <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>{formState.name}</strong>!
                   Wir melden uns innerhalb von 48 Stunden bei{" "}
-                  <strong style={{ color: "var(--k1-violet)" }}>{formState.email}</strong>.
+                  <strong style={{ color: "var(--k1-accent)", fontWeight: 600 }}>{formState.email}</strong>.
                 </p>
               </div>
             )}
@@ -1069,92 +841,46 @@ export default function K1LandingPage() {
         </section>
       </main>
 
+
       {/* ══════════════════════════════════════════════════════════
           FOOTER
           ══════════════════════════════════════════════════════════ */}
-      <footer className="relative z-10 py-12 px-6 lg:px-12 overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        {/* subtle gradient mesh */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: "radial-gradient(ellipse at bottom, rgba(124,106,255,0.1) 0%, transparent 60%)"
-        }} />
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 relative z-10">
-          {/* Brand */}
+      <footer className="py-14 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <div
-                className="flex items-center justify-center w-9 h-9 rounded-xl font-black text-sm"
-                style={{ background: "var(--k1-gradient)", color: "white" }}
-              >
-                K1
-              </div>
-              <span className="font-black text-lg tracking-tight">Project K1.0</span>
+              <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>S</div>
+              <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
             </div>
-            <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-muted)" }}>
-              Project K1.0 ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems.
-              Gefördert durch das K1-Programm.
+            <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+              Project Sola ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm.
             </p>
-            <p className="text-xs mt-2" style={{ color: "var(--k1-dim)" }}>
-              Built with ❤️ on Campus.
-            </p>
+            <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Built on Campus.</p>
           </div>
 
-          {/* Product */}
           <div>
-            <h5
-              className="text-xs font-bold uppercase tracking-widest mb-4"
-              style={{ color: "var(--k1-muted)" }}
-            >
-              Module
-            </h5>
-            <ul className="flex flex-col gap-3 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-              {["Lernpartner-Matching", "Lernplatz-Booking", "Mentales Monitoring", "Adaptive KI"].map((m) => (
-                <li key={m} className="transition-colors hover:text-white cursor-default">
-                  {m}
-                </li>
+            <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Module</h5>
+            <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
+              {["Lernpartner Matching", "Lernplatz Reservierung", "Mentales Monitoring", "Unterstützung beim Lernen"].map((m) => (
+                <li key={m}>{m}</li>
               ))}
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
-            <h5
-              className="text-xs font-bold uppercase tracking-widest mb-4"
-              style={{ color: "var(--k1-muted)" }}
-            >
-              Legal
-            </h5>
-            <ul className="flex flex-col gap-3 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Legal</h5>
+            <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
               {["Impressum", "Datenschutz", "Kontakt"].map((l) => (
-                <li key={l} className="transition-colors hover:text-white cursor-pointer">
-                  {l}
-                </li>
+                <li key={l} className="cursor-pointer" onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}>{l}</li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div
-          className="max-w-7xl mx-auto mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
-        >
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-              © 2025 MyJourney / Project K1.0. Alle Rechte vorbehalten.
-            </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                <span className="material-symbols-outlined text-sm">photo_camera</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
-                <span className="material-symbols-outlined text-sm">work</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
-                <span className="material-symbols-outlined text-sm">chat</span>
-              </a>
-            </div>
-          </div>
-          <p className="text-xs text-center sm:text-right" style={{ color: "rgba(255,255,255,0.2)" }}>
-            Pilotprojekt · Exklusive Rechte & Markenidentität verbleiben bei MyJourney.
+        <div className="max-w-7xl mx-auto mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid var(--k1-border)" }}>
+          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2025 MyJourney / Project Sola. Alle Rechte vorbehalten.</p>
+          <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
+            Pilotprojekt · Exklusive Rechte &amp; Markenidentität verbleiben bei MyJourney.
           </p>
         </div>
       </footer>
