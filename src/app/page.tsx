@@ -796,10 +796,9 @@ export default function K1LandingPage() {
                   </div>
                   <div className="sm:col-span-2">
                     <label htmlFor="motivation" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
-                      Motivation{" "}
-                      <span className="font-normal text-xs ml-1" style={{ color: "var(--k1-muted)" }}>(optional)</span>
+                      Motivation
                     </label>
-                    <textarea id="motivation" placeholder="Warum willst du dabei sein? Was nervt dich am Campus-Studium?" rows={3} value={formState.motivation} onChange={(e) => setFormState((prev) => ({ ...prev, motivation: e.target.value }))} className="k1-textarea" />
+                    <textarea id="motivation" required placeholder="Warum willst du dabei sein? Was nervt dich am Campus-Studium?" rows={3} value={formState.motivation} onChange={(e) => setFormState((prev) => ({ ...prev, motivation: e.target.value }))} className="k1-textarea" />
                   </div>
                 </div>
 
@@ -808,9 +807,6 @@ export default function K1LandingPage() {
                   <button type="submit" id="submit-application" className="btn-primary px-10 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
                     Bewerbung absenden &rarr;
                   </button>
-                  <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-                    Wir melden uns innerhalb von 48 Stunden. Kein Spam, versprochen.
-                  </p>
                 </div>
               </form>
             ) : (
