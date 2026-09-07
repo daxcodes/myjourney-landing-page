@@ -104,16 +104,18 @@ const founders = [
   {
     initials: "DR",
     name: "Darshan Rajeswaran",
-    role: "Projektverantwortlicher",
+    role: "Projektverantwortlicher · Studierender",
     areas: ["Finanzen", "Recht", "Strategie"],
-    bio: "Darshan verantwortet die strategische Gesamtausrichtung von Project Sola. Er steuert die finanzielle Planung, sichert die rechtlichen Rahmenbedingungen und sorgt dafür, dass aus der studentischen Initiative ein tragfähiges, nachhaltiges Projekt wird.",
+    quote: "„Kein Studierender sollte das Gefühl haben, auf dem Campus auf sich alleine gestellt zu sein.“",
+    bio: "Als aktiver Studierender an der FH Aachen weiß Darshan aus eigener Erfahrung, wie schnell man im dichten Uni-Alltag den Anschluss verlieren kann. Aus dieser persönlichen Betroffenheit heraus brennt er dafür, seinen Mitstudierenden Rückhalt zu geben. Mit Herzblut und Weitblick kümmert er sich um Finanzen, rechtliche Sicherheit und die Vision hinter Sola – damit der Campus wieder ein Ort des Miteinanders wird.",
   },
   {
     initials: "DM",
     name: "Dimitri Marcziter",
-    role: "CTO",
+    role: "CTO · Ex-Wirtschaftsinformatik, jetzt BWL",
     areas: ["Technische Entwicklung", "Marketing", "Recht"],
-    bio: "Dimitri treibt die technische Entwicklung der Plattform voran und verantwortet Architektur, Infrastruktur und Produktqualität. Gleichzeitig gestaltet er die Markenidentität und Außenkommunikation von Project Sola.",
+    quote: "„Wir bauen nicht nur Software – wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
+    bio: "Als ehemaliger Wirtschaftsinformatik-Studierender und jetziger BWL-Student verbindet Dimitri technologisches Know-how mit wirtschaftlichem Verständnis. Er kennt schlaflose Nächte vor Prüfungen und den Frust über unübersichtliche Lerntools am eigenen Leib. Als CTO steckt er all seine Energie in die Entwicklung von Sola, um Studierenden den Alltag fühlbar zu erleichtern.",
   },
 ];
 
@@ -515,6 +517,11 @@ export default function FlyerPage() {
                     </div>
                   </div>
 
+                  {/* Quote */}
+                  <blockquote className="text-xs italic leading-relaxed px-3 py-2" style={{ color: "var(--k1-accent)", background: "var(--k1-bg)", borderRadius: "0.5rem", borderLeft: "3px solid var(--k1-accent)", fontFamily: "var(--font-body)" }}>
+                    {founder.quote}
+                  </blockquote>
+
                   {/* Bio */}
                   <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
                     {founder.bio}
@@ -576,7 +583,7 @@ export default function FlyerPage() {
           <div>
             <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Legal</h5>
             <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Impressum", "Datenschutz", "AGBs", "Kontakt"].map((l) => (
+              {["Impressum", "Datenschutz", "AGB", "Kontakt"].map((l) => (
                 <li key={l} className="cursor-pointer" onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}>{l}</li>
               ))}
             </ul>

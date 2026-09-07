@@ -868,7 +868,7 @@ export default function K1LandingPage() {
           <div>
             <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Legal</h5>
             <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Impressum", "Datenschutz", "AGBs", "Kontakt"].map((l) => (
+              {["Impressum", "Datenschutz", "AGB", "Kontakt"].map((l) => (
                 <li key={l} className="cursor-pointer" onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}>{l}</li>
               ))}
             </ul>
