@@ -107,15 +107,15 @@ const founders = [
     role: "Projektverantwortlicher · Studierender",
     areas: ["Strategie"],
     quote: "„Kein Studierender sollte das Gefühl haben, auf dem Campus auf sich alleine gestellt zu sein.“",
-    bio: "Als aktiver Studierender an der FH Aachen weiß Darshan aus eigener Erfahrung, wie schnell man im dichten Uni-Alltag den Anschluss verlieren kann. Aus dieser persönlichen Betroffenheit heraus brennt er dafür, seinen Mitstudierenden Rückhalt zu geben. Mit Herzblut und Weitblick kümmert er sich um Finanzen, rechtliche Sicherheit und die Vision hinter Project MJ – damit der Campus wieder ein Ort des Miteinanders wird.",
+    bio: "Als aktiver Studierender an der FH Aachen weiß Darshan aus eigener Erfahrung, wie schnell man im dichten Uni-Alltag den Anschluss verlieren kann. Aus dieser persönlichen Betroffenheit heraus brennt er dafür, seinen Mitstudierenden Rückhalt zu geben. Mit Herzblut und Weitblick kümmert er sich um Finanzen, rechtliche Sicherheit und die Vision hinter Project MJ, damit der Campus wieder ein Ort des Miteinanders wird.",
   },
   {
     initials: "DM",
     name: "Dimitri Marcziter",
     role: "Technical Lead · Studierender",
-    areas: ["Technische Entwicklung"],
+    areas: ["Technische Entwicklung", "Marketing"],
     quote: "„Wir bauen nicht nur Software – wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
-    bio: "Als ehemaliger Wirtschaftsinformatik-Studierender und jetziger BWL-Student verbindet Dimitri technologisches Know-how mit wirtschaftlichem Verständnis. Er kennt schlaflose Nächte vor Prüfungen und den Frust über unübersichtliche Lerntools am eigenen Leib. Als CTO steckt er all seine Energie in die Entwicklung von Project MJ, um Studierenden den Alltag fühlbar zu erleichtern.",
+    bio: "Als ehemaliger Wirtschaftsinformatik-Studierender und jetziger BWL-Student verbindet Dimitri technologisches Know-how mit wirtschaftlichem Verständnis. Als Technical Lead verantwortet er primär die technische Entwicklung von Project MJ. Da er den Campus-Alltag selbst bestens kennt, bringt er sich genauso im Marketing ein, um die Plattform bei Studierenden bekannt zu machen und Feedback direkt aus der Praxis aufzunehmen.",
   },
 ];
 
@@ -215,8 +215,8 @@ export default function FlyerPage() {
         {/* ══════════════════════════════════════════════════════════
             1. HERO
             ══════════════════════════════════════════════════════════ */}
-        <section className="px-6 lg:px-12 py-16 lg:py-24">
-          <div className="max-w-5xl mx-auto text-center flex flex-col items-center gap-8">
+        <section className="px-6 lg:px-12 py-10 lg:py-16">
+          <div className="max-w-5xl mx-auto text-center flex flex-col items-center gap-5">
             <div className="flex items-center gap-3 fade-in" style={eyebrow}>
               <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-border-dark)", display: "inline-block" }} />
               In Kooperation mit der FH Aachen 2026
@@ -253,9 +253,9 @@ export default function FlyerPage() {
 
 
         {/* ── Trust Marquee ─────────────────────────────────────── */}
-        <section className="py-10 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
+        <section className="py-6 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
           <div className="max-w-5xl mx-auto">
-            <p className="text-center mb-6" style={eyebrow}>Vernetzt &amp; validiert mit</p>
+            <p className="text-center mb-4" style={eyebrow}>Vernetzt &amp; validiert mit</p>
             <div className="overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
               <div className="marquee-track gap-2.5 py-1">
                 {[...trustPartners, ...trustPartners].map((inst, i) => (
@@ -285,13 +285,13 @@ export default function FlyerPage() {
         {/* ══════════════════════════════════════════════════════════
             2. DAS PROBLEM — Deep Dive
             ══════════════════════════════════════════════════════════ */}
-        <section id="problem" className="py-24 px-6 lg:px-12" ref={problemRef}>
+        <section id="problem" className="py-14 px-6 lg:px-12" ref={problemRef}>
           <div className="max-w-6xl mx-auto">
 
             {/* Section header */}
-            <div className="text-center mb-16">
-              <p className="reveal mb-5" style={eyebrow}>Das Problem</p>
-              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-6" style={{ ...sectionHeading }}>
+            <div className="text-center mb-10">
+              <p className="reveal mb-3" style={eyebrow}>Das Problem</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
                 Der Studienalltag hat{" "}
                 <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Systemlücken.</em>
               </h2>
@@ -309,11 +309,11 @@ export default function FlyerPage() {
                   style={{
                     background: "var(--k1-bg-warm)",
                     borderRadius: "1.25rem",
-                    padding: "2rem 2.25rem",
+                    padding: "1.5rem 1.75rem",
                     boxShadow: "var(--shadow-card)",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "1.25rem",
+                    gap: "1rem",
                   }}
                 >
                   {/* Stat */}
@@ -358,13 +358,13 @@ export default function FlyerPage() {
         {/* ══════════════════════════════════════════════════════════
             3. DIE LÖSUNG — MJs 4 Module
             ══════════════════════════════════════════════════════════ */}
-        <section id="solution" className="py-24 px-6 lg:px-12" ref={solutionRef}>
+        <section id="solution" className="py-14 px-6 lg:px-12" ref={solutionRef}>
           <div className="max-w-6xl mx-auto">
 
             {/* Section header */}
-            <div className="text-center mb-16">
-              <p className="reveal mb-5" style={eyebrow}>Die Lösung</p>
-              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-6" style={{ ...sectionHeading }}>
+            <div className="text-center mb-10">
+              <p className="reveal mb-3" style={eyebrow}>Die Lösung</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
                 So löst{" "}
                 <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Project MJ</em>{" "}
                 das.
@@ -375,7 +375,7 @@ export default function FlyerPage() {
             </div>
 
             {/* Solution cards — each paired with its problem */}
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-6">
               {problemSolutions.map((item, i) => (
                 <div
                   key={item.num}
@@ -390,7 +390,7 @@ export default function FlyerPage() {
                 >
                   <div className="grid lg:grid-cols-[1fr_1fr] gap-0">
                     {/* Left — The Problem (recap) */}
-                    <div className="p-8 lg:p-10 flex flex-col gap-4" style={{ background: "var(--k1-bg-warm)", borderRight: "1px solid var(--k1-border)" }}>
+                    <div className="p-6 lg:p-8 flex flex-col gap-3" style={{ background: "var(--k1-bg-warm)", borderRight: "1px solid var(--k1-border)" }}>
                       <div className="flex items-center gap-3">
                         <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#C05A4A", fontFamily: "var(--font-body)" }}>
                           Problem {item.num}
@@ -409,7 +409,7 @@ export default function FlyerPage() {
                     </div>
 
                     {/* Right — The Solution */}
-                    <div className="p-8 lg:p-10 flex flex-col gap-4">
+                    <div className="p-6 lg:p-8 flex flex-col gap-3">
                       <div className="flex items-center gap-3">
                         <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
                           Lösung {item.num}
@@ -455,13 +455,13 @@ export default function FlyerPage() {
         {/* ══════════════════════════════════════════════════════════
             4. FOUNDERS
             ══════════════════════════════════════════════════════════ */}
-        <section id="team" className="py-24 px-6 lg:px-12" ref={foundersRef}>
+        <section id="team" className="py-14 px-6 lg:px-12" ref={foundersRef}>
           <div className="max-w-5xl mx-auto">
 
             {/* Section header */}
-            <div className="text-center mb-14">
-              <p className="reveal mb-5" style={eyebrow}>Das Team</p>
-              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-6" style={{ ...sectionHeading }}>
+            <div className="text-center mb-10">
+              <p className="reveal mb-3" style={eyebrow}>Das Team</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
                 Die{" "}
                 <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Köpfe</em>{" "}
                 hinter Project MJ.
@@ -472,7 +472,7 @@ export default function FlyerPage() {
             </div>
 
             {/* Founder cards */}
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
               {founders.map((founder, i) => (
                 <div
                   key={founder.initials}
@@ -480,11 +480,11 @@ export default function FlyerPage() {
                   style={{
                     background: "var(--k1-bg-alt)",
                     borderRadius: "1.25rem",
-                    padding: "2.5rem",
+                    padding: "1.75rem",
                     boxShadow: "var(--shadow-card)",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "1.5rem",
+                    gap: "1rem",
                     transition: "box-shadow 0.2s ease",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-hover)")}
