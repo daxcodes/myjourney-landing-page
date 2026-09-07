@@ -12,7 +12,7 @@ const modules = [
     num: "01",
     title: "Lernpartner Matching",
     tagline: "Finde dein Team.",
-    desc: "Unser Matching verbindet dich gezielt mit Kommilitonen auf Basis von Studiengang, Lernstil, Prüfungszielen und eurer Verfügbarkeit.",
+    desc: "Unser smarter Algorithmus analysiert deinen individuellen Lernstil, deine zeitlichen Verfügbarkeiten sowie konkrete Prüfungsziele. Auf dieser Datenbasis verbinden wir dich passgenau mit Kommilitonen aus deinem Studiengang, um effiziente und harmonische Lerngruppen zu formen. So wird aus einsamem Pauken echter Team-Erfolg.",
     highlights: ["Persönliches Matching", "Lerngruppen bis 6 Personen", "Kompatibilität"],
     color: "#6F9E7C",
     colorLight: "#D9E9DC",
@@ -22,30 +22,30 @@ const modules = [
     num: "02",
     title: "Lernplatz Reservierung",
     tagline: "Reservieren, lernen, fertig.",
-    desc: "Eine einfache Kapazitätsübersicht für die Bibliothek, Gruppenräume und Lernbereiche am Campus. Sichere dir deinen Platz in wenigen Sekunden.",
+    desc: "Vorbei sind die Zeiten endloser Platzsuche. Unsere Echtzeit-Kapazitätsübersicht zeigt dir sofort, wo in der Bibliothek, in Gruppenräumen oder ruhigen Arbeitsbereichen noch Tische frei sind. Du kannst deinen präferierten Slot verbindlich reservieren und dich per einfachem Check-in vor Ort verifizieren. So startest du stressfrei in deinen Lerntag.",
     highlights: ["Aktuelle Verfügbarkeit", "Einfache Buchung", "Check-in System"],
-    color: "#5B7EA8",
-    colorLight: "#D5E2F0",
+    color: "#6F9E7C",
+    colorLight: "#D9E9DC",
   },
   {
     id: "mental",
     num: "03",
     title: "Mentales Monitoring",
     tagline: "Wie geht es dir wirklich?",
-    desc: "Kurze Checks, Stimmungsverläufe und strukturierte Fragen helfen dir und dem Beratungsteam dabei, hohen Druck frühzeitig abzufangen.",
+    desc: "Die hohe Prüfungsdichte erfordert auch mentale Stärke. Durch wöchentliche Micro-Check-ins trackst du deine Stimmungsverläufe und dein Stresslevel. Die gewonnenen Einblicke helfen dir, Belastungsspitzen frühzeitig zu erkennen. Bei Bedarf vermittelt die Plattform nahtlos, anonym und unkompliziert den Kontakt zur psychologischen Beratung.",
     highlights: ["Anonymes Feedback", "Verlaufsübersicht", "Direkter Kontakt zur Beratung"],
-    color: "#78A08A",
-    colorLight: "#D8EAE0",
+    color: "#6F9E7C",
+    colorLight: "#D9E9DC",
   },
   {
     id: "learning",
     num: "04",
     title: "Unterstützung beim Lernen",
     tagline: "Deine Skripte, deine Fragen.",
-    desc: "Lade deine Skripte oder Mitschriften hoch und erstelle Zusammenfassungen, Quizfragen und Erklärungen direkt aus deinen Quellen.",
+    desc: "Verwandle passive Skripte in aktive Lernwerkzeuge. Lade einfach deine Vorlesungsfolien hoch, unsere KI generiert daraus in Sekunden präzise Zusammenfassungen, strukturierte Karteikarten und interaktive Multiple-Choice-Quizze. So testest du dein Wissen direkt am eigenen Stoff und optimierst deine Prüfungsvorbereitung messbar.",
     highlights: ["Dokumenten Upload", "Interaktive Quizze", "Quellenbasierte Antworten"],
-    color: "#9E895A",
-    colorLight: "#EDE5CC",
+    color: "#6F9E7C",
+    colorLight: "#D9E9DC",
   },
 ];
 
@@ -55,9 +55,9 @@ const roles = [
     title: "Nutzer",
     subtitle: "Ich will Sola testen",
     perks: [
-      "Frühzeitiger Zugang zur Campus Beta",
+      "Frühzeitiger Zugang zur Plattform",
       "Persönliche Einführung",
-      "Einfluss auf neue Funktionen",
+      "Kostenlose Basis-Nutzung",
     ],
   },
   {
@@ -67,7 +67,7 @@ const roles = [
     perks: [
       "Regelmäßige Feedback Runden",
       "Direkter Kontakt zum Team",
-      "Früher Zugriff auf neue Updates",
+      "Einfluss auf neue Funktionen",
     ],
   },
   {
@@ -83,6 +83,7 @@ const roles = [
 ];
 
 const trustPartners = [
+  "FH Aachen",
   "Gründungszentrum FH Aachen",
   "Prof. Dr. Büdenbender",
   "Prof. Dr. Bernecker",
@@ -95,21 +96,27 @@ const trustPartners = [
 const problemCards = [
   {
     stat: "70%",
-    statLabel: "der Studierenden lernen meist für sich",
-    title: "Lernen im Selbststudium",
-    text: "Es ist im dichten Uni-Alltag oft nicht leicht, auf Anhieb die passenden Partner für Lerngruppen zu finden.",
+    statLabel: "lernen isoliert für sich, würden aber gerne in Gruppen lernen",
+    title: "Ineffizientes Solo-Pauken",
+    text: "Trotz tausender Kommilitonen kämpfen viele Studierende allein mit demselben Stoff. Passende Lernpartner zu finden scheitert oft an unterschiedlichen Stundenplänen, Hemmschwellen oder mangelnder Vernetzung. Das Resultat: Fehlender Austausch und sinkende Motivation.",
   },
   {
-    stat: "45 min",
-    statLabel: "für Koordination und Suche",
-    title: "Lernplatz Koordination",
-    text: "Freie Plätze in Arbeitsbereichen oder Gruppenräumen sind zu Stoßzeiten schnell vergeben und schwer planbar.",
+    stat: "45 Min.",
+    statLabel: "verpuffen oft bei der Platzsuche",
+    title: "Frustrierende Sitzplatzsuche",
+    text: "Gerade in der Klausurenphase platzen Bibliotheken und Lernbereiche aus allen Nähten. Studierende laufen nicht selten ziellos über den Campus, um einen freien Tisch oder Gruppenraum zu ergattern, wertvolle Lernzeit und Energie, die völlig unnötig verloren geht.",
   },
   {
     stat: "1 von 3",
-    statLabel: "wünscht sich mehr Unterstützung",
-    title: "Hohe Anforderungen",
-    text: "Die Dichte an Prüfungen erfordert eine gute Selbstorganisation und rechtzeitige Orientierung bei Belastung.",
+    statLabel: "klagt über hohen mentalen Druck",
+    title: "Unsichtbare Überlastung",
+    text: "Der permanente Leistungsdruck durch eng getaktete Prüfungsphasen führt häufig zu chronischem Stress. Weil dieser Druck im Studienalltag meist im Stillen ertragen wird, kommt rechtzeitige Entlastung oder psychologische Beratung für viele zu spät.",
+  },
+  {
+    stat: "80%",
+    statLabel: "der Lernzeit ist oft nur passives Lesen",
+    title: "Erdrückende Skript-Berge",
+    text: "Vorlesungsfolien stapeln sich am Semesterende zu unübersichtlichen Textbergen. Studierende verbringen massiv Zeit damit, das Material mühsam händisch zusammenzufassen, anstatt ihr Wissen aktiv zu testen. Es fehlt an Wegen, den Stoff schnell und interaktiv nutzbar zu machen.",
   },
 ];
 
@@ -233,7 +240,7 @@ function MiniMental({ accent }: { accent: string }) {
       </div>
       <div className="flex items-end gap-1" style={{ height: "2.75rem", borderBottom: "1px solid var(--k1-border)" }}>
         {bars.map((h, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center justify-end">
+          <div key={i} className="flex-1 h-full flex flex-col items-center justify-end">
             <div style={{ width: "100%", height: `${h}%`, background: h > 60 ? accent : "var(--k1-border-dark)", borderRadius: "0.125rem 0.125rem 0 0" }} />
           </div>
         ))}
@@ -367,14 +374,14 @@ export default function K1LandingPage() {
         {/* ══════════════════════════════════════════════════════════
             1. HERO
             ══════════════════════════════════════════════════════════ */}
-        <section className="px-6 lg:px-12 py-10 lg:py-14">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_390px] gap-12 lg:gap-16 items-center">
+        <section className="px-6 lg:px-12 py-10 lg:py-14 overflow-hidden">
+          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Left — Copy */}
             <div className="flex flex-col gap-7 py-8 lg:py-12">
               <div className="flex items-center gap-3 fade-in" style={eyebrow}>
                 <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-border-dark)", display: "inline-block" }} />
-                Campus Beta · Deutschland 2025
+                In Kooperation mit der FH Aachen 2026
               </div>
 
               <h1
@@ -382,7 +389,7 @@ export default function K1LandingPage() {
                 style={{ ...sectionHeading }}
               >
                 Studieren ist{" "}
-                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>schwer genug.</em>
+                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>kompliziert genug.</em>
                 <br />
                 Dein System
                 <br />
@@ -401,30 +408,25 @@ export default function K1LandingPage() {
                 </a>
               </div>
 
-              <div className="flex flex-wrap gap-5 fade-in fade-in-delay-4">
-                {["Kein Spam", "Kostenlose Beta", "Nur für Deutschland"].map((t) => (
-                  <span key={t} className="flex items-center gap-1.5 text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-                    <span style={{ width: "0.3rem", height: "0.3rem", borderRadius: "50%", background: "var(--k1-accent)", display: "inline-block" }} />
-                    {t}
-                  </span>
-                ))}
-              </div>
+
             </div>
 
             {/* Right — App Preview 3-Column Dashboard */}
-            <div className="hidden lg:block fade-in fade-in-delay-2 self-start">
+            <div className="w-full fade-in fade-in-delay-2 self-start relative">
+              {/* Fade out gradients for seamless transition on smaller screens if it gets too tight, though scaling is better */}
               <div
                 style={{
-                  width: "620px",
-                  background: "#ECEAE5",
+                  width: "100%",
+                  background: "var(--k1-bg)",
                   borderRadius: "1.25rem",
-                  boxShadow: "0 24px 60px rgba(0,0,0,0.10), 0 0 0 1px #DDD9D3",
+                  boxShadow: "0 20px 40px -10px rgba(0,0,0,0.08)",
+                  border: "1px solid var(--k1-border)",
                   fontFamily: "var(--font-body)",
                   overflow: "hidden",
                 }}
               >
                 {/* macOS top bar */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1rem", background: "#ECEAE5", borderBottom: "1px solid #DDD9D3" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1rem", background: "var(--k1-bg-alt)", borderBottom: "1px solid var(--k1-border)" }}>
                   <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#EC6A5E" }} />
                   <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#F4BE4F" }} />
                   <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#61C554" }} />
@@ -432,7 +434,7 @@ export default function K1LandingPage() {
                 </div>
 
                 {/* 3-col dashboard */}
-                <div style={{ display: "grid", gridTemplateColumns: "155px 1fr 165px", background: "#FFFFFF", minHeight: "340px", fontSize: "0.68rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", background: "#FFFFFF", minHeight: "340px", fontSize: "0.68rem" }}>
 
                   {/* ── Sidebar ── */}
                   <div style={{ background: "#F4F2EC", borderRight: "1px solid #E6E2DB", padding: "1rem 0.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
@@ -853,7 +855,7 @@ export default function K1LandingPage() {
               <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
             </div>
             <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-              Project Sola ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm.
+              Project Sola ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm der FH Aachen.
             </p>
             <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Built on Campus.</p>
           </div>
@@ -870,7 +872,7 @@ export default function K1LandingPage() {
           <div>
             <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Legal</h5>
             <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Impressum", "Datenschutz", "Kontakt"].map((l) => (
+              {["Impressum", "Datenschutz", "AGBs", "Kontakt"].map((l) => (
                 <li key={l} className="cursor-pointer" onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}>{l}</li>
               ))}
             </ul>
