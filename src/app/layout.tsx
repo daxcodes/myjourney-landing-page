@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Project Sola — Studieren ist schwer genug",
+  title: "Project MJ — Studieren ist schwer genug",
   description: "Finde Lernpartner, buche Lernplätze und behalte deine mentale Gesundheit im Griff. Die Campus-Beta für Deutschland.",
 };
 

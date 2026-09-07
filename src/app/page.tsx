@@ -53,7 +53,7 @@ const roles = [
   {
     id: "nutzer",
     title: "Nutzer",
-    subtitle: "Ich will Sola testen",
+    subtitle: "Ich will MJ testen",
     perks: [
       "Frühzeitiger Zugang zur Plattform",
       "Persönliche Einführung",
@@ -324,9 +324,9 @@ export default function K1LandingPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>
-              S
+              MJ
             </div>
-            <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
+            <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project MJ</span>
             <span className="hidden sm:inline-block text-xs font-medium px-2.5 py-1" style={{ color: "var(--k1-secondary)", border: "1px solid var(--k1-border)", borderRadius: "9999px", fontFamily: "var(--font-body)", background: "var(--k1-bg-alt)" }}>
               by MyJourney
             </span>
@@ -399,7 +399,7 @@ export default function K1LandingPage() {
               <p className="text-base lg:text-lg leading-relaxed max-w-md fade-in fade-in-delay-2" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
                 Du lernst allein, obwohl hunderte Kommilitonen dasselbe Problem haben.
                 Du suchst einen Lernplatz und findest keinen.{" "}
-                <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project Sola ändert das.</strong>
+                <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project MJ ändert das.</strong>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 fade-in fade-in-delay-3">
@@ -658,7 +658,7 @@ export default function K1LandingPage() {
           <div className="max-w-6xl mx-auto">
             <div className="mb-12">
               <p className="reveal mb-5" style={eyebrow}>Die 4 Module</p>
-              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl" style={{ ...sectionHeading }}>Was Sola kann.</h2>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl" style={{ ...sectionHeading }}>Was MJ kann.</h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -847,11 +847,11 @@ export default function K1LandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>S</div>
-              <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
+              <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>MJ</div>
+              <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project MJ</span>
             </div>
             <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-              Project Sola ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm der FH Aachen.
+              Project MJ ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm der FH Aachen.
             </p>
             <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Built on Campus.</p>
           </div>
@@ -876,7 +876,7 @@ export default function K1LandingPage() {
         </div>
 
         <div className="max-w-7xl mx-auto mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid var(--k1-border)" }}>
-          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2025 MyJourney / Project Sola. Alle Rechte vorbehalten.</p>
+          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2025 MyJourney / Project MJ. Alle Rechte vorbehalten.</p>
           <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
             Pilotprojekt · Exklusive Rechte &amp; Markenidentität verbleiben bei MyJourney.
           </p>

@@ -105,17 +105,17 @@ const founders = [
     initials: "DR",
     name: "Darshan Rajeswaran",
     role: "Projektverantwortlicher · Studierender",
-    areas: ["Finanzen", "Recht", "Strategie"],
+    areas: ["Strategie"],
     quote: "„Kein Studierender sollte das Gefühl haben, auf dem Campus auf sich alleine gestellt zu sein.“",
-    bio: "Als aktiver Studierender an der FH Aachen weiß Darshan aus eigener Erfahrung, wie schnell man im dichten Uni-Alltag den Anschluss verlieren kann. Aus dieser persönlichen Betroffenheit heraus brennt er dafür, seinen Mitstudierenden Rückhalt zu geben. Mit Herzblut und Weitblick kümmert er sich um Finanzen, rechtliche Sicherheit und die Vision hinter Sola – damit der Campus wieder ein Ort des Miteinanders wird.",
+    bio: "Als aktiver Studierender an der FH Aachen weiß Darshan aus eigener Erfahrung, wie schnell man im dichten Uni-Alltag den Anschluss verlieren kann. Aus dieser persönlichen Betroffenheit heraus brennt er dafür, seinen Mitstudierenden Rückhalt zu geben. Mit Herzblut und Weitblick kümmert er sich um Finanzen, rechtliche Sicherheit und die Vision hinter Project MJ – damit der Campus wieder ein Ort des Miteinanders wird.",
   },
   {
     initials: "DM",
     name: "Dimitri Marcziter",
-    role: "CTO · Ex-Wirtschaftsinformatik, jetzt BWL",
-    areas: ["Technische Entwicklung", "Marketing", "Recht"],
+    role: "Technical Lead · Studierender",
+    areas: ["Technische Entwicklung"],
     quote: "„Wir bauen nicht nur Software – wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
-    bio: "Als ehemaliger Wirtschaftsinformatik-Studierender und jetziger BWL-Student verbindet Dimitri technologisches Know-how mit wirtschaftlichem Verständnis. Er kennt schlaflose Nächte vor Prüfungen und den Frust über unübersichtliche Lerntools am eigenen Leib. Als CTO steckt er all seine Energie in die Entwicklung von Sola, um Studierenden den Alltag fühlbar zu erleichtern.",
+    bio: "Als ehemaliger Wirtschaftsinformatik-Studierender und jetziger BWL-Student verbindet Dimitri technologisches Know-how mit wirtschaftlichem Verständnis. Er kennt schlaflose Nächte vor Prüfungen und den Frust über unübersichtliche Lerntools am eigenen Leib. Als CTO steckt er all seine Energie in die Entwicklung von Project MJ, um Studierenden den Alltag fühlbar zu erleichtern.",
   },
 ];
 
@@ -181,11 +181,11 @@ export default function FlyerPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>
-              S
+              MJ
             </div>
-            <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
+            <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project MJ</span>
             <span className="hidden sm:inline-block text-xs font-medium px-2.5 py-1" style={{ color: "var(--k1-secondary)", border: "1px solid var(--k1-border)", borderRadius: "9999px", fontFamily: "var(--font-body)", background: "var(--k1-bg-alt)" }}>
-              Digitaler Flyer
+              by MyJourney
             </span>
           </div>
 
@@ -237,7 +237,7 @@ export default function FlyerPage() {
               Du lernst allein, obwohl hunderte Kommilitonen dasselbe Problem haben.
               Du suchst einen Lernplatz und findest keinen.
               Du bist gestresst, aber weißt nicht, wohin damit.{" "}
-              <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project Sola ist die Antwort.</strong>
+              <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project MJ ist die Antwort.</strong>
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 fade-in fade-in-delay-3">
@@ -356,7 +356,7 @@ export default function FlyerPage() {
 
 
         {/* ══════════════════════════════════════════════════════════
-            3. DIE LÖSUNG — Sola's 4 Module
+            3. DIE LÖSUNG — MJs 4 Module
             ══════════════════════════════════════════════════════════ */}
         <section id="solution" className="py-24 px-6 lg:px-12" ref={solutionRef}>
           <div className="max-w-6xl mx-auto">
@@ -366,7 +366,7 @@ export default function FlyerPage() {
               <p className="reveal mb-5" style={eyebrow}>Die Lösung</p>
               <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-6" style={{ ...sectionHeading }}>
                 So löst{" "}
-                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Sola</em>{" "}
+                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Project MJ</em>{" "}
                 das.
               </h2>
               <p className="reveal reveal-delay-2 text-base lg:text-lg leading-relaxed max-w-3xl mx-auto" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
@@ -464,10 +464,10 @@ export default function FlyerPage() {
               <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-6" style={{ ...sectionHeading }}>
                 Die{" "}
                 <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Köpfe</em>{" "}
-                hinter Sola.
+                hinter Project MJ.
               </h2>
               <p className="reveal reveal-delay-2 text-base leading-relaxed max-w-2xl mx-auto" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-                Project Sola wird von zwei Studierenden der FH Aachen aufgebaut, die selbst täglich erleben, welche Herausforderungen der Campus-Alltag mit sich bringt.
+                Project MJ wird von zwei Studierenden der FH Aachen aufgebaut, die selbst täglich erleben, welche Herausforderungen der Campus-Alltag mit sich bringt.
               </p>
             </div>
 
@@ -559,39 +559,9 @@ export default function FlyerPage() {
       {/* ══════════════════════════════════════════════════════════
           FOOTER
           ══════════════════════════════════════════════════════════ */}
-      <footer className="py-14 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>S</div>
-              <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project Sola</span>
-            </div>
-            <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-              Project Sola ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm der FH Aachen.
-            </p>
-          </div>
-
-          <div>
-            <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Module</h5>
-            <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Lernpartner Matching", "Lernplatz Reservierung", "Mentales Monitoring", "Unterstützung beim Lernen"].map((m) => (
-                <li key={m}>{m}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Legal</h5>
-            <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Impressum", "Datenschutz", "AGB", "Kontakt"].map((l) => (
-                <li key={l} className="cursor-pointer" onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}>{l}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid var(--k1-border)" }}>
-          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2026 MyJourney / Project Sola. Alle Rechte vorbehalten.</p>
+      <footer className="py-8 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2026 MyJourney / Project MJ. Alle Rechte vorbehalten.</p>
           <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
             In Kooperation mit der FH Aachen · Gefördert durch das K1-Programm
           </p>
