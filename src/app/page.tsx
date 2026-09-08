@@ -1,86 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 /* ══════════════════════════════════════════════════════════════
    Data
    ══════════════════════════════════════════════════════════════ */
-
-const modules = [
-  {
-    id: "lernpartner",
-    num: "01",
-    title: "Lernpartner Matching",
-    tagline: "Finde dein Team.",
-    desc: "Unser smarter Algorithmus analysiert deinen individuellen Lernstil, deine zeitlichen Verfügbarkeiten sowie konkrete Prüfungsziele. Auf dieser Datenbasis verbinden wir dich passgenau mit Kommilitonen aus deinem Studiengang, um effiziente und harmonische Lerngruppen zu formen. So wird aus einsamem Pauken echter Team-Erfolg.",
-    highlights: ["Persönliches Matching", "Lerngruppen bis 6 Personen", "Kompatibilität"],
-    color: "#6F9E7C",
-    colorLight: "#D9E9DC",
-  },
-  {
-    id: "lernplatz",
-    num: "02",
-    title: "Lernplatz Reservierung",
-    tagline: "Reservieren, lernen, fertig.",
-    desc: "Vorbei sind die Zeiten endloser Platzsuche. Unsere Echtzeit-Kapazitätsübersicht zeigt dir sofort, wo in der Bibliothek, in Gruppenräumen oder ruhigen Arbeitsbereichen noch Tische frei sind. Du kannst deinen präferierten Slot verbindlich reservieren und dich per einfachem Check-in vor Ort verifizieren. So startest du stressfrei in deinen Lerntag.",
-    highlights: ["Aktuelle Verfügbarkeit", "Einfache Buchung", "Check-in System"],
-    color: "#6F9E7C",
-    colorLight: "#D9E9DC",
-  },
-  {
-    id: "mental",
-    num: "03",
-    title: "Mentales Monitoring",
-    tagline: "Wie geht es dir wirklich?",
-    desc: "Die hohe Prüfungsdichte erfordert auch mentale Stärke. Durch wöchentliche Micro-Check-ins trackst du deine Stimmungsverläufe und dein Stresslevel. Die gewonnenen Einblicke helfen dir, Belastungsspitzen frühzeitig zu erkennen. Bei Bedarf vermittelt die Plattform nahtlos, anonym und unkompliziert den Kontakt zur psychologischen Beratung.",
-    highlights: ["Anonymes Feedback", "Verlaufsübersicht", "Direkter Kontakt zur Beratung"],
-    color: "#6F9E7C",
-    colorLight: "#D9E9DC",
-  },
-  {
-    id: "learning",
-    num: "04",
-    title: "Unterstützung beim Lernen",
-    tagline: "Deine Skripte, deine Fragen.",
-    desc: "Verwandle passive Skripte in aktive Lernwerkzeuge. Lade einfach deine Vorlesungsfolien hoch, unsere KI generiert daraus in Sekunden präzise Zusammenfassungen, strukturierte Karteikarten und interaktive Multiple-Choice-Quizze. So testest du dein Wissen direkt am eigenen Stoff und optimierst deine Prüfungsvorbereitung messbar.",
-    highlights: ["Dokumenten Upload", "Interaktive Quizze", "Quellenbasierte Antworten"],
-    color: "#6F9E7C",
-    colorLight: "#D9E9DC",
-  },
-];
-
-const roles = [
-  {
-    id: "nutzer",
-    title: "Nutzer",
-    subtitle: "Ich will MJ testen",
-    perks: [
-      "Frühzeitiger Zugang zur Plattform",
-      "Persönliche Einführung",
-      "Kostenlose Basis-Nutzung",
-    ],
-  },
-  {
-    id: "tester",
-    title: "Tester",
-    subtitle: "Ich gebe aktives Feedback",
-    perks: [
-      "Regelmäßige Feedback Runden",
-      "Direkter Kontakt zum Team",
-      "Einfluss auf neue Funktionen",
-    ],
-  },
-  {
-    id: "team",
-    title: "Teammitglied",
-    subtitle: "Ich will mitbauen",
-    perks: [
-      "Aktive Mitgestaltung der Plattform",
-      "Schwerpunkt Marketing oder Entwicklung",
-      "Echte Praxiserfahrung im Projekt",
-    ],
-  },
-];
 
 const trustPartners = [
   "FH Aachen",
@@ -93,30 +17,105 @@ const trustPartners = [
   "K1 Förderung",
 ];
 
-const problemCards = [
+const problemSolutions = [
   {
-    stat: "70%",
-    statLabel: "lernen isoliert für sich, würden aber gerne in Gruppen lernen",
-    title: "Ineffizientes Solo-Pauken",
-    text: "Trotz tausender Kommilitonen kämpfen viele Studierende allein mit demselben Stoff. Passende Lernpartner zu finden scheitert oft an unterschiedlichen Stundenplänen, Hemmschwellen oder mangelnder Vernetzung. Das Resultat: Fehlender Austausch und sinkende Motivation.",
+    num: "01",
+    problem: {
+      stat: "70%",
+      statLabel: "lernen isoliert, würden aber gerne in Gruppen lernen",
+      title: "Ineffizientes Solo-Pauken",
+      text: "Trotz tausender Kommilitonen lernen viele Studierende allein mit demselben Stoff. Passende Lernpartner zu finden scheitert oft an unterschiedlichen Stundenplänen, Hemmschwellen oder fehlender Vernetzung – wertvolle Zeit und Motivation gehen verloren.",
+      details: [
+        "Keine zentrale Plattform zum Finden von Lernpartnern im selben Kurs",
+        "Stundenpläne und Verfügbarkeiten kollidieren ohne Abgleich",
+        "Hemmschwelle, fremde Kommilitonen direkt anzusprechen",
+      ],
+    },
+    solution: {
+      title: "Lernpartner Matching",
+      tagline: "Finde dein Team.",
+      text: "Unser smarter Algorithmus analysiert deinen individuellen Lernstil, deine zeitlichen Verfügbarkeiten sowie konkrete Prüfungsziele. Auf dieser Datenbasis verbinden wir dich passgenau mit Kommilitonen aus deinem Studiengang, um effiziente und harmonische Lerngruppen zu formen. So wird aus einsamem Pauken echter Team-Erfolg.",
+      features: ["Persönliches Matching", "Lerngruppen bis 6 Personen", "Kompatibilitäts-Score"],
+    },
   },
   {
-    stat: "45 Min.",
-    statLabel: "verpuffen oft bei der Platzsuche",
-    title: "Frustrierende Sitzplatzsuche",
-    text: "Gerade in der Klausurenphase platzen Bibliotheken und Lernbereiche aus allen Nähten. Studierende laufen nicht selten ziellos über den Campus, um einen freien Tisch oder Gruppenraum zu ergattern, wertvolle Lernzeit und Energie, die völlig unnötig verloren geht.",
+    num: "02",
+    problem: {
+      stat: "45 Min.",
+      statLabel: "verpuffen oft bei der Platzsuche",
+      title: "Frustrierende Sitzplatzsuche",
+      text: "Gerade in der Klausurenphase platzen Bibliotheken und Lernbereiche aus allen Nähten. Studierende laufen nicht selten ziellos über den Campus, um einen freien Tisch oder Gruppenraum zu ergattern, wertvolle Lernzeit und Energie, die völlig unnötig verloren geht.",
+      details: [
+        "Kein Echtzeit-Überblick über freie Plätze in der Bibliothek",
+        "Gruppenräume sind oft belegt, ohne dass man es vorher weiß",
+        "Stoßzeiten führen zu Frust und Zeitverlust",
+      ],
+    },
+    solution: {
+      title: "Lernplatz Reservierung",
+      tagline: "Reservieren, lernen, fertig.",
+      text: "Unsere Echtzeit-Kapazitätsübersicht zeigt dir sofort, wo in der Bibliothek, in Gruppenräumen oder ruhigen Arbeitsbereichen noch Tische frei sind. Du kannst deinen präferierten Slot verbindlich reservieren und dich per einfachem Check-in vor Ort verifizieren. So startest du stressfrei in deinen Lerntag.",
+      features: ["Aktuelle Verfügbarkeit", "Einfache Buchung", "Check-in System"],
+    },
   },
   {
-    stat: "1 von 3",
-    statLabel: "klagt über hohen mentalen Druck",
-    title: "Unsichtbare Überlastung",
-    text: "Der permanente Leistungsdruck durch eng getaktete Prüfungsphasen führt häufig zu chronischem Stress. Weil dieser Druck im Studienalltag meist im Stillen ertragen wird, kommt rechtzeitige Entlastung oder psychologische Beratung für viele zu spät.",
+    num: "03",
+    problem: {
+      stat: "1 von 3",
+      statLabel: "klagt über hohen mentalen Druck",
+      title: "Unsichtbare Überlastung",
+      text: "Der permanente Leistungsdruck durch eng getaktete Prüfungsphasen führt häufig zu chronischem Stress. Weil dieser Druck im Studienalltag meist im Stillen ertragen wird, kommt rechtzeitige Entlastung oder psychologische Beratung für viele zu spät.",
+      details: [
+        "Mentaler Druck wird oft erst bemerkt, wenn es zu spät ist",
+        "Bestehende Beratungsangebote sind vielen nicht bekannt oder schwer zugänglich",
+        "Studierende scheuen den Schritt, aktiv Hilfe zu suchen",
+      ],
+    },
+    solution: {
+      title: "Mentales Monitoring",
+      tagline: "Wie geht es dir wirklich?",
+      text: "Durch wöchentliche Micro-Check-ins trackst du deine Stimmungsverläufe und dein Stresslevel. Die gewonnenen Einblicke helfen dir, Belastungsspitzen frühzeitig zu erkennen. Bei Bedarf vermittelt die Plattform nahtlos, anonym und unkompliziert den Kontakt zur psychologischen Beratung.",
+      features: ["Anonymes Feedback", "Verlaufsübersicht", "Direkter Kontakt zur Beratung"],
+    },
   },
   {
-    stat: "80%",
-    statLabel: "der Lernzeit ist oft nur passives Lesen",
-    title: "Erdrückende Skript-Berge",
-    text: "Vorlesungsfolien stapeln sich am Semesterende zu unübersichtlichen Textbergen. Studierende verbringen massiv Zeit damit, das Material mühsam händisch zusammenzufassen, anstatt ihr Wissen aktiv zu testen. Es fehlt an Wegen, den Stoff schnell und interaktiv nutzbar zu machen.",
+    num: "04",
+    problem: {
+      stat: "80%",
+      statLabel: "der Lernzeit ist oft nur passives Lesen",
+      title: "Erdrückende Skript-Berge",
+      text: "Vorlesungsfolien stapeln sich am Semesterende zu unübersichtlichen Textbergen. Studierende verbringen massiv Zeit mit mühsamem Zusammenfassen, anstatt ihr Wissen aktiv und interaktiv zu testen.",
+      details: [
+        "Hunderte Folien pro Kurs, keine strukturierte Aufbereitung",
+        "Manuelles Zusammenfassen kostet enorm viel Zeit",
+        "Passives Lesen führt zu schlechter Wissensverankerung",
+      ],
+    },
+    solution: {
+      title: "Adaptive Lernunterstützung",
+      tagline: "Deine Skripte, deine Fragen.",
+      text: "Verwandle passive Skripte in aktive Lernwerkzeuge. Lade Vorlesungsfolien hoch und erhalte in Sekunden präzise Zusammenfassungen, Karteikarten und interaktive Quizze. So testest du dein Wissen direkt am eigenen Stoff und sparst wertvolle Zeit.",
+      features: ["Dokumenten Upload", "Interaktive Quizze", "Quellenbasierte Antworten"],
+    },
+  },
+];
+
+const founders = [
+  {
+    initials: "DR",
+    name: "Darshan Rajeswaran",
+    role: "Product Lead & Operations",
+    areas: ["Strategie", "Finanzen", "Compliance"],
+    quote: "„Kein Studierender sollte das Gefühl haben, auf dem Campus auf sich alleine gestellt zu sein.“",
+    bio: "Durch sein BWL-Studium an der FH Aachen verbindet Darshan wirtschaftliches Know-how und ein ausgeprägtes rechtliches Gespür mit einem klaren Blick für den Studienalltag. Als Projektverantwortlicher steuert er die strategische Ausrichtung, das Partnermanagement sowie das finanzielle Fundament von Project MJ. Mit Blick für regulatorische Anforderungen und klare Strukturen sorgt er dafür, dass aus einer innovativen Vision ein verlässliches, sicher aufgestelltes Werkzeug für Studierende wird.",
+  },
+  {
+    initials: "DM",
+    name: "Dimitri Marcziter",
+    role: "Product Development & Growth",
+    areas: ["Technische Entwicklung", "Community"],
+    quote: "„Wir bauen nicht nur Software – wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
+    bio: "Als BWL-Student verbindet Dimitri technologische Neugier mit einem ausgeprägten Gespür für nutzerzentrierte digitale Lösungen. Bei Project MJ treibt er schwerpunktmäßig die praktische Produktentwicklung und das Prototyping voran. Da er den Campus-Alltag bestens kennt, engagiert er sich zudem im Marketing, um die Plattform direkt bei Studierenden zu etablieren und Feedback unmittelbar in neue Features zu übersetzen.",
   },
 ];
 
@@ -144,156 +143,14 @@ function useScrollReveal() {
   return ref;
 }
 
-function useCountUp(target: number, duration = 1600) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => { if (entries[0].isIntersecting && !started) setStarted(true); },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [started]);
-
-  useEffect(() => {
-    if (!started) return;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [started, target, duration]);
-
-  return { count, ref };
-}
-
 /* ══════════════════════════════════════════════════════════════
-   Mini UI Components
+   Flyer Page
    ══════════════════════════════════════════════════════════════ */
 
-function MiniLernpartner({ accent }: { accent: string }) {
-  const rows = [
-    { initials: "SB", field: "BWL, 5. Sem.", score: "94%" },
-    { initials: "MK", field: "BWL, 5. Sem.", score: "89%" },
-    { initials: "LR", field: "BWL, 4. Sem.", score: "81%" },
-  ];
-  return (
-    <div className="mini-ui flex flex-col gap-0">
-      <div className="flex items-center justify-between pb-2 mb-1" style={{ borderBottom: "1px solid var(--k1-border)" }}>
-        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>Matching</span>
-        <span style={{ fontSize: "0.6rem", color: "var(--k1-muted)" }}>Score</span>
-      </div>
-      {rows.map((row, i) => (
-        <div key={i} className="flex items-center justify-between py-1.5" style={{ borderBottom: i < rows.length - 1 ? "1px solid var(--k1-border)" : "none" }}>
-          <div className="flex items-center gap-2">
-            <div style={{ width: "1.6rem", height: "1.6rem", background: i === 0 ? accent : "transparent", border: `1px solid ${i === 0 ? accent : "var(--k1-border-dark)"}`, borderRadius: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.55rem", fontWeight: 700, color: i === 0 ? "#FFFFFF" : "var(--k1-text)", flexShrink: 0 }}>
-              {row.initials}
-            </div>
-            <span style={{ fontSize: "0.65rem", color: "var(--k1-secondary)" }}>{row.field}</span>
-          </div>
-          <span style={{ fontSize: "0.65rem", fontWeight: 700, color: i === 0 ? accent : "var(--k1-text)" }}>{row.score}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function MiniLernplatz({ accent }: { accent: string }) {
-  const cells = Array.from({ length: 20 });
-  const occupied = [2, 5, 8, 11, 14];
-  const selected = 7;
-  return (
-    <div className="mini-ui flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>Bibliothek · Ebene 2</span>
-        <span style={{ fontSize: "0.6rem", color: accent, fontWeight: 600 }}>12 frei</span>
-      </div>
-      <div className="grid grid-cols-10 gap-0.5">
-        {cells.map((_, i) => (
-          <div key={i} style={{ aspectRatio: "1", background: i === selected ? accent : occupied.includes(i) ? "var(--k1-border-dark)" : "var(--k1-bg)", border: `1px solid ${i === selected ? accent : "var(--k1-border)"}`, borderRadius: "0.15rem" }} />
-        ))}
-      </div>
-      <div className="flex gap-3" style={{ fontSize: "0.55rem", color: "var(--k1-muted)" }}>
-        <span className="flex items-center gap-1"><span style={{ width: "0.5rem", height: "0.5rem", background: accent, display: "inline-block", borderRadius: "0.15rem" }} />Dein Platz</span>
-        <span className="flex items-center gap-1"><span style={{ width: "0.5rem", height: "0.5rem", background: "var(--k1-border-dark)", display: "inline-block", borderRadius: "0.15rem" }} />Belegt</span>
-      </div>
-    </div>
-  );
-}
-
-function MiniMental({ accent }: { accent: string }) {
-  const bars = [35, 50, 45, 65, 75, 60, 82];
-  const days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
-  return (
-    <div className="mini-ui flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>Woche 12 · Stimmung</span>
-        <span style={{ fontSize: "0.6rem", color: accent, fontWeight: 600 }}>+Trend</span>
-      </div>
-      <div className="flex items-end gap-1" style={{ height: "2.75rem", borderBottom: "1px solid var(--k1-border)" }}>
-        {bars.map((h, i) => (
-          <div key={i} className="flex-1 h-full flex flex-col items-center justify-end">
-            <div style={{ width: "100%", height: `${h}%`, background: h > 60 ? accent : "var(--k1-border-dark)", borderRadius: "0.125rem 0.125rem 0 0" }} />
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-1">
-        {days.map((d) => (
-          <div key={d} className="flex-1 text-center" style={{ fontSize: "0.5rem", color: "var(--k1-muted)" }}>{d}</div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MiniLearning({ accent }: { accent: string }) {
-  const items = [
-    { label: "Kapitel 3: Supply-Chain-Mgmt.", sub: "Zusammenfassung · 480 Wörter" },
-    { label: "12 Karteikarten generiert", sub: "Bereit zum Lernen" },
-    { label: "5 Quiz-Fragen bereit", sub: "Difficulty: Mittel" },
-  ];
-  return (
-    <div className="mini-ui flex flex-col gap-0">
-      <div className="flex items-center justify-between pb-2 mb-1" style={{ borderBottom: "1px solid var(--k1-border)" }}>
-        <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--k1-secondary)" }}>KI-Zusammenfassung</span>
-        <span style={{ fontSize: "0.6rem", color: accent, fontWeight: 600 }}>Generiert</span>
-      </div>
-      {items.map((item, i) => (
-        <div key={i} className="flex flex-col py-1.5" style={{ borderBottom: i < items.length - 1 ? "1px solid var(--k1-border)" : "none", paddingLeft: "0.5rem", borderLeft: `2px solid ${i === 0 ? accent : "var(--k1-border)"}` }}>
-          <span style={{ fontSize: "0.62rem", fontWeight: 600, color: "var(--k1-text)" }}>{item.label}</span>
-          <span style={{ fontSize: "0.56rem", color: "var(--k1-muted)", marginTop: "0.1rem" }}>{item.sub}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
-   Main Page
-   ══════════════════════════════════════════════════════════════ */
-
-export default function K1LandingPage() {
-  const [selectedRole, setSelectedRole] = useState<string>("nutzer");
-  const [formState, setFormState] = useState({ name: "", email: "", hochschule: "", motivation: "" });
-  const [submitted, setSubmitted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+export default function FlyerPage() {
   const problemRef = useScrollReveal();
-  const featuresRef = useScrollReveal();
-  const applyRef = useScrollReveal();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const solutionRef = useScrollReveal();
+  const foundersRef = useScrollReveal();
 
   const eyebrow = {
     fontSize: "0.72rem",
@@ -335,8 +192,8 @@ export default function K1LandingPage() {
           <nav className="hidden md:flex items-center gap-10">
             {[
               { label: "Problem", href: "#problem" },
-              { label: "Features", href: "#features" },
-              { label: "Bewerben", href: "#apply" },
+              { label: "Lösung", href: "#solution" },
+              { label: "Team", href: "#team" },
             ].map((link) => (
               <a
                 key={link.href}
@@ -350,23 +207,7 @@ export default function K1LandingPage() {
               </a>
             ))}
           </nav>
-
-          <div className="flex items-center gap-3">
-            <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menü öffnen" style={{ color: "var(--k1-secondary)" }}>
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                {mobileMenuOpen ? <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />}
-              </svg>
-            </button>
-          </div>
         </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden px-6 pb-5 flex flex-col gap-4" style={{ borderTop: "1px solid var(--k1-border)", paddingTop: "1rem", background: "var(--k1-bg)" }}>
-            {[{ label: "Problem", href: "#problem" }, { label: "Features", href: "#features" }, { label: "Bewerben", href: "#apply" }].map((link) => (
-              <a key={link.href} href={link.href} className="text-sm font-medium py-1" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }} onClick={() => setMobileMenuOpen(false)}>{link.label}</a>
-            ))}
-          </div>
-        )}
       </header>
 
       <main>
@@ -374,199 +215,47 @@ export default function K1LandingPage() {
         {/* ══════════════════════════════════════════════════════════
             1. HERO
             ══════════════════════════════════════════════════════════ */}
-        <section className="px-6 lg:px-12 py-10 lg:py-14 overflow-hidden">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            {/* Left — Copy */}
-            <div className="flex flex-col gap-7 py-8 lg:py-12">
-              <div className="flex items-center gap-3 fade-in" style={eyebrow}>
-                <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-border-dark)", display: "inline-block" }} />
-                In Kooperation mit der FH Aachen 2026
-              </div>
-
-              <h1
-                className="text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.08] tracking-tight fade-in fade-in-delay-1"
-                style={{ ...sectionHeading }}
-              >
-                Studieren ist{" "}
-                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>kompliziert genug.</em>
-                <br />
-                Dein System
-                <br />
-                sollte es nicht sein.
-              </h1>
-
-              <p className="text-base lg:text-lg leading-relaxed max-w-md fade-in fade-in-delay-2" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-                Du lernst allein, obwohl hunderte Kommilitonen dasselbe Problem haben.
-                Du suchst einen Lernplatz und findest keinen.{" "}
-                <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project MJ ändert das.</strong>
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 fade-in fade-in-delay-3">
-                <a href="#apply" className="btn-primary px-8 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
-                  Jetzt bewerben &rarr;
-                </a>
-              </div>
-
-
+        <section className="px-6 lg:px-12 py-10 lg:py-16">
+          <div className="max-w-5xl mx-auto text-center flex flex-col items-center gap-5">
+            <div className="flex items-center gap-3 fade-in" style={eyebrow}>
+              <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-border-dark)", display: "inline-block" }} />
+              In Kooperation mit der FH Aachen 2026
+              <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-border-dark)", display: "inline-block" }} />
             </div>
 
-            {/* Right — App Preview 3-Column Dashboard */}
-            <div className="w-full fade-in fade-in-delay-2 self-start relative">
-              {/* Fade out gradients for seamless transition on smaller screens if it gets too tight, though scaling is better */}
-              <div
-                style={{
-                  width: "100%",
-                  background: "var(--k1-bg)",
-                  borderRadius: "1.25rem",
-                  boxShadow: "0 20px 40px -10px rgba(0,0,0,0.08)",
-                  border: "1px solid var(--k1-border)",
-                  fontFamily: "var(--font-body)",
-                  overflow: "hidden",
-                }}
-              >
-                {/* macOS top bar */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1rem", background: "var(--k1-bg-alt)", borderBottom: "1px solid var(--k1-border)" }}>
-                  <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#EC6A5E" }} />
-                  <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#F4BE4F" }} />
-                  <div style={{ width: "0.72rem", height: "0.72rem", borderRadius: "50%", background: "#61C554" }} />
-                  <span style={{ fontSize: "0.65rem", color: "#999", marginLeft: "0.75rem", fontWeight: 500 }}>app.myjourney.de</span>
-                </div>
+            <h1
+              className="text-4xl sm:text-5xl lg:text-[4rem] leading-[1.08] tracking-tight fade-in fade-in-delay-1"
+              style={{ ...sectionHeading }}
+            >
+              Studieren ist{" "}
+              <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>kompliziert genug.</em>
+              <br />
+              Dein System sollte es nicht sein.
+            </h1>
 
-                {/* 3-col dashboard */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", background: "#FFFFFF", minHeight: "340px", fontSize: "0.68rem" }}>
+            <p className="text-base lg:text-lg leading-relaxed max-w-2xl fade-in fade-in-delay-2" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+              Du lernst allein, obwohl hunderte Kommilitonen dasselbe Problem haben.
+              Du suchst einen Lernplatz und findest keinen.
+              Du bist gestresst, aber weißt nicht, wohin damit.{" "}
+              <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>Project MJ ist die Antwort.</strong>
+            </p>
 
-                  {/* ── Sidebar ── */}
-                  <div style={{ background: "#F4F2EC", borderRight: "1px solid #E6E2DB", padding: "1rem 0.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                    {/* Logo */}
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.3rem", paddingBottom: "0.75rem", borderBottom: "1px solid #E0DCD5" }}>
-                      <div style={{ width: "2.2rem", height: "2.2rem", background: "#ECEAE5", border: "1px solid #DDD9D3", borderRadius: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", color: "#6F9E7C", fontWeight: 700 }}>MJ</div>
-                      <span style={{ fontSize: "0.55rem", color: "#999", fontWeight: 600, letterSpacing: "0.05em" }}>MyJourney</span>
-                    </div>
-
-                    {/* Nav label */}
-                    <div>
-                      <p style={{ fontSize: "0.58rem", fontWeight: 700, color: "#AAA", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Meine Projekte</p>
-                      {/* Active item */}
-                      <div style={{ background: "#D9E9DC", borderRadius: "0.5rem", padding: "0.5rem 0.6rem", marginBottom: "0.25rem" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.25rem" }}>
-                          <span style={{ fontSize: "0.6rem" }}>🎓</span>
-                          <span style={{ fontWeight: 700, color: "#3D7A56", fontSize: "0.68rem" }}>Psychologie</span>
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem", paddingLeft: "1rem" }}>
-                          <span style={{ color: "#5A8A6A", fontSize: "0.58rem" }}>↑ 75% Mastery</span>
-                          <span style={{ color: "#5A8A6A", fontSize: "0.58rem" }}>⏱ 12h diese Woche</span>
-                          <span style={{ color: "#5A8A6A", fontSize: "0.58rem" }}>🔥 14 Tage Streak</span>
-                        </div>
-                      </div>
-                      {/* Other items */}
-                      {["📊 Makroökonomie", "🔬 Biologie 101"].map(label => (
-                        <div key={label} style={{ padding: "0.4rem 0.6rem", color: "#666", borderRadius: "0.4rem", fontSize: "0.65rem", cursor: "pointer" }}>{label}</div>
-                      ))}
-                      {/* Add project */}
-                      <div style={{ marginTop: "0.5rem", border: "1.5px dashed #C8C3BC", borderRadius: "0.5rem", padding: "0.5rem 0.6rem", color: "#AAA", fontSize: "0.6rem", textAlign: "center", cursor: "pointer" }}>
-                        + Projekt hinzufügen
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ── Main Content ── */}
-                  <div style={{ padding: "1rem 1.1rem", display: "flex", flexDirection: "column", gap: "0.75rem", borderRight: "1px solid #E6E2DB" }}>
-                    {/* Page heading + search row */}
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <h4 style={{ fontSize: "1.05rem", fontWeight: 800, fontFamily: "var(--font-display), Georgia, serif", margin: 0 }}>Psychologie</h4>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", background: "#F4F2EC", border: "1px solid #E0DCD5", borderRadius: "0.5rem", padding: "0.25rem 0.5rem" }}>
-                        <span style={{ fontSize: "0.6rem", color: "#AAA" }}>🔍</span>
-                        <span style={{ fontSize: "0.6rem", color: "#BBB" }}>Suche...</span>
-                      </div>
-                    </div>
-
-                    {/* Quote */}
-                    <div style={{ background: "#F4F2EC", border: "1px solid #E0DCD5", borderRadius: "0.5rem", padding: "0.5rem 0.65rem", display: "flex", gap: "0.4rem" }}>
-                      <span style={{ color: "#6F9E7C", fontSize: "0.9rem", lineHeight: 1, flexShrink: 0 }}>"</span>
-                      <div>
-                        <p style={{ fontSize: "0.58rem", lineHeight: 1.5, color: "#555", margin: 0 }}>
-                          Lernen ist wie Rudern gegen den Strom. Hört man auf, treibt man zurück.
-                        </p>
-                        <span style={{ fontSize: "0.55rem", color: "#999", fontStyle: "italic" }}>- Laotse</span>
-                      </div>
-                    </div>
-
-                    {/* Tabs */}
-                    <div style={{ display: "flex", gap: "0", borderBottom: "1px solid #E6E2DB" }}>
-                      {["Flashcards", "Quiz", "Mock Exams", "Quellen"].map((tab, i) => (
-                        <span key={tab} style={{ padding: "0.3rem 0.6rem", fontSize: "0.6rem", fontWeight: i === 0 ? 700 : 400, color: i === 0 ? "#2B2B2B" : "#999", borderBottom: i === 0 ? "2px solid #2B2B2B" : "2px solid transparent", cursor: "pointer", marginBottom: "-1px" }}>{tab}</span>
-                      ))}
-                    </div>
-
-                    {/* Flashcard items grid */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
-                      {[
-                        { title: "Grundlagen der klinischen Psychologie", time: "Vor 2 Stunden", progress: 45, total: 100 },
-                        { title: "Entwicklungspsychologie I", time: "Gestern", progress: 12, total: 100 },
-                      ].map(card => (
-                        <div key={card.title} style={{ border: "1px solid #E6E2DB", borderRadius: "0.6rem", padding: "0.65rem 0.7rem", display: "flex", flexDirection: "column", gap: "0.35rem", background: "#FFF" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                            <span style={{ fontSize: "0.65rem", fontWeight: 700, lineHeight: 1.3, color: "#2B2B2B" }}>{card.title}</span>
-                            <span style={{ fontSize: "0.75rem", color: "#CCC", flexShrink: 0, marginLeft: "0.3rem" }}>⋮</span>
-                          </div>
-                          <span style={{ fontSize: "0.55rem", color: "#AAA" }}>Zuletzt bearbeitet: {card.time}</span>
-                          <div style={{ height: "3px", background: "#ECEAE5", borderRadius: "2px", overflow: "hidden" }}>
-                            <div style={{ height: "100%", width: `${(card.progress / card.total) * 100}%`, background: "#6F9E7C", borderRadius: "2px" }} />
-                          </div>
-                          <span style={{ fontSize: "0.58rem", fontWeight: 700, color: "#555" }}>{card.progress}/{card.total} Karten gelernt</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* New set button */}
-                    <div style={{ border: "1.5px dashed #C8C3BC", borderRadius: "0.6rem", padding: "0.6rem", textAlign: "center", cursor: "pointer", color: "#AAA", fontSize: "0.62rem" }}>
-                      <div style={{ fontSize: "1rem", lineHeight: 1 }}>⊕</div>
-                      <div style={{ marginTop: "0.2rem" }}>Neues Set erstellen</div>
-                    </div>
-                  </div>
-
-                  {/* ── Tutor Chat ── */}
-                  <div style={{ display: "flex", flexDirection: "column", padding: "1rem 0.75rem", gap: "0.6rem" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", paddingBottom: "0.5rem", borderBottom: "1px solid #E6E2DB" }}>
-                      <div style={{ width: "1.1rem", height: "1.1rem", background: "#ECEAE5", border: "1px solid #DDD9D3", borderRadius: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.5rem" }}>💬</div>
-                      <span style={{ fontWeight: 700, fontSize: "0.7rem", color: "#2B2B2B" }}>Tutor MJ</span>
-                    </div>
-
-                    {/* Suggestion bubble */}
-                    <div style={{ background: "#F4F2EC", borderRadius: "0.5rem", padding: "0.5rem 0.65rem", fontSize: "0.6rem", color: "#555", lineHeight: 1.5 }}>
-                      Schwierigkeiten bei &apos;Zellteilung&apos;? Sollen wir das Thema kurz wiederholen?
-                      <div style={{ display: "flex", gap: "0.35rem", marginTop: "0.4rem" }}>
-                        <button style={{ flex: 1, padding: "0.25rem", background: "#D9E9DC", border: "none", borderRadius: "0.35rem", fontSize: "0.58rem", color: "#3D7A56", fontWeight: 700, cursor: "pointer" }}>Starten</button>
-                        <button style={{ flex: 1, padding: "0.25rem", background: "#ECEAE5", border: "1px solid #E0DCD5", borderRadius: "0.35rem", fontSize: "0.58rem", color: "#666", cursor: "pointer" }}>Später</button>
-                      </div>
-                    </div>
-
-                    {/* Chat message */}
-                    <div style={{ background: "#FAFAFA", border: "1px solid #E6E2DB", borderRadius: "0.5rem", padding: "0.5rem 0.65rem", fontSize: "0.6rem", color: "#444", lineHeight: 1.5, flexGrow: 1 }}>
-                      Hallo! Wie kann ich dir heute helfen?
-                    </div>
-
-                    {/* Input */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", border: "1px solid #E0DCD5", borderRadius: "0.5rem", padding: "0.35rem 0.5rem", background: "#FFF" }}>
-                      <span style={{ flex: 1, fontSize: "0.58rem", color: "#BBB" }}>Frage...</span>
-                      <div style={{ width: "1.3rem", height: "1.3rem", background: "#6F9E7C", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: "white", fontSize: "0.55rem" }}>▶</span>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+            <div className="flex flex-wrap justify-center gap-4 fade-in fade-in-delay-3">
+              <a href="#problem" className="btn-primary px-8 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
+                Das Problem verstehen &darr;
+              </a>
+              <a href="#solution" className="btn-secondary px-8 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
+                Unsere Lösung &rarr;
+              </a>
             </div>
           </div>
         </section>
 
 
         {/* ── Trust Marquee ─────────────────────────────────────── */}
-        <section className="py-10 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
+        <section className="py-6 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
           <div className="max-w-5xl mx-auto">
-            <p className="text-center mb-6" style={eyebrow}>Vernetzt &amp; validiert mit</p>
+            <p className="text-center mb-4" style={eyebrow}>Vernetzt &amp; validiert mit</p>
             <div className="overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
               <div className="marquee-track gap-2.5 py-1">
                 {[...trustPartners, ...trustPartners].map((inst, i) => (
@@ -594,291 +283,290 @@ export default function K1LandingPage() {
 
 
         {/* ══════════════════════════════════════════════════════════
-            2. PROBLEM — Normed heights (Screenshot 2)
+            2. DAS PROBLEM — Deep Dive
             ══════════════════════════════════════════════════════════ */}
-        <section id="problem" className="py-24 px-6 lg:px-12" ref={problemRef}>
-          <div
-            className="max-w-6xl mx-auto"
-            style={{
-              background: "var(--k1-bg-warm)",
-              borderRadius: "1.25rem",
-              padding: "3rem 3.5rem",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-            }}
-          >
-            <div className="grid lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20">
-              {/* Left header */}
-              <div className="flex flex-col justify-start pt-1">
-                <p className="reveal mb-5" style={eyebrow}>Das Problem</p>
-                <h2 className="reveal reveal-delay-1 mb-6" style={{ ...sectionHeading, fontSize: "clamp(1.8rem, 3vw, 2.5rem)" }}>
-                  Klingt{" "}
-                  <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>bekannt?</em>
-                </h2>
-                <p className="reveal reveal-delay-2 text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-                  Der Studienalltag bringt oft organisatorische Herausforderungen mit sich, die neben den Vorlesungen bewältigt werden müssen.
-                </p>
-              </div>
+        <section id="problem" className="py-14 px-6 lg:px-12" ref={problemRef}>
+          <div className="max-w-[1440px] mx-auto">
 
-              {/* Right — stacked rows with aligned heights */}
-              <div className="flex flex-col gap-0">
-                {problemCards.map((problem, i) => (
-                  <div
-                    key={problem.title}
-                    className={`reveal reveal-delay-${i + 1} flex gap-7 py-7 items-stretch`}
-                    style={{ borderBottom: i < problemCards.length - 1 ? "1px solid var(--k1-border-dark)" : "none" }}
-                  >
-                    {/* Unified stat block height */}
-                    {/* Expanded stat column width (w-44) and whitespace-nowrap to prevent line breaks */}
-                    <div className="flex flex-col justify-start w-44 shrink-0 whitespace-nowrap">
-                      <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontSize: "2.4rem", fontWeight: 700, lineHeight: 1, color: "var(--k1-accent)" }}>
-                        {problem.stat}
-                      </span>
-                      <span style={{ fontSize: "0.68rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", marginTop: "0.4rem", lineHeight: 1.3, whiteSpace: "normal" }}>
-                        {problem.statLabel}
-                      </span>
-                    </div>
+            {/* Section header */}
+            <div className="text-center mb-10">
+              <p className="reveal mb-3" style={eyebrow}>Das Problem</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
+                Der Studienalltag hat{" "}
+                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Systemlücken.</em>
+              </h2>
+              <p className="reveal reveal-delay-2 text-base lg:text-lg leading-relaxed max-w-3xl mx-auto" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                Es sind nicht die Vorlesungen, die Studierende an ihre Grenzen bringen, sondern alles drumherum: fehlende Vernetzung, verlorene Lernzeit, unsichtbarer Druck und ineffiziente Vorbereitung. Vier Kernprobleme, die nahezu jeder Studierende kennt.
+              </p>
+            </div>
 
-                    {/* Content block — aligned to start, header on same line height */}
-                    <div className="flex-1 flex flex-col justify-start pt-1">
-                      <h3 className="text-base font-semibold mb-1.5" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)", lineHeight: 1.2 }}>{problem.title}</h3>
-                      <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>{problem.text}</p>
-                    </div>
+            {/* Problem cards — 4 side-by-side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 items-stretch">
+              {problemSolutions.map((item, i) => (
+                <div
+                  key={item.num}
+                  className={`reveal reveal-delay-${i + 1}`}
+                  style={{
+                    background: "var(--k1-bg-warm)",
+                    borderRadius: "1.25rem",
+                    padding: "1.25rem 1.25rem",
+                    boxShadow: "var(--shadow-card)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.85rem",
+                    height: "100%",
+                  }}
+                >
+                  {/* Stat */}
+                  <div className="flex flex-col gap-1">
+                    <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontSize: "2.3rem", fontWeight: 700, lineHeight: 1, color: "var(--k1-accent)" }}>
+                      {item.problem.stat}
+                    </span>
+                    <span style={{ fontSize: "0.72rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.3 }}>
+                      {item.problem.statLabel}
+                    </span>
                   </div>
-                ))}
-              </div>
+
+                  {/* Title & description */}
+                  <div>
+                    <h3 className="text-base font-bold mb-1.5" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
+                      {item.problem.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                      {item.problem.text}
+                    </p>
+                  </div>
+
+                  {/* Concrete pain points */}
+                  <div className="mt-auto" style={{ borderTop: "1px solid var(--k1-border)", paddingTop: "0.75rem" }}>
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Konkret bedeutet das:</p>
+                    <ul className="flex flex-col gap-1.5">
+                      {item.problem.details.map((detail) => (
+                        <li key={detail} className="flex items-start gap-2 text-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.35 }}>
+                          <span style={{ color: "#C05A4A", fontSize: "0.6rem", marginTop: "0.15rem", flexShrink: 0, fontWeight: 700 }}>✕</span>
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
 
         {/* ══════════════════════════════════════════════════════════
-            3. FEATURES — Normed heading heights to keep grids aligned
+            3. DIE LÖSUNG — MJs 4 Module
             ══════════════════════════════════════════════════════════ */}
-        <section id="features" className="py-24 px-6 lg:px-12" ref={featuresRef}>
+        <section id="solution" className="py-14 px-6 lg:px-12" ref={solutionRef}>
           <div className="max-w-6xl mx-auto">
-            <div className="mb-12">
-              <p className="reveal mb-5" style={eyebrow}>Die 4 Module</p>
-              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl" style={{ ...sectionHeading }}>Was MJ kann.</h2>
+
+            {/* Section header */}
+            <div className="text-center mb-10">
+              <p className="reveal mb-3" style={eyebrow}>Die Lösung</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
+                So löst{" "}
+                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Project MJ</em>{" "}
+                das.
+              </h2>
+              <p className="reveal reveal-delay-2 text-base lg:text-lg leading-relaxed max-w-3xl mx-auto" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                Für jedes der vier Kernprobleme haben wir ein dediziertes Modul entwickelt. Zusammen bilden sie ein Ökosystem, das den gesamten Lernalltag an der Hochschule spürbar verbessert.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {modules.map((mod, i) => {
-                const MiniUIs: Record<string, React.FC<{ accent: string }>> = {
-                  lernpartner: MiniLernpartner,
-                  lernplatz: MiniLernplatz,
-                  mental: MiniMental,
-                  learning: MiniLearning,
-                };
-                const MiniUI = MiniUIs[mod.id];
-
-                return (
+            {/* Solution cards — 2 in einer Reihe (2x2 Grid) with identical proportions */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              {problemSolutions.map((item, i) => (
+                <div
+                  key={item.num}
+                  className={`reveal reveal-delay-${(i % 4) + 1} flex flex-col h-full`}
+                  style={{
+                    background: "var(--k1-bg-alt)",
+                    borderRadius: "1.25rem",
+                    boxShadow: "var(--shadow-card)",
+                    overflow: "hidden",
+                    borderLeft: "4px solid var(--k1-accent)",
+                  }}
+                >
+                  {/* Problem Recap (Beige Portion — Identical Height) */}
                   <div
-                    key={mod.id}
-                    className={`reveal reveal-delay-${i + 1} flex flex-col gap-5 p-8`}
-                    style={{
-                      background: "var(--k1-bg-alt)",
-                      borderRadius: "1rem",
-                      borderTop: `3px solid ${mod.color}`,
-                      boxShadow: "var(--shadow-card)",
-                      transition: "box-shadow 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-hover)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-card)")}
+                    className="p-5 flex flex-col gap-2 min-h-[9rem] justify-start"
+                    style={{ background: "var(--k1-bg-warm)", borderBottom: "1px solid var(--k1-border)" }}
                   >
-                    <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: mod.color, fontFamily: "var(--font-body)" }}>
-                      {mod.num}
-                    </span>
+                    <div className="flex items-center justify-between gap-2 shrink-0">
+                      <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#C05A4A", fontFamily: "var(--font-body)" }}>
+                        Problem {item.num} · {item.problem.title}
+                      </span>
+                      <span style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "#C05A4A" }}>
+                        {item.problem.stat}
+                      </span>
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                      {item.problem.text}
+                    </p>
+                  </div>
 
-                    {/* Aligned Heading Block to norm module descriptions heights */}
-                    <div className="min-h-[3.8rem] flex flex-col justify-start">
-                      <p style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.07em", textTransform: "uppercase", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", marginBottom: "0.3rem" }}>{mod.tagline}</p>
-                      <h3 style={{ fontSize: "1.2rem", fontWeight: 700, lineHeight: 1.2, color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>{mod.title}</h3>
+                  {/* The Solution (White Portion — Identical Height & Structure) */}
+                  <div className="p-5 sm:p-6 flex flex-col gap-3 flex-1 justify-between">
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
+                          Lösung {item.num}
+                        </span>
+                        <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-accent)", display: "inline-block" }} />
+                        <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
+                          {item.solution.tagline}
+                        </span>
+                      </div>
+
+                      <h3 className="text-lg font-bold" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>
+                        {item.solution.title}
+                      </h3>
+
+                      <p className="text-xs leading-relaxed min-h-[4.2rem]" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                        {item.solution.text}
+                      </p>
                     </div>
 
-                    <p className="text-sm leading-relaxed min-h-[3.2rem]" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>{mod.desc}</p>
-
-                    {MiniUI && <MiniUI accent={mod.color} />}
-
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {mod.highlights.map((h) => (
+                    <div className="flex flex-wrap gap-2 pt-3" style={{ borderTop: "1px solid var(--k1-border)" }}>
+                      {item.solution.features.map((f) => (
                         <span
-                          key={h}
-                          style={{ fontSize: "0.72rem", fontWeight: 500, padding: "0.25rem 0.75rem", color: mod.color, fontFamily: "var(--font-body)", background: mod.colorLight, borderRadius: "9999px" }}
+                          key={f}
+                          style={{
+                            fontSize: "0.7rem",
+                            fontWeight: 500,
+                            padding: "0.25rem 0.75rem",
+                            color: "var(--k1-accent)",
+                            fontFamily: "var(--font-body)",
+                            background: "#D9E9DC",
+                            borderRadius: "9999px",
+                          }}
                         >
-                          {h}
+                          {f}
                         </span>
                       ))}
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
 
         {/* ══════════════════════════════════════════════════════════
-            4. APPLY — Screenshot 1 visual upgrade
+            4. FOUNDERS
             ══════════════════════════════════════════════════════════ */}
-        <section id="apply" className="py-20 px-6 lg:px-12" ref={applyRef}>
-          <div
-            className="max-w-4xl mx-auto py-16 px-8 sm:px-12"
-            style={{
-              background: "var(--k1-bg-warm)",
-              borderRadius: "1.5rem",
-              boxShadow: "0 8px 30px rgba(0,0,0,0.05)",
-              border: "1px solid var(--k1-border)"
-            }}
-          >
-            {/* Reduced spacing, description text removed */}
-            <div className="mb-10">
-              <p className="reveal mb-4" style={eyebrow}>Jetzt bewerben</p>
-              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl" style={{ ...sectionHeading }}>Werde Teil von MyJourney.</h2>
+        <section id="team" className="py-14 px-6 lg:px-12" ref={foundersRef}>
+          <div className="max-w-5xl mx-auto">
+
+            {/* Section header */}
+            <div className="text-center mb-10">
+              <p className="reveal mb-3" style={eyebrow}>Das Team</p>
+              <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
+                Die{" "}
+                <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Köpfe</em>{" "}
+                hinter MyJourney.
+              </h2>
+              <p className="reveal reveal-delay-2 text-base leading-relaxed max-w-2xl mx-auto" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                Project MJ wird von zwei Studierenden der FH Aachen aufgebaut, die selbst täglich erleben, welche Herausforderungen der Campus-Alltag mit sich bringt.
+              </p>
             </div>
 
-            {!submitted ? (
-              <form onSubmit={handleSubmit} className="reveal reveal-delay-2 flex flex-col gap-8">
+            {/* Founder cards */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {founders.map((founder, i) => (
+                <div
+                  key={founder.initials}
+                  className={`reveal reveal-delay-${i + 1}`}
+                  style={{
+                    background: "var(--k1-bg-alt)",
+                    borderRadius: "1.25rem",
+                    padding: "1.75rem",
+                    boxShadow: "var(--shadow-card)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                    transition: "box-shadow 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-card)")}
+                >
+                  {/* Avatar & name */}
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="flex items-center justify-center shrink-0"
+                      style={{
+                        width: "3.5rem",
+                        height: "3.5rem",
+                        background: "var(--k1-accent)",
+                        color: "#FFFFFF",
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 700,
+                        fontSize: "1.1rem",
+                        borderRadius: "0.75rem",
+                      }}
+                    >
+                      {founder.initials}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)", lineHeight: 1.2 }}>
+                        {founder.name}
+                      </h3>
+                      <p className="text-sm font-semibold" style={{ color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
+                        {founder.role}
+                      </p>
+                    </div>
+                  </div>
 
-                {/* Role selector */}
-                <div>
-                  <label className="block text-sm font-medium mb-4" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
-                    Ich möchte mich bewerben als …
-                  </label>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {roles.map((role) => (
-                      <button
-                        key={role.id}
-                        type="button"
-                        id={`role-${role.id}`}
-                        onClick={() => setSelectedRole(role.id)}
-                        className={`role-card ${selectedRole === role.id ? "selected" : ""}`}
-                        style={{ padding: "1.5rem", display: "flex", flexDirection: "column", height: "100%" }}
+                  {/* Quote */}
+                  <blockquote className="text-xs italic leading-relaxed px-3 py-2" style={{ color: "var(--k1-accent)", background: "var(--k1-bg)", borderRadius: "0.5rem", borderLeft: "3px solid var(--k1-accent)", fontFamily: "var(--font-body)" }}>
+                    {founder.quote}
+                  </blockquote>
+
+                  {/* Bio */}
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                    {founder.bio}
+                  </p>
+
+                  {/* Area tags */}
+                  <div className="flex flex-wrap gap-2 mt-auto pt-3" style={{ borderTop: "1px solid var(--k1-border)" }}>
+                    {founder.areas.map((area) => (
+                      <span
+                        key={area}
+                        style={{
+                          fontSize: "0.72rem",
+                          fontWeight: 500,
+                          padding: "0.3rem 0.85rem",
+                          color: "var(--k1-secondary)",
+                          fontFamily: "var(--font-body)",
+                          background: "var(--k1-bg)",
+                          border: "1px solid var(--k1-border)",
+                          borderRadius: "9999px",
+                        }}
                       >
-                        {/* Title & subtitle aligned */}
-                        <div className="min-h-[3rem] flex flex-col justify-start">
-                          <p style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--k1-text)", fontFamily: "var(--font-body)", marginBottom: "0.15rem" }}>
-                            {role.title}
-                          </p>
-                          <p style={{ fontSize: "0.72rem", color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-                            {role.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Divider */}
-                        <div className="w-full h-px my-4" style={{ background: "var(--k1-border)", opacity: 0.8 }} />
-
-                        <ul className="flex flex-col gap-1.5 flex-1">
-                          {role.perks.map((perk) => (
-                            <li key={perk} className="flex items-start gap-2" style={{ fontSize: "0.78rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.35 }}>
-                              <span style={{ color: "var(--k1-accent)", fontWeight: 700, flexShrink: 0, marginTop: "0.1rem", fontSize: "0.65rem" }}>&#10003;</span>
-                              {perk}
-                            </li>
-                          ))}
-                        </ul>
-                      </button>
+                        {area}
+                      </span>
                     ))}
                   </div>
                 </div>
-
-                {/* Form fields */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Name</label>
-                    <input id="name" type="text" required placeholder="Max Mustermann" value={formState.name} onChange={(e) => setFormState((prev) => ({ ...prev, name: e.target.value }))} className="k1-input" />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>E-Mail</label>
-                    <input id="email" type="email" required placeholder="max@uni.de" value={formState.email} onChange={(e) => setFormState((prev) => ({ ...prev, email: e.target.value }))} className="k1-input" />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label htmlFor="hochschule" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Hochschule</label>
-                    <input id="hochschule" type="text" required placeholder="z.B. TU Berlin, LMU München …" value={formState.hochschule} onChange={(e) => setFormState((prev) => ({ ...prev, hochschule: e.target.value }))} className="k1-input" />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label htmlFor="motivation" className="block text-sm font-medium mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
-                      Motivation
-                    </label>
-                    <textarea id="motivation" required placeholder="Warum willst du dabei sein? Was nervt dich am Campus-Studium?" rows={3} value={formState.motivation} onChange={(e) => setFormState((prev) => ({ ...prev, motivation: e.target.value }))} className="k1-textarea" />
-                  </div>
-                </div>
-
-                {/* Submit */}
-                <div className="flex flex-col items-start gap-3">
-                  <button type="submit" id="submit-application" className="btn-primary px-10 py-3.5 text-sm" style={{ fontFamily: "var(--font-body)" }}>
-                    Bewerbung absenden &rarr;
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <div
-                className="p-12 text-center"
-                style={{
-                  border: "1px solid var(--k1-accent)",
-                  background: "var(--k1-accent-light)",
-                  borderRadius: "1rem",
-                  boxShadow: "0 4px 24px rgba(111,158,124,0.18)",
-                }}
-              >
-                <div
-                  className="w-14 h-14 flex items-center justify-center mx-auto mb-6"
-                  style={{ background: "var(--k1-bg-alt)", borderRadius: "0.875rem", boxShadow: "var(--shadow-card)" }}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--k1-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>Bewerbung eingegangen!</h3>
-                <p className="text-base" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-                  Danke, <strong style={{ color: "var(--k1-text)", fontWeight: 600 }}>{formState.name}</strong>!
-                  Wir melden uns innerhalb von 48 Stunden bei{" "}
-                  <strong style={{ color: "var(--k1-accent)", fontWeight: 600 }}>{formState.email}</strong>.
-                </p>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </section>
+
       </main>
 
 
       {/* ══════════════════════════════════════════════════════════
           FOOTER
           ══════════════════════════════════════════════════════════ */}
-      <footer className="py-14 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="md:col-span-2 flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-9 h-9 font-bold text-sm" style={{ background: "var(--k1-accent)", color: "#FFFFFF", fontFamily: "var(--font-display)", borderRadius: "0.5rem" }}>MJ</div>
-              <span className="font-semibold text-base tracking-tight" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>Project MJ</span>
-            </div>
-            <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-              Project MJ ist eine Hochschul-Pilotversion und Teil des MyJourney-Ökosystems. Gefördert durch das K1-Programm der FH Aachen.
-            </p>
-            <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Built on Campus.</p>
-          </div>
-
-          <div>
-            <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Module</h5>
-            <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Lernpartner Matching", "Lernplatz Reservierung", "Mentales Monitoring", "Unterstützung beim Lernen"].map((m) => (
-                <li key={m}>{m}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>Legal</h5>
-            <ul className="flex flex-col gap-3 text-sm" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-              {["Impressum", "Datenschutz", "AGB", "Kontakt"].map((l) => (
-                <li key={l} className="cursor-pointer" onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-muted)")}>{l}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid var(--k1-border)" }}>
-          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2025 MyJourney / Project MJ. Alle Rechte vorbehalten.</p>
+      <footer className="py-8 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>&copy; 2026 MyJourney / Project MJ. Alle Rechte vorbehalten.</p>
           <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-            Pilotprojekt · Exklusive Rechte &amp; Markenidentität verbleiben bei MyJourney.
+            In Kooperation mit der FH Aachen · Gefördert durch das K1-Programm
           </p>
         </div>
       </footer>
