@@ -104,18 +104,18 @@ const founders = [
   {
     initials: "DR",
     name: "Darshan Rajeswaran",
-    role: "Projektverantwortlicher · Studierender",
-    areas: ["Strategie"],
+    role: "Product Lead & Operations",
+    areas: ["Strategie", "Finanzen", "Compliance"],
     quote: "„Kein Studierender sollte das Gefühl haben, auf dem Campus auf sich alleine gestellt zu sein.“",
-    bio: "Als aktiver Studierender an der FH Aachen weiß Darshan aus eigener Erfahrung, wie schnell man im dichten Uni-Alltag den Anschluss verlieren kann. Aus dieser persönlichen Betroffenheit heraus brennt er dafür, seinen Mitstudierenden Rückhalt zu geben. Mit Herzblut und Weitblick kümmert er sich um Finanzen, rechtliche Sicherheit und die Vision hinter Project MJ, damit der Campus wieder ein Ort des Miteinanders wird.",
+    bio: "Durch sein BWL-Studium an der FH Aachen verbindet Darshan wirtschaftliches Know-how und ein ausgeprägtes rechtliches Gespür mit einem klaren Blick für den Studienalltag. Als Projektverantwortlicher steuert er die strategische Ausrichtung, das Partnermanagement sowie das finanzielle Fundament von Project MJ. Mit Blick für regulatorische Anforderungen und klare Strukturen sorgt er dafür, dass aus einer innovativen Vision ein verlässliches, sicher aufgestelltes Werkzeug für Studierende wird.",
   },
   {
     initials: "DM",
     name: "Dimitri Marcziter",
-    role: "Technical Lead · Studierender",
-    areas: ["Technische Entwicklung", "Marketing"],
+    role: "Product Development & Growth",
+    areas: ["Technische Entwicklung", "Community"],
     quote: "„Wir bauen nicht nur Software – wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
-    bio: "Als ehemaliger Wirtschaftsinformatik-Studierender und jetziger BWL-Student verbindet Dimitri technologisches Know-how mit wirtschaftlichem Verständnis. Als Technical Lead verantwortet er primär die technische Entwicklung von Project MJ. Da er den Campus-Alltag selbst bestens kennt, bringt er sich genauso im Marketing ein, um die Plattform bei Studierenden bekannt zu machen und Feedback direkt aus der Praxis aufzunehmen.",
+    bio: "Als BWL-Student verbindet Dimitri technologische Neugier mit einem ausgeprägten Gespür für nutzerzentrierte digitale Lösungen. Bei Project MJ treibt er schwerpunktmäßig die praktische Produktentwicklung und das Prototyping voran. Da er den Campus-Alltag bestens kennt, engagiert er sich zudem im Marketing, um die Plattform direkt bei Studierenden zu etablieren und Feedback unmittelbar in neue Features zu übersetzen.",
   },
 ];
 
@@ -464,7 +464,7 @@ export default function FlyerPage() {
               <h2 className="reveal reveal-delay-1 text-3xl lg:text-5xl mb-4" style={{ ...sectionHeading }}>
                 Die{" "}
                 <em style={{ fontStyle: "italic", color: "var(--k1-accent)" }}>Köpfe</em>{" "}
-                hinter Project MJ.
+                hinter MyJourney.
               </h2>
               <p className="reveal reveal-delay-2 text-base leading-relaxed max-w-2xl mx-auto" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
                 Project MJ wird von zwei Studierenden der FH Aachen aufgebaut, die selbst täglich erleben, welche Herausforderungen der Campus-Alltag mit sich bringt.
