@@ -24,7 +24,7 @@ const problemSolutions = [
       stat: "70%",
       statLabel: "lernen isoliert, würden aber gerne in Gruppen lernen",
       title: "Ineffizientes Solo-Pauken",
-      text: "Trotz tausender Kommilitonen kämpfen viele Studierende allein mit demselben Stoff. Passende Lernpartner zu finden scheitert oft an unterschiedlichen Stundenplänen, Hemmschwellen oder mangelnder Vernetzung. Das Resultat: Fehlender Austausch, sinkende Motivation und unnötig hoher Zeitaufwand beim Durcharbeiten komplexer Themengebiete.",
+      text: "Trotz tausender Kommilitonen lernen viele Studierende allein mit demselben Stoff. Passende Lernpartner zu finden scheitert oft an unterschiedlichen Stundenplänen, Hemmschwellen oder fehlender Vernetzung – wertvolle Zeit und Motivation gehen verloren.",
       details: [
         "Keine zentrale Plattform zum Finden von Lernpartnern im selben Kurs",
         "Stundenpläne und Verfügbarkeiten kollidieren ohne Abgleich",
@@ -84,7 +84,7 @@ const problemSolutions = [
       stat: "80%",
       statLabel: "der Lernzeit ist oft nur passives Lesen",
       title: "Erdrückende Skript-Berge",
-      text: "Vorlesungsfolien stapeln sich am Semesterende zu unübersichtlichen Textbergen. Studierende verbringen massiv Zeit damit, das Material mühsam händisch zusammenzufassen, anstatt ihr Wissen aktiv zu testen. Es fehlt an Wegen, den Stoff schnell und interaktiv nutzbar zu machen.",
+      text: "Vorlesungsfolien stapeln sich am Semesterende zu unübersichtlichen Textbergen. Studierende verbringen massiv Zeit mit mühsamem Zusammenfassen, anstatt ihr Wissen aktiv und interaktiv zu testen.",
       details: [
         "Hunderte Folien pro Kurs, keine strukturierte Aufbereitung",
         "Manuelles Zusammenfassen kostet enorm viel Zeit",
@@ -92,9 +92,9 @@ const problemSolutions = [
       ],
     },
     solution: {
-      title: "Unterstützung beim Lernen",
+      title: "Adaptive Lernunterstützung",
       tagline: "Deine Skripte, deine Fragen.",
-      text: "Verwandle passive Skripte in aktive Lernwerkzeuge. Lade einfach deine Vorlesungsfolien hoch, unsere KI generiert daraus in Sekunden präzise Zusammenfassungen, strukturierte Karteikarten und interaktive Multiple-Choice-Quizze. So testest du dein Wissen direkt am eigenen Stoff und optimierst deine Prüfungsvorbereitung messbar.",
+      text: "Verwandle passive Skripte in aktive Lernwerkzeuge. Lade Vorlesungsfolien hoch und erhalte in Sekunden präzise Zusammenfassungen, Karteikarten und interaktive Quizze. So testest du dein Wissen direkt am eigenen Stoff und sparst wertvolle Zeit.",
       features: ["Dokumenten Upload", "Interaktive Quizze", "Quellenbasierte Antworten"],
     },
   },
@@ -286,7 +286,7 @@ export default function FlyerPage() {
             2. DAS PROBLEM — Deep Dive
             ══════════════════════════════════════════════════════════ */}
         <section id="problem" className="py-14 px-6 lg:px-12" ref={problemRef}>
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-[1440px] mx-auto">
 
             {/* Section header */}
             <div className="text-center mb-10">
@@ -300,8 +300,8 @@ export default function FlyerPage() {
               </p>
             </div>
 
-            {/* Problem cards — deep */}
-            <div className="grid md:grid-cols-2 gap-6">
+            {/* Problem cards — 4 side-by-side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 items-stretch">
               {problemSolutions.map((item, i) => (
                 <div
                   key={item.num}
@@ -309,40 +309,41 @@ export default function FlyerPage() {
                   style={{
                     background: "var(--k1-bg-warm)",
                     borderRadius: "1.25rem",
-                    padding: "1.5rem 1.75rem",
+                    padding: "1.25rem 1.25rem",
                     boxShadow: "var(--shadow-card)",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "1rem",
+                    gap: "0.85rem",
+                    height: "100%",
                   }}
                 >
                   {/* Stat */}
-                  <div className="flex items-baseline gap-3">
-                    <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontSize: "2.8rem", fontWeight: 700, lineHeight: 1, color: "var(--k1-accent)" }}>
+                  <div className="flex flex-col gap-1">
+                    <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontSize: "2.3rem", fontWeight: 700, lineHeight: 1, color: "var(--k1-accent)" }}>
                       {item.problem.stat}
                     </span>
-                    <span style={{ fontSize: "0.75rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.3, maxWidth: "14rem" }}>
+                    <span style={{ fontSize: "0.72rem", color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.3 }}>
                       {item.problem.statLabel}
                     </span>
                   </div>
 
                   {/* Title & description */}
                   <div>
-                    <h3 className="text-lg font-bold mb-2" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
+                    <h3 className="text-base font-bold mb-1.5" style={{ color: "var(--k1-text)", fontFamily: "var(--font-body)" }}>
                       {item.problem.title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
                       {item.problem.text}
                     </p>
                   </div>
 
                   {/* Concrete pain points */}
-                  <div style={{ borderTop: "1px solid var(--k1-border)", paddingTop: "1rem" }}>
-                    <p className="text-xs font-semibold uppercase tracking-wider mb-2.5" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Konkret bedeutet das:</p>
-                    <ul className="flex flex-col gap-2">
+                  <div className="mt-auto" style={{ borderTop: "1px solid var(--k1-border)", paddingTop: "0.75rem" }}>
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>Konkret bedeutet das:</p>
+                    <ul className="flex flex-col gap-1.5">
                       {item.problem.details.map((detail) => (
-                        <li key={detail} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.45 }}>
-                          <span style={{ color: "#C05A4A", fontSize: "0.65rem", marginTop: "0.2rem", flexShrink: 0, fontWeight: 700 }}>✕</span>
+                        <li key={detail} className="flex items-start gap-2 text-xs" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)", lineHeight: 1.35 }}>
+                          <span style={{ color: "#C05A4A", fontSize: "0.6rem", marginTop: "0.15rem", flexShrink: 0, fontWeight: 700 }}>✕</span>
                           {detail}
                         </li>
                       ))}
@@ -374,12 +375,12 @@ export default function FlyerPage() {
               </p>
             </div>
 
-            {/* Solution cards — each paired with its problem */}
-            <div className="flex flex-col gap-6">
+            {/* Solution cards — 2 in einer Reihe (2x2 Grid) with identical proportions */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
               {problemSolutions.map((item, i) => (
                 <div
                   key={item.num}
-                  className={`reveal reveal-delay-${(i % 4) + 1}`}
+                  className={`reveal reveal-delay-${(i % 4) + 1} flex flex-col h-full`}
                   style={{
                     background: "var(--k1-bg-alt)",
                     borderRadius: "1.25rem",
@@ -388,61 +389,63 @@ export default function FlyerPage() {
                     borderLeft: "4px solid var(--k1-accent)",
                   }}
                 >
-                  <div className="grid lg:grid-cols-[1fr_1fr] gap-0">
-                    {/* Left — The Problem (recap) */}
-                    <div className="p-6 lg:p-8 flex flex-col gap-3" style={{ background: "var(--k1-bg-warm)", borderRight: "1px solid var(--k1-border)" }}>
-                      <div className="flex items-center gap-3">
-                        <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#C05A4A", fontFamily: "var(--font-body)" }}>
-                          Problem {item.num}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-bold" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>
-                        {item.problem.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
-                        {item.problem.text}
-                      </p>
-                      <div className="flex items-baseline gap-2 mt-auto pt-4" style={{ borderTop: "1px solid var(--k1-border)" }}>
-                        <span style={{ fontFamily: "var(--font-display)", fontSize: "1.6rem", fontWeight: 700, color: "#C05A4A" }}>{item.problem.stat}</span>
-                        <span style={{ fontSize: "0.7rem", color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>{item.problem.statLabel}</span>
-                      </div>
+                  {/* Problem Recap (Beige Portion — Identical Height) */}
+                  <div
+                    className="p-5 flex flex-col gap-2 min-h-[9rem] justify-start"
+                    style={{ background: "var(--k1-bg-warm)", borderBottom: "1px solid var(--k1-border)" }}
+                  >
+                    <div className="flex items-center justify-between gap-2 shrink-0">
+                      <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#C05A4A", fontFamily: "var(--font-body)" }}>
+                        Problem {item.num} · {item.problem.title}
+                      </span>
+                      <span style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "#C05A4A" }}>
+                        {item.problem.stat}
+                      </span>
                     </div>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+                      {item.problem.text}
+                    </p>
+                  </div>
 
-                    {/* Right — The Solution */}
-                    <div className="p-6 lg:p-8 flex flex-col gap-3">
-                      <div className="flex items-center gap-3">
+                  {/* The Solution (White Portion — Identical Height & Structure) */}
+                  <div className="p-5 sm:p-6 flex flex-col gap-3 flex-1 justify-between">
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-center gap-2.5">
                         <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
                           Lösung {item.num}
                         </span>
-                        <span style={{ width: "2rem", height: "1px", background: "var(--k1-accent)", display: "inline-block" }} />
-                        <span style={{ fontSize: "0.65rem", fontWeight: 600, color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
+                        <span style={{ width: "1.5rem", height: "1px", background: "var(--k1-accent)", display: "inline-block" }} />
+                        <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "var(--k1-accent)", fontFamily: "var(--font-body)" }}>
                           {item.solution.tagline}
                         </span>
                       </div>
-                      <h3 className="text-xl font-bold" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>
+
+                      <h3 className="text-lg font-bold" style={{ color: "var(--k1-text)", fontFamily: "var(--font-display)" }}>
                         {item.solution.title}
                       </h3>
-                      <p className="text-sm leading-relaxed" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
+
+                      <p className="text-xs leading-relaxed min-h-[4.2rem]" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)" }}>
                         {item.solution.text}
                       </p>
-                      <div className="flex flex-wrap gap-2 mt-auto pt-4" style={{ borderTop: "1px solid var(--k1-border)" }}>
-                        {item.solution.features.map((f) => (
-                          <span
-                            key={f}
-                            style={{
-                              fontSize: "0.72rem",
-                              fontWeight: 500,
-                              padding: "0.3rem 0.85rem",
-                              color: "var(--k1-accent)",
-                              fontFamily: "var(--font-body)",
-                              background: "#D9E9DC",
-                              borderRadius: "9999px",
-                            }}
-                          >
-                            {f}
-                          </span>
-                        ))}
-                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 pt-3" style={{ borderTop: "1px solid var(--k1-border)" }}>
+                      {item.solution.features.map((f) => (
+                        <span
+                          key={f}
+                          style={{
+                            fontSize: "0.7rem",
+                            fontWeight: 500,
+                            padding: "0.25rem 0.75rem",
+                            color: "var(--k1-accent)",
+                            fontFamily: "var(--font-body)",
+                            background: "#D9E9DC",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          {f}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
