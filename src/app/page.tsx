@@ -486,7 +486,8 @@ export default function Page() {
         </section>
 
 
-        {/* ── Trust Marquee ─────────────────────────────────────── */}
+        {/* ── Trust Marquee (auskommentiert) ──────────────────── */}
+        {/*
         <section className="py-6 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
           <div className="max-w-5xl mx-auto">
             <p className="text-center mb-4" style={eyebrow}>{c.trustMarquee}</p>
@@ -514,6 +515,7 @@ export default function Page() {
             </div>
           </div>
         </section>
+        */}
 
 
         {/* ══════════════════════════════════════════════════════════
