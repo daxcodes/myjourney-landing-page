@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 /* ══════════════════════════════════════════════════════════════
    Data / Translations
@@ -13,7 +14,7 @@ const contentData = {
       "Gründungszentrum FH Aachen",
       "Prof. Dr. Büdenbender",
       "Prof. Dr. Bernecker",
-      "Prof. Dr. Maihaus",
+      // "Prof. Dr. Maihaus",
       "Prof. Dr. Bassen-Metz",
       "Prof. Dr. Eggert",
       "K1 Förderung",
@@ -169,7 +170,7 @@ const contentData = {
       "Founders Center FH Aachen",
       "Prof. Dr. Büdenbender",
       "Prof. Dr. Bernecker",
-      "Prof. Dr. Maihaus",
+      // "Prof. Dr. Maihaus",
       "Prof. Dr. Bassen-Metz",
       "Prof. Dr. Eggert",
       "K1 Funding",
@@ -486,8 +487,7 @@ export default function Page() {
         </section>
 
 
-        {/* ── Trust Marquee (auskommentiert) ──────────────────── */}
-        {/*
+        {/* ── Trust Marquee ────────────────────────────────────── */}
         <section className="py-6 px-6" style={{ borderTop: "1px solid var(--k1-border)", borderBottom: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
           <div className="max-w-5xl mx-auto">
             <p className="text-center mb-4" style={eyebrow}>{c.trustMarquee}</p>
@@ -515,7 +515,6 @@ export default function Page() {
             </div>
           </div>
         </section>
-        */}
 
 
         {/* ══════════════════════════════════════════════════════════
@@ -801,9 +800,26 @@ export default function Page() {
       <footer className="py-8 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>{c.footer.copy}</p>
-          <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-            {c.footer.coop}
-          </p>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/impressum"
+              className="text-xs font-medium"
+              style={{
+                color: "var(--k1-accent)",
+                fontFamily: "var(--font-body)",
+                textDecoration: "none",
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent-hover)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-accent)")}
+            >
+              Impressum
+            </Link>
+            <span className="text-xs" style={{ color: "var(--k1-border-dark)" }}>·</span>
+            <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
+              {c.footer.coop}
+            </p>
+          </div>
         </div>
       </footer>
     </div>
