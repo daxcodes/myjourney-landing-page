@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 /* ══════════════════════════════════════════════════════════════
    Data / Translations
@@ -683,6 +684,16 @@ export default function Page() {
                         </span>
                       ))}
                     </div>
+                    {(item.solution.title === "Mentales Monitoring" || item.solution.title === "Mental Monitoring") && (
+                      <p className="text-[0.65rem] leading-tight mt-3 p-3 rounded" style={{ color: "var(--k1-secondary)", fontFamily: "var(--font-body)", background: "rgba(192, 90, 74, 0.08)", borderLeft: "2px solid #C05A4A" }}>
+                        <span style={{ fontWeight: 700, color: "#C05A4A", display: "block", marginBottom: "0.2rem" }}>
+                          {item.solution.title === "Mentales Monitoring" ? "Hinweis zur Eigenverantwortung:" : "Disclaimer regarding personal responsibility:"}
+                        </span>
+                        {item.solution.title === "Mentales Monitoring" 
+                          ? "MyJourney bietet keine medizinische oder psychotherapeutische Diagnostik oder Behandlung. Die App ersetzt keine professionelle Hilfe durch einen Arzt oder Therapeuten. Bei akuten Krisen wenden Sie sich bitte an die Notfallnummer 112 oder die Telefonseelsorge unter 0800/111 0 111."
+                          : "MyJourney does not provide medical or psychotherapeutic diagnostics or treatment. The app is not a substitute for professional help from a doctor or therapist. In acute crises, please contact emergency services (112) or the telephone counseling service."}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -801,9 +812,60 @@ export default function Page() {
       <footer className="py-8 px-6 lg:px-12" style={{ borderTop: "1px solid var(--k1-border)", background: "var(--k1-bg-alt)" }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>{c.footer.copy}</p>
-          <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
-            {c.footer.coop}
-          </p>
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            <Link
+              href="/impressum"
+              className="text-xs font-medium"
+              style={{
+                color: "var(--k1-accent)",
+                fontFamily: "var(--font-body)",
+                textDecoration: "none",
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent-hover)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-accent)")}
+            >
+              Impressum
+            </Link>
+            <span className="text-xs" style={{ color: "var(--k1-border-dark)" }}>·</span>
+            <Link
+              href="/datenschutz"
+              className="text-xs font-medium"
+              style={{
+                color: "var(--k1-accent)",
+                fontFamily: "var(--font-body)",
+                textDecoration: "none",
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent-hover)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-accent)")}
+            >
+              Datenschutz
+            </Link>
+            <span className="text-xs" style={{ color: "var(--k1-border-dark)" }}>·</span>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("open-cookie-settings"))}
+              className="text-xs font-medium"
+              style={{
+                color: "var(--k1-accent)",
+                fontFamily: "var(--font-body)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--k1-accent-hover)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--k1-accent)")}
+            >
+              Cookie-Einstellungen
+            </button>
+            <span className="text-xs hidden sm:inline" style={{ color: "var(--k1-border-dark)" }}>·</span>
+            <p className="text-xs text-center sm:text-right" style={{ color: "var(--k1-muted)", fontFamily: "var(--font-body)" }}>
+              {c.footer.coop}
+            </p>
+          </div>
         </div>
       </footer>
     </div>

@@ -112,6 +112,19 @@ export default function CookieConsent() {
     }
   }, []);
 
+  // Listen for re-open event (e.g. from footer "Cookie-Einstellungen" link)
+  useEffect(() => {
+    const handleReopen = () => {
+      const saved = getSavedPreferences();
+      if (saved) setPreferences(saved);
+      setShowDetails(true);
+      setVisible(true);
+      requestAnimationFrame(() => setIsAnimating(true));
+    };
+    window.addEventListener("open-cookie-settings", handleReopen);
+    return () => window.removeEventListener("open-cookie-settings", handleReopen);
+  }, []);
+
   const handleAcceptAll = useCallback(() => {
     const allAccepted: CookiePreferences = {
       necessary: true,

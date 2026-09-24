@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CookieSettingsButton from "../components/CookieSettingsButton";
 
 export const metadata: Metadata = {
   title: "Impressum — MyJourney / Project MJ",
@@ -310,7 +311,7 @@ export default function ImpressumPage() {
           >
             © 2026 MyJourney / Project MJ. Alle Rechte vorbehalten.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link
               href="/impressum"
               className="text-xs font-medium"
@@ -322,6 +323,30 @@ export default function ImpressumPage() {
             >
               Impressum
             </Link>
+            <span
+              className="text-xs"
+              style={{ color: "var(--k1-border-dark)" }}
+            >
+              ·
+            </span>
+            <Link
+              href="/datenschutz"
+              className="text-xs font-medium"
+              style={{
+                color: "var(--k1-accent)",
+                fontFamily: "var(--font-body)",
+                textDecoration: "none",
+              }}
+            >
+              Datenschutz
+            </Link>
+            <span
+              className="text-xs"
+              style={{ color: "var(--k1-border-dark)" }}
+            >
+              ·
+            </span>
+            <CookieSettingsButton />
           </div>
         </div>
       </footer>
