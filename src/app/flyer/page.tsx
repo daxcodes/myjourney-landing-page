@@ -115,7 +115,7 @@ const contentData = {
         name: "Dimitri Marcziter",
         role: "Product Development & Growth",
         areas: ["Technische Entwicklung", "Community"],
-        quote: "„Wir bauen nicht nur Software – wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
+        quote: "„Wir bauen nicht nur Software, wir bauen die Brücken, die im Uni-Alltag oft fehlen.“",
         bio: "Als BWL-Student verbindet Dimitri technologische Neugier mit einem ausgeprägten Gespür für nutzerzentrierte digitale Lösungen. Bei Project MJ treibt er schwerpunktmäßig die praktische Produktentwicklung und das Prototyping voran. Da er den Campus-Alltag bestens kennt, engagiert er sich zudem im Marketing, um die Plattform direkt bei Studierenden zu etablieren und Feedback unmittelbar in neue Features zu übersetzen.",
       },
     ],
@@ -271,7 +271,7 @@ const contentData = {
         name: "Dimitri Marcziter",
         role: "Product Development & Growth",
         areas: ["Technical Development", "Community"],
-        quote: "„We don't just build software – we build the bridges often missing in everyday campus life.“",
+        quote: "„We don't just build software, we build the bridges often missing in everyday campus life.“",
         bio: "As a business student, Dimitri combines technological curiosity with a strong sense for user-centric digital solutions. At Project MJ, he primarily drives hands-on product development and prototyping. Knowing campus life inside out, he is also heavily involved in marketing to establish the platform directly among students and instantly translate their feedback into new features.",
       },
     ],
@@ -398,15 +398,15 @@ export default function Page() {
           </div>
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1">
-            <button 
-              onClick={() => setLang("de")} 
+            <button
+              onClick={() => setLang("de")}
               className={`text-xs font-bold px-2.5 py-1.5 rounded-md transition-colors ${lang === "de" ? "bg-[var(--k1-accent)] text-white" : "text-[var(--k1-secondary)] hover:bg-[var(--k1-bg-warm)]"}`}
             >
               DE
             </button>
             <span className="text-[var(--k1-border-dark)] text-xs">|</span>
-            <button 
-              onClick={() => setLang("en")} 
+            <button
+              onClick={() => setLang("en")}
               className={`text-xs font-bold px-2.5 py-1.5 rounded-md transition-colors ${lang === "en" ? "bg-[var(--k1-accent)] text-white" : "text-[var(--k1-secondary)] hover:bg-[var(--k1-bg-warm)]"}`}
             >
               EN
@@ -477,9 +477,9 @@ export default function Page() {
                 aria-label="Instagram"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
                 </svg>
               </a>
             </div>
@@ -707,7 +707,7 @@ export default function Page() {
                         <span style={{ fontWeight: 700, color: "#C05A4A", display: "block", marginBottom: "0.2rem" }}>
                           {item.solution.title === "Mentales Monitoring" ? "Hinweis zur Eigenverantwortung:" : "Disclaimer regarding personal responsibility:"}
                         </span>
-                        {item.solution.title === "Mentales Monitoring" 
+                        {item.solution.title === "Mentales Monitoring"
                           ? "MyJourney bietet keine medizinische oder psychotherapeutische Diagnostik oder Behandlung. Die App ersetzt keine professionelle Hilfe durch einen Arzt oder Therapeuten. Bei akuten Krisen wenden Sie sich bitte an die Notfallnummer 112 oder die Telefonseelsorge unter 0800/111 0 111."
                           : "MyJourney does not provide medical or psychotherapeutic diagnostics or treatment. The app is not a substitute for professional help from a doctor or therapist. In acute crises, please contact emergency services (112) or the telephone counseling service."}
                       </p>
