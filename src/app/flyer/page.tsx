@@ -10,14 +10,14 @@ import Link from "next/link";
 const contentData = {
   de: {
     trustPartners: [
-      "FH Aachen",
-      "Gründungszentrum FH Aachen",
-      "Prof. Dr. Büdenbender",
-      "Prof. Dr. Bernecker",
-      // "Prof. Dr. Maihaus",
-      "Prof. Dr. Bassen-Metz",
-      "Prof. Dr. Eggert",
-      "K1 Förderung",
+      { name: "FH Aachen" },
+      { name: "Gründungszentrum FH Aachen" },
+      { name: "Prof. Dr. Büdenbender", url: "https://www.fh-aachen.de/menschen/buedenbender" },
+      { name: "Prof. Dr. Bernecker", url: "https://www.fh-aachen.de/menschen/bernecker" },
+      // { name: "Prof. Dr. Maihaus", url: "https://www.fh-aachen.de/menschen/maihaus" },
+      { name: "Prof. Dr. Bassen-Metz", url: "https://www.fh-aachen.de/menschen/bassen-metz" },
+      { name: "Prof. Dr. Eggert", url: "https://www.fh-aachen.de/menschen/eggert" },
+      { name: "K1 Förderung" },
     ],
     problemSolutions: [
       {
@@ -166,14 +166,14 @@ const contentData = {
   },
   en: {
     trustPartners: [
-      "FH Aachen",
-      "Founders Center FH Aachen",
-      "Prof. Dr. Büdenbender",
-      "Prof. Dr. Bernecker",
-      // "Prof. Dr. Maihaus",
-      "Prof. Dr. Bassen-Metz",
-      "Prof. Dr. Eggert",
-      "K1 Funding",
+      { name: "FH Aachen" },
+      { name: "Founders Center FH Aachen" },
+      { name: "Prof. Dr. Büdenbender", url: "https://www.fh-aachen.de/menschen/buedenbender" },
+      { name: "Prof. Dr. Bernecker", url: "https://www.fh-aachen.de/menschen/bernecker" },
+      // { name: "Prof. Dr. Maihaus", url: "https://www.fh-aachen.de/menschen/maihaus" },
+      { name: "Prof. Dr. Bassen-Metz", url: "https://www.fh-aachen.de/menschen/bassen-metz" },
+      { name: "Prof. Dr. Eggert", url: "https://www.fh-aachen.de/menschen/eggert" },
+      { name: "K1 Funding" },
     ],
     problemSolutions: [
       {
@@ -494,24 +494,42 @@ export default function Page() {
             <p className="text-center mb-4" style={eyebrow}>{c.trustMarquee}</p>
             <div className="overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
               <div className="marquee-track gap-2.5 py-1">
-                {[...c.trustPartners, ...c.trustPartners].map((inst, i) => (
-                  <span
-                    key={`${inst}-${i}`}
-                    className="whitespace-nowrap flex items-center gap-2"
-                    style={{
-                      fontSize: "0.78rem", fontWeight: 500,
-                      padding: "0.38rem 1rem",
-                      border: "1px solid var(--k1-border)",
-                      color: "var(--k1-secondary)", fontFamily: "var(--font-body)",
-                      background: "var(--k1-bg)",
-                      borderRadius: "9999px",
-                      boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                    }}
-                  >
-                    <span style={{ fontSize: "0.58rem", color: "var(--k1-accent)", fontWeight: 700 }}>&#10003;</span>
-                    {inst}
-                  </span>
-                ))}
+                {[...c.trustPartners, ...c.trustPartners].map((partner, i) => {
+                  const pillContent = (
+                    <span
+                      className="whitespace-nowrap flex items-center gap-2"
+                      style={{
+                        fontSize: "0.78rem", fontWeight: 500,
+                        padding: "0.38rem 1rem",
+                        border: "1px solid var(--k1-border)",
+                        color: "var(--k1-secondary)", fontFamily: "var(--font-body)",
+                        background: "var(--k1-bg)",
+                        borderRadius: "9999px",
+                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                        transition: "border-color 0.2s, color 0.2s",
+                      }}
+                    >
+                      <span style={{ fontSize: "0.58rem", color: "var(--k1-accent)", fontWeight: 700 }}>&#10003;</span>
+                      {partner.name}
+                    </span>
+                  );
+                  return partner.url ? (
+                    <a
+                      key={`${partner.name}-${i}`}
+                      href={partner.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="trust-partner-link"
+                      style={{ textDecoration: "none" }}
+                    >
+                      {pillContent}
+                    </a>
+                  ) : (
+                    <span key={`${partner.name}-${i}`}>
+                      {pillContent}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           </div>
