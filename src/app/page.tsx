@@ -10,7 +10,7 @@ import Link from "next/link";
 const contentData = {
   de: {
     trustPartners: [
-      { name: "FH Aachen", url: "https://www.fh-aachen.de" },
+      { name: "FH Aachen", url: "https://www.fh-aachen.de/fh-aachen" },
       { name: "Gründungszentrum FH Aachen", url: "https://gruendungszentrum.fh-aachen.de" },
       { name: "Prof. Dr. Büdenbender", url: "https://www.fh-aachen.de/menschen/buedenbender" },
       { name: "Prof. Dr. Bernecker", url: "https://www.fh-aachen.de/menschen/bernecker" },
@@ -166,7 +166,7 @@ const contentData = {
   },
   en: {
     trustPartners: [
-      { name: "FH Aachen", url: "https://www.fh-aachen.de" },
+      { name: "FH Aachen", url: "https://www.fh-aachen.de/fh-aachen" },
       { name: "Founders Center FH Aachen", url: "https://gruendungszentrum.fh-aachen.de" },
       { name: "Prof. Dr. Büdenbender", url: "https://www.fh-aachen.de/menschen/buedenbender" },
       { name: "Prof. Dr. Bernecker", url: "https://www.fh-aachen.de/menschen/bernecker" },

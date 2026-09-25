@@ -194,10 +194,10 @@ body {
 }
 
 .trust-partner-link:hover > span {
-  border-color: var(--k1-accent);
-  color: var(--k1-accent);
+  border-color: var(--k1-accent) !important;
+  color: var(--k1-accent) !important;
+  background: var(--k1-accent-light) !important;
   cursor: pointer;
-  background: var(--k1-accent-light);
 }
 
 /* ── Mini UI ────────────────────────────────────────────────── */
