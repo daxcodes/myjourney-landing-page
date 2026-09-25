@@ -10,14 +10,14 @@ import Link from "next/link";
 const contentData = {
   de: {
     trustPartners: [
-      { name: "FH Aachen" },
-      { name: "Gründungszentrum FH Aachen" },
+      { name: "FH Aachen", url: "https://www.fh-aachen.de" },
+      { name: "Gründungszentrum FH Aachen", url: "https://gruendungszentrum.fh-aachen.de" },
       { name: "Prof. Dr. Büdenbender", url: "https://www.fh-aachen.de/menschen/buedenbender" },
       { name: "Prof. Dr. Bernecker", url: "https://www.fh-aachen.de/menschen/bernecker" },
       // { name: "Prof. Dr. Maihaus", url: "https://www.fh-aachen.de/menschen/maihaus" },
       { name: "Prof. Dr. Bassen-Metz", url: "https://www.fh-aachen.de/menschen/bassen-metz" },
       { name: "Prof. Dr. Eggert", url: "https://www.fh-aachen.de/menschen/eggert" },
-      { name: "K1 Förderung" },
+      { name: "K1 Förderung", url: "https://www.fh-aachen.de/studium/studieren/mitmachen-und-engagieren/studentische-projekte/studentische-projekte-2026" },
     ],
     problemSolutions: [
       {
@@ -166,14 +166,14 @@ const contentData = {
   },
   en: {
     trustPartners: [
-      { name: "FH Aachen" },
-      { name: "Founders Center FH Aachen" },
+      { name: "FH Aachen", url: "https://www.fh-aachen.de" },
+      { name: "Founders Center FH Aachen", url: "https://gruendungszentrum.fh-aachen.de" },
       { name: "Prof. Dr. Büdenbender", url: "https://www.fh-aachen.de/menschen/buedenbender" },
       { name: "Prof. Dr. Bernecker", url: "https://www.fh-aachen.de/menschen/bernecker" },
       // { name: "Prof. Dr. Maihaus", url: "https://www.fh-aachen.de/menschen/maihaus" },
       { name: "Prof. Dr. Bassen-Metz", url: "https://www.fh-aachen.de/menschen/bassen-metz" },
       { name: "Prof. Dr. Eggert", url: "https://www.fh-aachen.de/menschen/eggert" },
-      { name: "K1 Funding" },
+      { name: "K1 Funding", url: "https://www.fh-aachen.de/studium/studieren/mitmachen-und-engagieren/studentische-projekte/studentische-projekte-2026" },
     ],
     problemSolutions: [
       {
