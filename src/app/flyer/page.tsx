@@ -470,7 +470,7 @@ export default function Page() {
                 {c.hero.btnSolution}
               </a>
               <a
-                href="https://www.instagram.com/myjourney.hq"
+                href="https://www.instagram.com/myjourney.office"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary px-4 py-3.5 flex items-center justify-center transition-colors hover:text-[#E1306C]"
